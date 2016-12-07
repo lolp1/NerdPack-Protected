@@ -61,7 +61,11 @@ end
 
 function glb.FireHack.CastGround(spell, target)
 	-- this is to cast on cursor location
-	if not target then glb.Generic.CastGround(spell) end
+	if not target then
+		glb.Generic.CastGround(spell)
+		return
+	end
+
 	local rX, rY = math.random(), math.random()
 	local oX, oY, oZ = ObjectPosition(target)
 	if oX then oX = oX + rX; oY = oY + rY end
