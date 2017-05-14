@@ -23,8 +23,17 @@ local ObjectCount     = ObjectCount
 -- Generic
 glb.Generic = {}
 
+local validGround = {
+	["player"] = true,
+	["target"] = true
+}
+
 function glb.Generic.Cast(spell, target)
-	CastSpellByName(spell, target)
+	if validGround[target] then
+		glb.Generic.Macro("/cast [@"..target.."]"..spell)
+	else
+		CastSpellByName(spell, target)
+	end
 end
 
 function glb.Generic.CastGround(spell)
