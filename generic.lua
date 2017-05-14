@@ -22,18 +22,10 @@ function glb.Generic.Cast(spell, target)
 end
 
 function glb.Generic.CastGround(spell, target)
-	if validGround[target] then
-		glb.Generic.Macro("/cast [@"..target.."]"..spell)
-	else
-		NeP.Core:Print("Tried to cast", spell, "on ground using and unsupported unlocker.")
-		local stickyValue = GetCVar("deselectOnClick")
-		SetCVar("deselectOnClick", "0")
-		CameraOrSelectOrMoveStart(1)
-		glb.Generic.Cast(spell)
-		CameraOrSelectOrMoveStop(1)
-		SetCVar("deselectOnClick", "1")
-		SetCVar("deselectOnClick", stickyValue)
+	if not validGround[target] then
+		target = "cursor"
 	end
+	glb.Generic.Macro("/cast [@"..target.."]"..spell)
 end
 
 function glb.Generic.Macro(text)

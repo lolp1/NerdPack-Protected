@@ -24,7 +24,7 @@ end
 
 function glb.FireHack.CastGround(spell, target)
 	-- this is to cast on cursor location
-	if not target then
+	if target == "cursor" then
 		glb.Generic.CastGround(spell)
 		return
 	end
