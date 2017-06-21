@@ -58,4 +58,4 @@ end
 
 NeP:AddUnlocker('FireHack', function()
 	return FireHack
-end, glb.Generic, glb.FireHack, glb.FireHack_OM)
+end, glb.Generic, glb.FireHack, glb.FireHack_OM, 1)
