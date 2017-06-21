@@ -25,16 +25,15 @@ end
 function glb.FireHack.CastGround(spell, target)
 	-- this is to cast on cursor location
 	if target == "cursor" then
-		glb.Generic.CastGround(spell)
-		return
+		return glb.Generic.CastGround(spell)
 	end
-
 	local rX, rY = math.random(), math.random()
 	local oX, oY, oZ = ObjectPosition(target)
 	if oX then oX = oX + rX; oY = oY + rY end
 	glb.Generic.Cast(spell)
 	if oX then CastAtPosition(oX, oY, oZ) end
 	CancelPendingSpell()
+	return true
 end
 
 function glb.FireHack.UnitCombatRange(unitA, unitB)

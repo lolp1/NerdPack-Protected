@@ -19,6 +19,7 @@ local validGround = {
 
 function glb.Generic.Cast(spell, target)
 	CastSpellByName(spell, target)
+	return true
 end
 
 function glb.Generic.CastGround(spell, target)
@@ -26,18 +27,22 @@ function glb.Generic.CastGround(spell, target)
 		target = "cursor"
 	end
 	glb.Generic.Macro("/cast [@"..target.."]"..spell)
+	return true
 end
 
 function glb.Generic.Macro(text)
 	RunMacroText(text)
+	return true
 end
 
 function glb.Generic.UseItem(name, target)
 	UseItemByName(name, target)
+	return true
 end
 
 function glb.Generic.UseInvItem(name)
 	UseInventoryItem(name)
+	return true
 end
 
 NeP:AddUnlocker('Generic', function()
