@@ -1,4 +1,4 @@
-local _, glb               = ...
+local n_name, glb               = ...
 local NeP                       = NeP
 local CastSpellByName           = CastSpellByName
 local GetCVar                   = GetCVar
@@ -8,6 +8,14 @@ local CameraOrSelectOrMoveStop  = CameraOrSelectOrMoveStop
 local RunMacroText              = RunMacroText
 local UseItemByName             = UseItemByName
 local UseInventoryItem          = UseInventoryItem
+
+NeP.Listener.register("ADDON_ACTION_FORBIDDEN", function(...)
+	local addon, event = ...
+	if addon == n_name then
+		StaticPopup1:Hide()
+		NeP.Core:Print('Didnt find any unlocker, using facerool.')
+	end
+end)
 
 -- Generic
 glb.Generic = {}
