@@ -9,11 +9,15 @@ local RunMacroText              = RunMacroText
 local UseItemByName             = UseItemByName
 local UseInventoryItem          = UseInventoryItem
 
-NeP.Listener.register("ADDON_ACTION_FORBIDDEN", function(...)
+local printed = false
+NeP.Listener:Add(n_name, "ADDON_ACTION_FORBIDDEN", function(...)
 	local addon, event = ...
 	if addon == n_name then
 		StaticPopup1:Hide()
-		NeP.Core:Print('Didnt find any unlocker, using facerool.')
+		if not printed then 
+			printed = true
+			NeP.Core:Print('Didnt find any unlocker, using facerool.')
+		end
 	end
 end)
 
