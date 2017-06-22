@@ -24,7 +24,7 @@ end
 
 function glb.FireHack.CastGround(spell, target)
 	-- this is to cast on cursor location
-	if target == "cursor" then
+	if target == "cursor" or "fake" then
 		return glb.Generic.CastGround(spell)
 	end
 	local rX, rY = math.random(), math.random()
