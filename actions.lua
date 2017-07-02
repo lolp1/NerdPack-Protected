@@ -3,6 +3,7 @@ local noop = function() end
 local TargetUnit = TargetUnit
 local SetHackEnabled = SetHackEnabled or noop
 local strsplit = strsplit
+local SendKey = SendKey or noop
 
 local bools = {
  ['TRUE'] = true,
@@ -13,7 +14,10 @@ local bools = {
 --USAGE in CR:
 --{"%target", CONDITION, TARGET}
 NeP.Actions:Add('target', function(eval)
-  eval.exe = function(eva) TargetUnit(eva.target)  end
+  eval.exe = function(eva)
+    TargetUnit(eva.target)
+    return true
+  end
   return true
 end)
 
@@ -25,6 +29,16 @@ NeP.Actions:Add('sethack', function(eval)
   eval.exe = function()
       SetHackEnabled(hack, bools[bool])
       return true
+  end
+  return true
+end)
+
+--USAGE in CR:
+--{"%SendKey(KEY)", CONDITION}
+NeP.Actions:Add('target', function(eval)
+  eval.exe = function(eva)
+    SendKey(eva[1].args)
+    return true
   end
   return true
 end)
