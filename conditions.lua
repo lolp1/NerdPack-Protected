@@ -1,3 +1,3 @@
 NeP.DSL:Register("advanced", function()
-	return IsHackEnabled ~= nil
+	return not not IsHackEnabled
 end)
