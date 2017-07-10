@@ -57,7 +57,7 @@ function glb.Generic.UseInvItem(name)
 	return true
 end
 
-NeP:AddUnlocker('Generic', function()
+glb:AddUnlocker('Generic', function()
 	pcall(RunMacroText, '/run NeP.Unlocked = true')
 	return NeP.Unlocked
 end, glb.Generic)
