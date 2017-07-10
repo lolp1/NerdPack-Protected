@@ -7,5 +7,6 @@
 	<Script file="generic.lua" />
 	<Script file="firehack.lua" />
 	<Script file="ewt.lua" />
+	<Script file="wToolkit64.lua" />
 
 </Ui>
