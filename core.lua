@@ -27,8 +27,8 @@ function gbl.SetUnlocker(_, name, unlocker)
 		end
 	end
 	if unlocker.om then
-		NeP.OM.Maker = unlocker.om
-		NeP.OM.nPlates = nil --Remove the nameplaces OM portion
+		NeP.Protected.OM_Maker = unlocker.om
+		NeP.Protected.nPlates = nil --Remove the nameplaces OM portion
 	end
 	NeP.Unlocked = true
 end
