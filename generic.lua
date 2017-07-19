@@ -1,17 +1,14 @@
 local n_name, glb               = ...
 local NeP                       = NeP
 local CastSpellByName           = CastSpellByName
-local GetCVar                   = GetCVar
-local SetCVar                   = SetCVar
-local CameraOrSelectOrMoveStart = CameraOrSelectOrMoveStart
-local CameraOrSelectOrMoveStop  = CameraOrSelectOrMoveStop
 local RunMacroText              = RunMacroText
 local UseItemByName             = UseItemByName
 local UseInventoryItem          = UseInventoryItem
+local StaticPopup1							= StaticPopup1
 
 local printed = false
 NeP.Listener:Add(n_name, "ADDON_ACTION_FORBIDDEN", function(...)
-	local addon, event = ...
+	local addon = ...
 	if addon == n_name then
 		StaticPopup1:Hide()
 		if not printed then
