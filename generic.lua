@@ -14,7 +14,7 @@ NeP.Listener:Add(n_name, "ADDON_ACTION_FORBIDDEN", function(...)
 	local addon, event = ...
 	if addon == n_name then
 		StaticPopup1:Hide()
-		if not printed then 
+		if not printed then
 			printed = true
 			NeP.Core:Print('Didnt find any unlocker, using facerool.')
 		end
@@ -59,5 +59,5 @@ end
 
 glb:AddUnlocker('Generic', function()
 	pcall(RunMacroText, '/run NeP.Unlocked = true')
-	return NeP.Unlocked
+	return NeP.Unlocked ~= nil
 end, glb.Generic)

@@ -41,7 +41,7 @@ C_Timer.NewTicker(0.2, function(self)
 		for i=1, #unlockers do
 			local unlocker = unlockers[i]
 			if unlocker.test() then
-                NeP.Unlocked = nil -- this is created by the generic unlocker (get rid of it)
+				NeP.Unlocked = nil -- this is created by the generic unlocker (get rid of it)
 				gbl:SetUnlocker(unlocker.name, unlocker)
 				self:Cancel()
 				break
