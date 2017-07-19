@@ -3,6 +3,7 @@ local NeP                       = NeP
 local GetDistanceBetweenObjects = GetDistanceBetweenObjects
 local ObjectIsFacing            = ObjectIsFacing
 local CancelPendingSpell        = CancelPendingSpell
+local Gn = glb.Generic
 
 -- Advanced APIs
 local ObjectPosition  = ObjectPosition
@@ -23,17 +24,16 @@ function glb.FireHack.Infront(a, b)
 end
 
 function glb.FireHack.CastGround(spell, target)
-	-- this is to cast on cursor location
-	if target == "cursor" then
-		return glb.Generic.CastGround(spell)
+	-- fallback to generic if we can cast it using macros
+	if Gn.validGround[target] then
+		Gn.CastGround(spell)
 	end
 	local rX, rY = math.random(), math.random()
 	local oX, oY, oZ = ObjectPosition(target)
 	if oX then oX = oX + rX; oY = oY + rY end
-	glb.Generic.Cast(spell)
+	Gn.Cast(spell)
 	if oX then CastAtPosition(oX, oY, oZ) end
 	CancelPendingSpell()
-	return true
 end
 
 function glb.FireHack.UnitCombatRange(unitA, unitB)
@@ -58,4 +58,4 @@ end
 
 glb:AddUnlocker('FireHack', function()
 	return FireHack
-end, glb.Generic, glb.FireHack, glb.FireHack_OM, 1)
+end, Gn, glb.FireHack, glb.FireHack_OM, 1)

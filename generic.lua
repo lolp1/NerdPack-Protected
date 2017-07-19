@@ -19,39 +19,34 @@ NeP.Listener:Add(n_name, "ADDON_ACTION_FORBIDDEN", function(...)
 end)
 
 -- Generic
-glb.Generic = {}
-
-local validGround = {
-	["player"] = true,
-	["cursor"] = true
+glb.Generic = {
+	validGround = {
+		["player"] = true,
+		["cursor"] = true
+	}
 }
 
 function glb.Generic.Cast(spell, target)
 	CastSpellByName(spell, target)
-	return true
 end
 
 function glb.Generic.CastGround(spell, target)
-	if not validGround[target] then
+	if not glb.Generic.validGround[target] then
 		target = "cursor"
 	end
 	glb.Generic.Macro("/cast [@"..target.."]"..spell)
-	return true
 end
 
 function glb.Generic.Macro(text)
 	RunMacroText(text)
-	return true
 end
 
 function glb.Generic.UseItem(name, target)
 	UseItemByName(name, target)
-	return true
 end
 
 function glb.Generic.UseInvItem(name)
 	UseInventoryItem(name)
-	return true
 end
 
 glb:AddUnlocker('Generic', function()
