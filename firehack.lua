@@ -26,7 +26,7 @@ end
 function glb.FireHack.CastGround(spell, target)
 	-- fallback to generic if we can cast it using macros
 	if Gn.validGround[target] then
-		Gn.CastGround(spell, target)
+		return Gn.CastGround(spell, target)
 	end
 	local rX, rY = math.random(), math.random()
 	local oX, oY, oZ = ObjectPosition(target)
