@@ -34,18 +34,13 @@ function gbl.SetUnlocker(_, name, unlocker)
 end
 
 --delay the ticker to allow addons to inject theyr stuff
-C_Timer.After(5, function ()
-
-C_Timer.NewTicker(0.2, function(self)
+C_Timer.After(5, function()
 	for i=1, #unlockers do
 		local unlocker = unlockers[i]
 		if unlocker.test() then
 			NeP.Unlocked = nil -- this is created by the generic unlocker (get rid of it)
 			gbl:SetUnlocker(unlocker.name, unlocker)
-			self:Cancel()
 			break
 		end
   end
-end, nil)
-
 end)

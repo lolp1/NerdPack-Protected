@@ -6,15 +6,11 @@ local UseItemByName             = UseItemByName
 local UseInventoryItem          = UseInventoryItem
 local StaticPopup1							= StaticPopup1
 
-local printed = false
 NeP.Listener:Add(n_name, "ADDON_ACTION_FORBIDDEN", function(...)
 	local addon = ...
 	if addon == n_name then
 		StaticPopup1:Hide()
-		if not printed then
-			printed = true
-			NeP.Core:Print('Didnt find any unlocker, using facerool.')
-		end
+		NeP.Core:Print('Didnt find any unlocker, using facerool.')
 	end
 end)
 
