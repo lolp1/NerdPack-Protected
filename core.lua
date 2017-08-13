@@ -34,7 +34,7 @@ function gbl.SetUnlocker(_, name, unlocker)
 end
 
 --delay the ticker to allow addons to inject theyr stuff
-C_Timer.After(5, function()
+NeP.Core:WhenInGame(function()
 	for i=1, #unlockers do
 		local unlocker = unlockers[i]
 		if unlocker.test() then
@@ -42,5 +42,5 @@ C_Timer.After(5, function()
 			gbl:SetUnlocker(unlocker.name, unlocker)
 			break
 		end
-  end
+	 end
 end)
