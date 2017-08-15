@@ -1,5 +1,10 @@
-local _, glb = ...
+local _, gbl = ...
 
-glb:AddUnlocker('wToolkit64', function()
-	return wToolkit64
-end, glb.Generic, glb.FireHack, glb.FireHack_OM, 2)
+gbl:AddUnlocker('wToolkit64', {
+	test = function() return wToolkit64 end,
+	init = gbl.load_firehack,
+	prio = 2,
+	functions = gbl.Generic,
+	extended = gbl.FireHack,
+	om = gbl.FireHack_OM
+})

@@ -1,46 +1,62 @@
-local _, gbl = ...
+local n_name, gbl = ...
 local NeP = NeP
 local C_Timer = C_Timer
-
+local StaticPopup1 = StaticPopup1
+gbl.version = 2.0
+gbl.unlocked = false
 local unlockers = {}
 
-function gbl.AddUnlocker(_, name, test, functions, extended, om, prio)
+NeP.Listener:Add(n_name, "ADDON_ACTION_FORBIDDEN", function(...)
+	local addon = ...
+	if addon == n_name then
+		StaticPopup1:Hide()
+		NeP.Core:Print('Didnt find any unlocker, using facerool.',
+		'\n-> Right click the |cffff0000MasterToggle|r and press |cffff0000'..n_name..' v:'..gbl.version..'|r to try again.')
+	end
+end)
+
+function gbl.AddUnlocker(_, name, eval)
 	table.insert(unlockers, {
 		name = name,
-		test = test,
-		functions = functions,
-		extended = extended,
-		om = om;
-		prio = prio or 0
+		test = eval.test,
+		functions = eval.functions or {},
+		extended = eval.extended or {},
+		om = eval.om;
+		init = eval.init,
+		prio = eval.prio or 0
 	})
 	table.sort( unlockers, function(a,b) return a.prio > b.prio end )
 end
 
 function gbl.SetUnlocker(_, name, unlocker)
-	NeP.Core:Print('|cffff0000Found:|r ' .. name, '\nRemember to /reload after attaching a unlocker!')
+	NeP.Core:Print('|cffff0000Found:|r ' .. name)
+	unlocker.init()
 	for uname, func in pairs(unlocker.functions) do
 		NeP.Protected[uname] = func
 	end
-	if unlocker.extended then
-		for uname, func in pairs(unlocker.extended) do
-			NeP.Protected[uname] = func
-		end
+	for uname, func in pairs(unlocker.extended) do
+		NeP.Protected[uname] = func
 	end
 	if unlocker.om then
 		NeP.Protected.OM_Maker = unlocker.om
 		NeP.Protected.nPlates = nil --Remove the nameplaces OM portion
 	end
-	NeP.Unlocked = true
 end
 
---delay the ticker to allow addons to inject theyr stuff
-NeP.Core:WhenInGame(function()
+function gbl.FindUnlocker()
 	for i=1, #unlockers do
 		local unlocker = unlockers[i]
 		if unlocker.test() then
 			NeP.Unlocked = nil -- this is created by the generic unlocker (get rid of it)
 			gbl:SetUnlocker(unlocker.name, unlocker)
-			break
+			return true
 		end
 	 end
+end
+
+NeP.Interface:Add(n_name..' v:'..gbl.version, gbl.FindUnlocker)
+
+-- Delay until everything is ready
+NeP.Core:WhenInGame(function()
+	C_Timer.After(1, gbl.FindUnlocker)
 end)
