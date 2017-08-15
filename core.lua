@@ -2,6 +2,7 @@ local n_name, gbl = ...
 local NeP = NeP
 local C_Timer = C_Timer
 local StaticPopup1 = StaticPopup1
+local noop = function() end
 gbl.version = 2.0
 gbl.unlocked = false
 local unlockers = {}
@@ -22,7 +23,7 @@ function gbl.AddUnlocker(_, name, eval)
 		functions = eval.functions or {},
 		extended = eval.extended or {},
 		om = eval.om;
-		init = eval.init,
+		init = eval.init or noop,
 		prio = eval.prio or 0
 	})
 	table.sort( unlockers, function(a,b) return a.prio > b.prio end )
