@@ -13,19 +13,23 @@ function gbl.load_firehack()
 	gbl.GetDistanceBetweenObjects = GetDistanceBetweenObjects
 	gbl.ObjectIsFacing = ObjectIsFacing
 	gbl.losFlags = bit.bor(0x10, 0x100)
+	gbl.ObjectExists = ObjectExists
 end
 
 gbl.FireHack = {}
 
 function gbl.FireHack.Distance(a, b)
+	if not gbl.ObjectExists(a) or not gbl.ObjectExists(b) then return 999 end
 	return gbl.GetDistanceBetweenObjects(a,b)
 end
 
 function gbl.FireHack.Infront(a, b)
+	if not gbl.ObjectExists(a) or not gbl.ObjectExists(b) then return false end
 	return gbl.ObjectIsFacing(a,b)
 end
 
 function gbl.FireHack.CastGround(spell, target)
+	if not gbl.ObjectExists(target) then return end
 	-- fallback to generic if we can cast it using macros
 	if gbl.validGround[target] then
 		return Gn.CastGround(spell, target)
@@ -38,14 +42,15 @@ function gbl.FireHack.CastGround(spell, target)
 	CancelPendingSpell()
 end
 
-function gbl.FireHack.UnitCombatRange(unitA, unitB)
-	return gbl.FireHack.Distance(unitA, unitB) - (gbl.UnitCombatReach(unitA) + gbl.UnitCombatReach(unitB))
+function gbl.FireHack.UnitCombatRange(a, b)
+	if not gbl.ObjectExists(a) or not gbl.ObjectExists(b) then return 999 end
+	return gbl.FireHack.Distance(a, b) - (gbl.UnitCombatReach(a) + gbl.UnitCombatReach(b))
 end
 
 function gbl.FireHack.LineOfSight(a, b)
+	if not gbl.ObjectExists(a) or not gbl.ObjectExists(b) then return false end
 	-- skip if its a boss
 	if NeP.BossID:Eval(a) or NeP.BossID:Eval(b) then return true end
-
 	local ax, ay, az = gbl.ObjectPosition(a)
 	local bx, by, bz = gbl.ObjectPosition(b)
 	return not gbl.TraceLine(ax, ay, az+2.25, bx, by, bz+2.25, gbl.losFlags)
