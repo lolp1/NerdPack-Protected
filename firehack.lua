@@ -29,11 +29,11 @@ function gbl.FireHack.Infront(a, b)
 end
 
 function gbl.FireHack.CastGround(spell, target)
-	if not gbl.ObjectExists(target) then return end
 	-- fallback to generic if we can cast it using macros
 	if gbl.validGround[target] then
 		return Gn.CastGround(spell, target)
 	end
+	if not gbl.ObjectExists(target) then return end
 	local rX, rY = math.random(), math.random()
 	local oX, oY, oZ = gbl.ObjectPosition(target)
 	if oX then oX = oX + rX; oY = oY + rY end
