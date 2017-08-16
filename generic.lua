@@ -6,11 +6,11 @@ local UseItemByName             = UseItemByName
 local UseInventoryItem          = UseInventoryItem
 
 -- Generic
-gbl.Generic = {
-	validGround = {
-		["player"] = true,
-		["cursor"] = true
-	}
+gbl.Generic = {}
+
+gbl.validGround = {
+	["player"] = true,
+	["cursor"] = true
 }
 
 function gbl.Generic.Cast(spell, target)
@@ -18,7 +18,7 @@ function gbl.Generic.Cast(spell, target)
 end
 
 function gbl.Generic.CastGround(spell, target)
-	if not gbl.Generic.validGround[target] then
+	if not gbl.validGround[target] then
 		target = "cursor"
 	end
 	gbl.Generic.Macro("/cast [@"..target.."]"..spell)
