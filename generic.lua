@@ -1,9 +1,11 @@
-local _, gbl               = ...
-local NeP                       = NeP
-local CastSpellByName           = CastSpellByName
-local RunMacroText              = RunMacroText
-local UseItemByName             = UseItemByName
-local UseInventoryItem          = UseInventoryItem
+local _, gbl = ...
+local NeP = NeP
+local CastSpellByName = CastSpellByName
+local RunMacroText = RunMacroText
+local UseItemByName = UseItemByName
+local UseInventoryItem = UseInventoryItem
+local TargetUnit = TargetUnit
+local SpellStopCasting = SpellStopCasting
 
 -- Generic
 gbl.Generic = {}
@@ -34,6 +36,14 @@ end
 
 function gbl.Generic.UseInvItem(name)
 	UseInventoryItem(name)
+end
+
+function gbl.Generic.TargetUnit(target)
+	TargetUnit(target)
+end
+
+function gbl.Generic.SpellStopCasting()
+	SpellStopCasting()
 end
 
 gbl:AddUnlocker('Generic', {
