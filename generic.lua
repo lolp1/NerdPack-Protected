@@ -1,16 +1,16 @@
 local _, gbl = ...
-local NeP = NeP
+local NeP = _G.NeP
 
 -- Generic
 gbl.Generic = {}
 
 function gbl.Generic.Load()
-	gbl.CastSpellByName = CastSpellByName
-	gbl.RunMacroText = RunMacroText
-	gbl.UseItemByName = UseItemByName
-	gbl.UseInventoryItem = UseInventoryItem
-	gbl.TargetUnit = TargetUnit
-	gbl.SpellStopCasting = SpellStopCasting
+	gbl.CastSpellByName = _G.CastSpellByName
+	gbl.RunMacroText = _G.RunMacroText
+	gbl.UseItemByName = _G.UseItemByName
+	gbl.UseInventoryItem = _G.UseInventoryItem
+	gbl.TargetUnit = _G.TargetUnit
+	gbl.SpellStopCasting = _G.SpellStopCasting
 end
 
 gbl.validGround = {

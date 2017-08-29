@@ -1,21 +1,23 @@
 local _, gbl                    = ...
-local NeP                       = NeP
-local CancelPendingSpell        = CancelPendingSpell
+local NeP                       = _G.NeP
 
 gbl.FireHack = {}
 
 function gbl.FireHack.Load()
 	gbl.Generic.Load()
-	gbl.ObjectPosition = ObjectPosition
-	gbl.CastAtPosition = ClickPosition
-	gbl.TraceLine = TraceLine
-	gbl.UnitCombatReach = UnitCombatReach
-	gbl.ObjectWithIndex = GetObjectWithIndex
-	gbl.ObjectCount = GetObjectCount
-	gbl.GetDistanceBetweenObjects = GetDistanceBetweenObjects
-	gbl.ObjectIsFacing = ObjectIsFacing
-	gbl.losFlags = bit.bor(0x10, 0x100)
-	gbl.ObjectExists = ObjectExists
+	gbl.ObjectPosition = _G.ObjectPosition
+	gbl.CastAtPosition = _G.ClickPosition
+	gbl.TraceLine = _G.TraceLine
+	gbl.UnitCombatReach = _G.UnitCombatReach
+	gbl.ObjectWithIndex = _G.GetObjectWithIndex
+	gbl.ObjectCount = _G.GetObjectCount
+	gbl.GetDistanceBetweenObjects = _G.GetDistanceBetweenObjects
+	gbl.ObjectIsFacing = _G.ObjectIsFacing
+	gbl.losFlags = _G.bit.bor(0x10, 0x100)
+	gbl.ObjectExists = _G.ObjectExists
+	gbl.IsHackEnabled = _G.IsHackEnabled
+	gbl.SetHackEnabled = _G.SetHackEnabled
+	gbl.CancelPendingSpell = _G.CancelPendingSpell
 end
 
 function gbl.FireHack.Distance(a, b)
@@ -39,7 +41,7 @@ function gbl.FireHack.CastGround(spell, target)
 	if oX then oX = oX + rX; oY = oY + rY end
 	gbl.Generic.Cast(spell)
 	if oX then gbl.CastAtPosition(oX, oY, oZ) end
-	CancelPendingSpell()
+	gbl.CancelPendingSpell()
 end
 
 function gbl.FireHack.UnitCombatRange(a, b)
