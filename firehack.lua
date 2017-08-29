@@ -7,7 +7,7 @@ gbl.FireHack = {}
 function gbl.FireHack.Load()
 	gbl.Generic.Load()
 	gbl.ObjectPosition = ObjectPosition
-	gbl.CastAtPosition = CastAtPosition
+	gbl.CastAtPosition = ClickPosition
 	gbl.TraceLine = TraceLine
 	gbl.UnitCombatReach = UnitCombatReach
 	gbl.ObjectWithIndex = GetObjectWithIndex
