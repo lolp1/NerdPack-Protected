@@ -11,7 +11,7 @@ function gbl.FireHack.Load()
 	gbl.TraceLine = TraceLine
 	gbl.UnitCombatReach = UnitCombatReach
 	gbl.ObjectWithIndex = ObjectWithIndex
-	gbl.ObjectCount = ObjectCount
+	gbl.ObjectCount = GetObjectCount
 	gbl.GetDistanceBetweenObjects = GetDistanceBetweenObjects
 	gbl.ObjectIsFacing = ObjectIsFacing
 	gbl.losFlags = bit.bor(0x10, 0x100)

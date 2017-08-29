@@ -2,7 +2,7 @@ local _, gbl = ...
 
 gbl:AddUnlocker('wToolkit64', {
 	test = function() return wToolkit64 end,
-	init = gbl.load_firehack,
+	init = gbl.FireHack.Load,
 	prio = 2,
 	functions = gbl.Generic,
 	extended = gbl.FireHack,
