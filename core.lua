@@ -11,7 +11,7 @@ NeP.Listener:Add(n_name, "ADDON_ACTION_FORBIDDEN", function(...)
 	local addon = ...
 	if addon == n_name then
 		StaticPopup1:Hide()
-		NeP.Core:Print('Didnt find any unlocker, using facerool.',
+		NeP.Core:Print('Didn\'t find any unlocker, using facerool.',
 		'\n-> Right click the |cffff0000MasterToggle|r and press |cffff0000'..n_name..' v:'..gbl.version..'|r to try again.')
 	end
 end)

@@ -1,14 +1,17 @@
 local _, gbl = ...
 local NeP = NeP
-local CastSpellByName = CastSpellByName
-local RunMacroText = RunMacroText
-local UseItemByName = UseItemByName
-local UseInventoryItem = UseInventoryItem
-local TargetUnit = TargetUnit
-local SpellStopCasting = SpellStopCasting
 
 -- Generic
 gbl.Generic = {}
+
+function gbl.Generic.Load()
+	gbl.CastSpellByName = CastSpellByName
+	gbl.RunMacroText = RunMacroText
+	gbl.UseItemByName = UseItemByName
+	gbl.UseInventoryItem = UseInventoryItem
+	gbl.TargetUnit = TargetUnit
+	gbl.SpellStopCasting = SpellStopCasting
+end
 
 gbl.validGround = {
 	["player"] = true,
@@ -16,7 +19,7 @@ gbl.validGround = {
 }
 
 function gbl.Generic.Cast(spell, target)
-	CastSpellByName(spell, target)
+	gbl.CastSpellByName(spell, target)
 end
 
 function gbl.Generic.CastGround(spell, target)
@@ -27,29 +30,30 @@ function gbl.Generic.CastGround(spell, target)
 end
 
 function gbl.Generic.Macro(text)
-	RunMacroText(text)
+	gbl.RunMacroText(text)
 end
 
 function gbl.Generic.UseItem(name, target)
-	UseItemByName(name, target)
+	gbl.UseItemByName(name, target)
 end
 
 function gbl.Generic.UseInvItem(name)
-	UseInventoryItem(name)
+	gbl.UseInventoryItem(name)
 end
 
 function gbl.Generic.TargetUnit(target)
-	TargetUnit(target)
+	gbl.TargetUnit(target)
 end
 
 function gbl.Generic.SpellStopCasting()
-	SpellStopCasting()
+	gbl.SpellStopCasting()
 end
 
 gbl:AddUnlocker('Generic', {
 	test = function()
-		pcall(RunMacroText, '/run NeP.Unlocked = true')
+		pcall(gbl.RunMacroText, '/run NeP.Unlocked = true')
 		return NeP.Unlocked ~= nil
 	end,
+	init = gbl.Generic.Load,
 	functions = gbl.Generic,
 })

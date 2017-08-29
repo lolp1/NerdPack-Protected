@@ -1,9 +1,11 @@
 local _, gbl                    = ...
 local NeP                       = NeP
 local CancelPendingSpell        = CancelPendingSpell
-local Gn = gbl.Generic
 
-function gbl.load_firehack()
+gbl.FireHack = {}
+
+function gbl.FireHack.Load()
+	gbl.Generic.Load()
 	gbl.ObjectPosition = ObjectPosition
 	gbl.CastAtPosition = CastAtPosition
 	gbl.TraceLine = TraceLine
@@ -15,8 +17,6 @@ function gbl.load_firehack()
 	gbl.losFlags = bit.bor(0x10, 0x100)
 	gbl.ObjectExists = ObjectExists
 end
-
-gbl.FireHack = {}
 
 function gbl.FireHack.Distance(a, b)
 	if not gbl.ObjectExists(a) or not gbl.ObjectExists(b) then return 999 end
@@ -31,13 +31,13 @@ end
 function gbl.FireHack.CastGround(spell, target)
 	-- fallback to generic if we can cast it using macros
 	if gbl.validGround[target] then
-		return Gn.CastGround(spell, target)
+		return gbl.Generic.CastGround(spell, target)
 	end
 	if not gbl.ObjectExists(target) then return end
 	local rX, rY = math.random(), math.random()
 	local oX, oY, oZ = gbl.ObjectPosition(target)
 	if oX then oX = oX + rX; oY = oY + rY end
-	Gn.Cast(spell)
+	gbl.Generic.Cast(spell)
 	if oX then gbl.CastAtPosition(oX, oY, oZ) end
 	CancelPendingSpell()
 end
@@ -63,8 +63,8 @@ function gbl.FireHack_OM()
 end
 
 gbl:AddUnlocker('FireHack', {
-	test = function() return FireHack end,
-	init = gbl.load_firehack,
+	test = function() return _G.FireHack end,
+	init = gbl.FireHack.Load,
 	prio = 1,
 	functions = gbl.Generic,
 	extended = gbl.FireHack,
