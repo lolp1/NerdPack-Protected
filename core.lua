@@ -47,7 +47,7 @@ end
 local _loads = NeP.Protected.callbacks
 function gbl.TryLoads()
 	for i=1, #_loads do
-		if _loads[i].func() then
+		if _loads[i]() then
 			table.remove(_loads, i)
 		end
 	end
