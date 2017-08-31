@@ -3,7 +3,6 @@ local _, gbl                    = ...
 gbl.FireHack = {}
 
 function gbl.FireHack.Load()
-	gbl.Generic.Load()
 end
 
 function gbl.FireHack.Distance(a, b)

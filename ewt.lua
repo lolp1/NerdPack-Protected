@@ -3,7 +3,6 @@ local _, gbl = ...
 gbl.EWT = {}
 
 function gbl.EWT.Load()
-	gbl.FireHack.Load()
 end
 
 gbl:AddUnlocker('EasyWoWToolBox', {
