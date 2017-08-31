@@ -46,7 +46,8 @@ end
 
 function gbl.FireHack_OM()
 	for i=1, GetObjectCount() do
-		NeP.OM:Add(GetObjectWithIndex(i))
+		local Obj = GetObjectWithIndex(i)
+		NeP.OM:Add(Obj, ObjectIsType(Obj, ObjectTypes.GameObject))
 	end
 end
 
