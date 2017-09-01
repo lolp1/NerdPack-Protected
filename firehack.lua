@@ -12,8 +12,7 @@ end
 
 function gbl.FireHack.Infront(a, b)
 	if not ObjectIsVisible(a) or not ObjectIsVisible(b) then return false end
-	return true -- temp until FH fixes its stuff
-	--return ObjectIsFacing(a,b)
+	return ObjectIsFacing(a,b)
 end
 
 function gbl.FireHack.CastGround(spell, target)
