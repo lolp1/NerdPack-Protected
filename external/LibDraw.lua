@@ -4,10 +4,9 @@ local LibDraw
 local sin, cos, atan, atan2, sqrt, rad = math.sin, math.cos, math.atan, math.atan2, math.sqrt, math.rad
 local tinsert, tremove = tinsert, tremove
 
--- patch WorldToScreen for 6.2 / 2.1.2 update
-local WorldToScreen_Original = WorldToScreen;
+
 local function WorldToScreen (wX, wY, wZ)
-	local sX, sY = WorldToScreen_Original(wX, wY, wZ);
+	local sX, sY = _G.WorldToScreen(wX, wY, wZ);
 	if sX and sY then
 		return sX, -(WorldFrame:GetTop() - sY);
 	else
