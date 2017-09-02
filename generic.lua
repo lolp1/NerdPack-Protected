@@ -1,4 +1,6 @@
 local _, gbl = ...
+local _G = _G
+local NeP = _G.NeP
 
 -- Generic
 gbl.Generic = {}
@@ -12,7 +14,7 @@ gbl.validGround = {
 }
 
 function gbl.Generic.Cast(spell, target)
-	CastSpellByName(spell, target)
+	_G.CastSpellByName(spell, target)
 end
 
 function gbl.Generic.CastGround(spell, target)
@@ -23,28 +25,28 @@ function gbl.Generic.CastGround(spell, target)
 end
 
 function gbl.Generic.Macro(text)
-	RunMacroText(text)
+	_G.RunMacroText(text)
 end
 
 function gbl.Generic.UseItem(name, target)
-	UseItemByName(name, target)
+	_G.UseItemByName(name, target)
 end
 
 function gbl.Generic.UseInvItem(name)
-	UseInventoryItem(name)
+	_G.UseInventoryItem(name)
 end
 
 function gbl.Generic.TargetUnit(target)
-	TargetUnit(target)
+	_G.TargetUnit(target)
 end
 
 function gbl.Generic.SpellStopCasting()
-	SpellStopCasting()
+	_G.SpellStopCasting()
 end
 
 gbl:AddUnlocker('Generic', {
 	test = function()
-		pcall(RunMacroText, '/run NeP.Unlocked = true')
+		pcall(_G.RunMacroText, '/run NeP.Unlocked = true')
 		return NeP.Unlocked ~= nil
 	end,
 	init = gbl.Generic.Load,
