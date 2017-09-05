@@ -2,11 +2,11 @@ local _, gbl                    = ...
 local _G = _G
 local NeP = _G.NeP
 
-_G.InCombatLockdown = function() return UnitAffectingCombat("player") end
-
 gbl.FireHack = {}
 
 function gbl.FireHack.Load()
+	-- FireHack b27 breaks InCombatLockdown, lets fix it
+	_G.InCombatLockdown = function() return _G.UnitAffectingCombat("player") end
 end
 
 function gbl.FireHack.Distance(a, b)
