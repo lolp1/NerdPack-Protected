@@ -18,7 +18,7 @@ end
 
 function gbl.EWT.CastGround(spell, target)
 	-- fallback to generic if we can cast it using macros
-	if gbl.Generic.validGround[target] then
+	if gbl.validGround[target] then
 		return gbl.Generic.CastGround(spell, target)
 	end
 	if not _G.ObjectExists(target) then return end
