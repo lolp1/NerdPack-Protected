@@ -27,6 +27,10 @@ function gbl.FireHack.Infront(a, b)
 	return _G.ObjectIsFacing(a,b)
 end
 
+function gbl.FireHack.ObjectExists(Obj)
+	return _G.ObjectIsVisible(Obj)
+end
+
 function gbl.FireHack.CastGround(spell, target)
 	-- fallback to generic if we can cast it using macros
 	if gbl.validGround[target] then

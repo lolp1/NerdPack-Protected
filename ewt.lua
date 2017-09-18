@@ -30,6 +30,10 @@ function gbl.EWT.CastGround(spell, target)
 	_G.CancelPendingSpell()
 end
 
+function gbl.EWT.ObjectExists(Obj)
+	return _G.ObjectExists(Obj)
+end
+
 function gbl.EWT.UnitCombatRange(a, b)
 	if not _G.ObjectExists(a) or not _G.ObjectExists(b) then return 999 end
 	return gbl.EWT.Distance(a, b) - (_G.UnitCombatReach(a) + _G.UnitCombatReach(b))
