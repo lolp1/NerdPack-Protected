@@ -7,12 +7,18 @@ function gbl.EWT.Load()
 end
 
 function gbl.EWT.Distance(a, b)
-	if not _G.ObjectExists(a) or not _G.ObjectExists(b) then return 999 end
+	if not _G.ObjectExists(a)
+	or not _G.ObjectExists(b) then
+		return 999
+	end
 	return _G.GetDistanceBetweenObjects(a,b)
 end
 
 function gbl.EWT.Infront(a, b)
-	if not _G.ObjectExists(a) or not _G.ObjectExists(b) then return false end
+	if not _G.ObjectExists(a)
+	or not _G.ObjectExists(b) then
+		return false
+	end
 	return _G.ObjectIsFacing(a,b)
 end
 
@@ -35,14 +41,23 @@ function gbl.EWT.ObjectExists(Obj)
 end
 
 function gbl.EWT.UnitCombatRange(a, b)
-	if not _G.ObjectExists(a) or not _G.ObjectExists(b) then return 999 end
+	if not _G.ObjectExists(a)
+	or not _G.ObjectExists(b) then
+		return 999
+	end
 	return gbl.EWT.Distance(a, b) - (_G.UnitCombatReach(a) + _G.UnitCombatReach(b))
 end
 
 function gbl.EWT.LineOfSight(a, b)
-	if not _G.ObjectExists(a) or not _G.ObjectExists(b) then return false end
+	if not _G.ObjectExists(a)
+	or not _G.ObjectExists(b) then
+		return false
+	end
 	-- skip if its a boss
-	if NeP.BossID:Eval(a) or NeP.BossID:Eval(b) then return true end
+	if NeP.Tables.BossID:Eval(a)
+	or NeP.Tables.BossID:Eval(b) then
+		return true
+	end
 	local ax, ay, az = _G.ObjectPosition(a)
 	local bx, by, bz = _G.ObjectPosition(b)
 	return not _G.TraceLine(ax, ay, az+2.25, bx, by, bz+2.25, _G.bit.bor(0x10, 0x100))
