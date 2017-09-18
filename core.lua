@@ -9,7 +9,7 @@ local unlockers = {}
 NeP.Listener:Add(n_name, "ADDON_ACTION_FORBIDDEN", function(...)
 	local addon = ...
 	if addon == n_name then
-		StaticPopup1:Hide()
+		_G.StaticPopup1:Hide()
 		NeP.Core:Print('Didn\'t find any unlocker, using facerool.',
 		'\n-> Right click the |cffff0000MasterToggle|r and press |cffff0000'..n_name..' v:'..gbl.version..'|r to try again.')
 	end
@@ -68,5 +68,5 @@ NeP.Interface:Add(n_name..' v:'..gbl.version, gbl.FindUnlocker)
 
 -- Delay until everything is ready
 NeP.Core:WhenInGame(function()
-	C_Timer.After(1, gbl.FindUnlocker)
+	_G.C_Timer.After(1, gbl.FindUnlocker)
 end)

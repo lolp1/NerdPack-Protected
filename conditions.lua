@@ -1,9 +1,9 @@
-local _, gbl = ...
+local NeP = _G.NeP
 
 NeP.DSL:Register("advanced", function()
-	return HackEnabled ~= nil
+	return _G.HackEnabled ~= nil
 end)
 
 NeP.DSL:Register("ishackenabled", function(_, hack)
-	return HackEnabled and HackEnabled(hack)
+	return _G.HackEnabled and _G.HackEnabled(hack)
 end)
