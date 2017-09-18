@@ -61,8 +61,8 @@ function gbl.FireHack.LineOfSight(a, b)
 		return false
 	end
 	-- skip if its a boss
-	if NeP.Tables.BossID:Eval(a)
-	or NeP.Tables.BossID:Eval(b) then
+	if NeP.BossID:Eval(a)
+	or NeP.BossID:Eval(b) then
 		return true
 	end
 	-- contiunue
