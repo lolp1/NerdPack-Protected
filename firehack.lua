@@ -1,4 +1,4 @@
-local _, gbl                    = ...
+local _, gbl = ...
 local _G = _G
 local NeP = _G.NeP
 
@@ -10,12 +10,20 @@ function gbl.FireHack.Load()
 end
 
 function gbl.FireHack.Distance(a, b)
-	if not _G.ObjectIsVisible(a) or not _G.ObjectIsVisible(b) then return 999 end
+	-- Make Sure the Unit Exists
+	if not _G.ObjectIsVisible(a)
+	or not _G.ObjectIsVisible(b) then
+		return 999
+	end
 	return _G.GetDistanceBetweenObjects(a,b)
 end
 
 function gbl.FireHack.Infront(a, b)
-	if not _G.ObjectIsVisible(a) or not _G.ObjectIsVisible(b) then return false end
+	-- Make Sure the Unit Exists
+	if not _G.ObjectIsVisible(a)
+	or not _G.ObjectIsVisible(b) then
+		return false
+	end
 	return _G.ObjectIsFacing(a,b)
 end
 
@@ -34,14 +42,26 @@ function gbl.FireHack.CastGround(spell, target)
 end
 
 function gbl.FireHack.UnitCombatRange(a, b)
-	if not _G.ObjectIsVisible(a) or not _G.ObjectIsVisible(b) then return 999 end
+	-- Make Sure the Unit Exists
+	if not _G.ObjectIsVisible(a)
+	or not _G.ObjectIsVisible(b) then
+		return 999
+	end
 	return gbl.FireHack.Distance(a, b) - (_G.UnitCombatReach(a) + _G.UnitCombatReach(b))
 end
 
 function gbl.FireHack.LineOfSight(a, b)
-	if not _G.ObjectIsVisible(a) or not _G.ObjectIsVisible(b) then return false end
+	-- Make Sure the Unit Exists
+	if not _G.ObjectIsVisible(a)
+	or not _G.ObjectIsVisible(b) then
+		return false
+	end
 	-- skip if its a boss
-	if NeP.BossID:Eval(a) or NeP.BossID:Eval(b) then return true end
+	if NeP.Tables.BossID:Eval(a)
+	or NeP.Tables.BossID:Eval(b) then
+		return true
+	end
+	-- contiunue
 	local ax, ay, az = _G.ObjectPosition(a)
 	local bx, by, bz = _G.ObjectPosition(b)
 	return not _G.TraceLine(ax, ay, az+2.25, bx, by, bz+2.25, _G.bit.bor(0x10, 0x100))
