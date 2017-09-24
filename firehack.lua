@@ -5,6 +5,8 @@ local NeP = _G.NeP
 gbl.FireHack = {}
 
 function gbl.FireHack.Load()
+	_G.ObjectCreator = _G.GetObjectDescriptorAccessor("CGUnitData::createdBy", _G.Type.GUID)
+	_G.GameObjectIsAnimating = _G.GetObjectFieldAccessor(0x1C4, _G.Type.Bool)
 	-- FireHack b27 breaks InCombatLockdown, lets fix it
 	_G.InCombatLockdown = function() return _G.UnitAffectingCombat("player") end
 end
@@ -55,11 +57,11 @@ function gbl.FireHack.UnitCombatRange(a, b)
 end
 
 function gbl.FireHack.ObjectCreator(a)
-	return _G.ObjectIsVisible(a) and _G.GetObjectDescriptorAccessor("CGUnitData::createdBy", _G.Type.GUID)(a)
+	return _G.ObjectIsVisible(a) and _G.ObjectCreator(a)
 end
 
 function gbl.FireHack.GameObjectIsAnimating(a)
-	return _G.ObjectIsVisible(a) and _G.GetObjectFieldAccessor(0x1C4, _G.Type.Bool)(a)
+	return _G.ObjectIsVisible(a) and _G.GameObjectIsAnimating(a)
 end
 
 function gbl.FireHack.LineOfSight(a, b)
