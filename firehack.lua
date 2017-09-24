@@ -54,6 +54,14 @@ function gbl.FireHack.UnitCombatRange(a, b)
 	return gbl.FireHack.Distance(a, b) - (_G.UnitCombatReach(a) + _G.UnitCombatReach(b))
 end
 
+function gbl.FireHack.ObjectCreator(a)
+	return _G.ObjectIsVisible(a) and _G.GetObjectDescriptorAccessor("CGUnitData::createdBy", _G.Type.GUID)(a)
+end
+
+function gbl.FireHack.GameObjectIsAnimating(a)
+	return _G.ObjectIsVisible(a) and _G.GetObjectFieldAccessor(0x1C4, _G.Type.Bool)(a)
+end
+
 function gbl.FireHack.LineOfSight(a, b)
 	-- Make Sure the Unit Exists
 	if not _G.ObjectIsVisible(a)
