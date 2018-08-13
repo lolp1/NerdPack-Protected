@@ -49,3 +49,5 @@ Temporary Items
 # Toolbox files
 Version.txt
 rename.sh
+
+symlink.sh
