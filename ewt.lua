@@ -66,7 +66,8 @@ end
 
 function f.OM_Maker()
 	for i=1, g.ObjectCount() do
-		NeP.OM:Add(g.ObjectWithIndex(i))
+		local Obj = g.ObjectWithIndex(i)
+		NeP.OM:Add(Obj, g.ObjectIsGameObject(Obj))
 	end
 end
 

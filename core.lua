@@ -70,6 +70,7 @@ local lList = {
 	'CastAtPosition',
 	'ObjectCount',
 	'ObjectWithIndex',
+	'ObjectIsGameObject',
 	--generic
 	'SpellStopCasting',
 	'TargetUnit',
