@@ -44,7 +44,7 @@ function gbl.TryLoads()
 	end
 end
 
-local lList = {
+gbl.lList = {
 	--firehack
 	'ObjectCreator',
 	'GameObjectIsAnimating',
@@ -81,8 +81,8 @@ local lList = {
 }
 
 function gbl.loadGlobals()
-	for i=1, #lList do
-		gbl.gapis[lList[i]] = _G[lList[i]]
+	for i=1, #gbl.lList do
+		gbl.gapis[gbl.lList[i]] = _G[gbl.lList[i]]
 	end
 end
 
