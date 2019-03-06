@@ -38,7 +38,7 @@ function f.CastGround(spell, target)
 end
 
 function f.ObjectExists(Obj)
-    return g.ObjectExists(Obj)
+    return _G.UnitExists(Obj) or g.ObjectExists(Obj)
 end
 
 function f.UnitCombatRange(a, b)
@@ -60,7 +60,9 @@ function f.LineOfSight(a, b)
         return true
     end
     local ax, ay, az = g.ObjectPosition(a)
+    if not az then return false end
     local bx, by, bz = g.ObjectPosition(b)
+    if not bz then return false end
     return not g.TraceLine(ax, ay, az+2.25, bx, by, bz+2.25, g.bit.bor(0x10, 0x100))
 end
 
