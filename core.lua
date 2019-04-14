@@ -64,6 +64,7 @@ gbl.lList = {
 	'ObjectTypes',
 	'UnitAffectingCombat',
 	'CancelPendingSpell',
+	'ObjectGUID',
 	'bit',
 	--EWT
 	'ObjectExists',
