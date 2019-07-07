@@ -5,7 +5,7 @@ local noop = function() end
 gbl.version = 2.0
 gbl.unlocked = false
 local unlockers = {}
-gbl.gapis = {}
+gbl.gapis = NeP._G
 
 NeP.Listener:Add(n_name, "ADDON_ACTION_FORBIDDEN", function(...)
 	local addon = ...
@@ -44,46 +44,9 @@ function gbl.TryLoads()
 	end
 end
 
-gbl.lList = {
-	--firehack
-	'ObjectCreator',
-	'GameObjectIsAnimating',
-	'GetObjectDescriptorAccessor',
-	'GetObjectFieldAccessor',
-	'Type',
-	'ObjectIsVisible',
-	'GetDistanceBetweenObjects',
-	'ObjectPosition',
-	'ClickPosition',
-	'ObjectIsFacing',
-	'UnitCombatReach',
-	'TraceLine',
-	'GetObjectCount',
-	'GetObjectWithIndex',
-	'ObjectIsType',
-	'ObjectTypes',
-	'UnitAffectingCombat',
-	'CancelPendingSpell',
-	'ObjectGUID',
-	'bit',
-	--EWT
-	'ObjectExists',
-	'CastAtPosition',
-	'ObjectCount',
-	'ObjectWithIndex',
-	'ObjectIsGameObject',
-	--generic
-	'SpellStopCasting',
-	'TargetUnit',
-	'UseInventoryItem',
-	'UseItemByName',
-	'RunMacroText',
-	'CastSpellByName'
-}
-
 function gbl.loadGlobals()
-	for i=1, #gbl.lList do
-		gbl.gapis[gbl.lList[i]] = _G[gbl.lList[i]]
+	for name, func in pairs(_G) do
+		NeP._G[name] = func
 	end
 end
 

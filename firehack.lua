@@ -9,6 +9,7 @@ function f.Load()
 	g.GameObjectIsAnimating = _G.GetObjectFieldAccessor(0x1C4, _G.Type.Bool)
 	-- FireHack b27 breaks InCombatLockdown, lets fix it
 	_G.InCombatLockdown = function() return g.UnitAffectingCombat("player") end
+	g.InCombatLockdown = _G.InCombatLockdown;
 end
 
 function f.Distance(a, b)
