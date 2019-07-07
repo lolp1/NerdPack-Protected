@@ -20,7 +20,7 @@ function f.CastGround(spell, target)
 	if not gbl.validGround[target] then
 		target = "cursor"
 	end
-	f.Macro("/cast [@"..target.."]"..spell)
+	NeP.Protected.Macro("/cast [@"..target.."]"..spell)
 end
 
 function f.Macro(text)
