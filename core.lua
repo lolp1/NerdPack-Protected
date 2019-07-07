@@ -55,8 +55,8 @@ function gbl.FindUnlocker()
 		local unlocker = unlockers[i]
 		if unlocker.test() then
 			NeP.Unlocked = nil -- this is created by the generic unlocker (get rid of it)
-			gbl:SetUnlocker(unlocker.name, unlocker)
 			gbl.loadGlobals()
+			gbl:SetUnlocker(unlocker.name, unlocker)
 			gbl.TryLoads()
 			return true
 		end
