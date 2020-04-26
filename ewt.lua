@@ -12,7 +12,7 @@ function f.Distance(a, b)
 	or not NeP.DSL:Get('exists')(b) then
 		return 999
 	end
-	return g.GetDistanceBetweenObjects(a,b)
+	return g.GetDistanceBetweenObjects(a,b) or 0
 end
 
 function f.ObjectGUID(obj)
