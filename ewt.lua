@@ -56,8 +56,8 @@ function f.UnitCombatRange(a, b, shouldPrint)
     end
     local reachA = g.UnitCombatReach(a) or 1.5
     local reachB = g.UnitCombatReach(b) or 1.5
-    local distance = f.Distance(a, b) or 0
-    return f.Distance(a, b) - (reachA + reachB)
+    local distance = NeP.DSL:Get('distance')(a, b) or 0
+    return distance - (reachA + reachB)
 end
 
 function f.LineOfSight(a, b)
