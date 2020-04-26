@@ -49,12 +49,15 @@ function f.ObjectExists(Obj)
 	return _G.UnitExists(Obj) or g.ObjectExists(Obj)
 end
 
-function f.UnitCombatRange(a, b)
-	if not NeP.DSL:Get('exists')(a)
-	or not NeP.DSL:Get('exists')(b) then
-		return 999
-	end
-	return f.Distance(a, b) - (g.UnitCombatReach(a) + g.UnitCombatReach(b))
+function f.UnitCombatRange(a, b, shouldPrint)
+    if not NeP.DSL:Get('exists')(a)
+    or not NeP.DSL:Get('exists')(b) then
+        return 999
+    end
+    local reachA = g.UnitCombatReach(a) or 1.5
+    local reachB = g.UnitCombatReach(b) or 1.5
+    local distance = f.Distance(a, b) or 0
+    return f.Distance(a, b) - (reachA + reachB)
 end
 
 function f.LineOfSight(a, b)
