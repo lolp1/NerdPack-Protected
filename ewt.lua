@@ -79,7 +79,7 @@ end
 function f.OM_Maker()
 	for i=1, g.ObjectCount() do
 		local Obj = g.ObjectWithIndex(i)
-		NeP.OM:Add(Obj, g.ObjectIsGameObject(Obj) or g.ObjectIsAreaTrigger(obj))
+		NeP.OM:Add(Obj, g.ObjectIsGameObject(Obj), g.ObjectIsAreaTrigger(obj))
 	end
 end
 
