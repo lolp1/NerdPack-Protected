@@ -5,6 +5,13 @@ local f = gbl.EWT
 local g = gbl.gapis
 
 function f.Load()
+	g.GetDistanceBetweenObjects = function(Obj1, Obj2)
+		local X1, Y1, Z1 = ObjectPosition(Obj1)
+		if not (X1 and Y1 and Z1) then return 999 end
+		local X2, Y2, Z2 = ObjectPosition(Obj2)
+		if not (X2 and Y2 and Z2) then return 999 end
+		return GetDistanceBetweenPositions(X1, Y1, Z1, X2, Y2, Z2)aw
+	end
 end
 
 function f.Distance(a, b)
