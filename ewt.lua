@@ -4,6 +4,29 @@ local NeP = _G.NeP
 local f = gbl.EWT
 local g = gbl.gapis
 
+local initOM = true
+local objMap = {}
+
+local function om()
+	local total, updated, added, removed = g.GetObjectCount(true, t_name .. '_EWT_OM')
+	if initOM then
+		initOM = false
+		for i = 1,total do
+	local Obj = g.GetObjectWithIndex(i)
+	objMap[tostring(Obj)] = g.ObjectGUID(Obj)
+	NeP.OM:Add(Obj, g.ObjectIsGameObject(Obj), g.ObjectIsAreaTrigger(Obj))
+		end
+	end
+	if not updated then return end
+	for _,Obj in pairs(added) do
+		objMap[tostring(Obj)] = g.ObjectGUID(Obj)
+		NeP.OM:Add(Obj, g.ObjectIsGameObject(Obj), g.ObjectIsAreaTrigger(Obj))
+	end
+	for _,Obj in pairs(removed) do
+		NeP.OM:RemoveObjectByGuid(objMap[tostring(Obj)])
+	end
+end
+
 function f.Load()
 	g.GetDistanceBetweenObjects = function(Obj1, Obj2)
 		local X1, Y1, Z1 = g.ObjectPosition(Obj1)
@@ -12,6 +35,7 @@ function f.Load()
 		if not (X2 and Y2 and Z2) then return 999 end
 		return g.GetDistanceBetweenPositions(X1, Y1, Z1, X2, Y2, Z2)
 	end
+	NeP.Timer.Add('nep_ewt_om', om, 0.1)
 end
 
 function f.Distance(a, b)
@@ -83,31 +107,9 @@ function f.LineOfSight(a, b)
 	return bx and not g.TraceLine(ax, ay, az+2.25, bx, by, bz+2.25, g.bit.bor(0x10, 0x100))
 end
 
-local initOM = true
-local objMap = {}
+
 function f.OM_Maker()
-	if initOM then
-		local myFrame = g.CreateFrame("Frame")
-		myFrame:SetScript("OnUpdate", function ()
-			local total, updated, added, removed = g.GetObjectCount(true, t_name .. '_EWT_OM')
-			if initOM then
-				initOM = false
-				for i = 1,total do
-					local Obj = g.GetObjectWithIndex(i)
-					objMap[tostring(Obj)] = g.ObjectGUID(Obj)
-					NeP.OM:Add(Obj, g.ObjectIsGameObject(Obj), g.ObjectIsAreaTrigger(Obj))
-				end
-			end
-			if not updated then return end
-			for _,Obj in pairs(added) do
-				objMap[tostring(Obj)] = g.ObjectGUID(Obj)
-				NeP.OM:Add(Obj, g.ObjectIsGameObject(Obj), g.ObjectIsAreaTrigger(Obj))
-			end
-			for _,Obj in pairs(removed) do
-				NeP.OM:RemoveObjectByGuid(objMap[tostring(Obj)])
-			end
-		end);
-	end
+	
 end
 
 gbl:AddUnlocker('EasyWoWToolBox', {
