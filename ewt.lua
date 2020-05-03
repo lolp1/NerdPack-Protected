@@ -35,7 +35,7 @@ function f.Load()
 		if not (X2 and Y2 and Z2) then return 999 end
 		return g.GetDistanceBetweenPositions(X1, Y1, Z1, X2, Y2, Z2)
 	end
-	NeP.Timer.Add('nep_ewt_om', om, 0.1)
+	NeP.Timer.Add('nep_ewt_om', om, 0)
 end
 
 function f.Distance(a, b)
