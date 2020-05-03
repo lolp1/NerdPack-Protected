@@ -98,6 +98,7 @@ function f.OM_Maker()
 					NeP.OM:Add(Obj, g.ObjectIsGameObject(Obj), g.ObjectIsAreaTrigger(Obj))
 				end
 			end
+			if not updated then return end
 			for _,Obj in pairs(added) do
 				objMap[tostring(Obj)] = g.ObjectGUID(Obj)
 				NeP.OM:Add(Obj, g.ObjectIsGameObject(Obj), g.ObjectIsAreaTrigger(Obj))
