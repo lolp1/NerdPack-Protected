@@ -1,4 +1,4 @@
-local _, gbl = ...
+local t_name, gbl = ...
 gbl.EWT = gbl.MergeTable(gbl.FireHack, {})
 local NeP = _G.NeP
 local f = gbl.EWT
@@ -6,11 +6,11 @@ local g = gbl.gapis
 
 function f.Load()
 	g.GetDistanceBetweenObjects = function(Obj1, Obj2)
-		local X1, Y1, Z1 = ObjectPosition(Obj1)
+		local X1, Y1, Z1 = g.ObjectPosition(Obj1)
 		if not (X1 and Y1 and Z1) then return 999 end
-		local X2, Y2, Z2 = ObjectPosition(Obj2)
+		local X2, Y2, Z2 = g.ObjectPosition(Obj2)
 		if not (X2 and Y2 and Z2) then return 999 end
-		return GetDistanceBetweenPositions(X1, Y1, Z1, X2, Y2, Z2)
+		return g.GetDistanceBetweenPositions(X1, Y1, Z1, X2, Y2, Z2)
 	end
 end
 
@@ -44,11 +44,11 @@ function f.CastGround(spell, target)
 		return gbl.Generic.CastGround(spell, target)
 	end
 	if not NeP.DSL:Get('exists')(target) then return end
-	local rX, rY = math.random(), math.random()
+	local rX, rY =0, 0
 	local oX, oY, oZ = g.ObjectPosition(target)
 	if oX then oX = oX + rX; oY = oY + rY end
 	gbl.Generic.Cast(spell)
-	if oX then g.CastAtPosition(oX, oY, oZ) end
+	if oX then g.CastAtPosition(g.ObjectPosition(target)) end
 	g.CancelPendingSpell()
 end
 
@@ -83,10 +83,29 @@ function f.LineOfSight(a, b)
 	return bx and not g.TraceLine(ax, ay, az+2.25, bx, by, bz+2.25, g.bit.bor(0x10, 0x100))
 end
 
+local initOM = true
+local objMap = {}
 function f.OM_Maker()
-	for i=1, g.ObjectCount() do
-		local Obj = g.ObjectWithIndex(i)
-		NeP.OM:Add(Obj, g.ObjectIsGameObject(Obj), g.ObjectIsAreaTrigger(Obj))
+	if initOM then
+		local myFrame = g.CreateFrame("Frame")
+		myFrame:SetScript("OnUpdate", function ()
+			local total, updated, added, removed = g.GetObjectCount(true, t_name .. '_EWT_OM')
+			if initOM then
+				initOM = false
+				for i = 1,total do
+					local Obj = g.GetObjectWithIndex(i)
+					objMap[tostring(Obj)] = g.ObjectGUID(Obj)
+					NeP.OM:Add(Obj, g.ObjectIsGameObject(Obj), g.ObjectIsAreaTrigger(Obj))
+				end
+			end
+			for _,Obj in pairs(added) do
+				objMap[tostring(Obj)] = g.ObjectGUID(Obj)
+				NeP.OM:Add(Obj, g.ObjectIsGameObject(Obj), g.ObjectIsAreaTrigger(Obj))
+			end
+			for _,Obj in pairs(removed) do
+				NeP.OM:RemoveObjectByGuid(objMap[tostring(Obj)])
+			end
+		end);
 	end
 end
 
