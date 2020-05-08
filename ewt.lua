@@ -70,9 +70,12 @@ function f.CastGround(spell, target)
 	if not NeP.DSL:Get('exists')(target) then return end
 	local rX, rY =0, 0
 	local oX, oY, oZ = g.ObjectPosition(target)
-	if oX then oX = oX + rX; oY = oY + rY end
+	if oX then
+		oX = oX + rX;
+		oY = oY + rY
+	end
 	gbl.Generic.Cast(spell)
-	if oX then g.CastAtPosition(g.ObjectPosition(target)) end
+	if oX then g.CastAtPosition(oX, oY, oZ) end
 	g.CancelPendingSpell()
 end
 
@@ -80,7 +83,7 @@ function f.ObjectExists(Obj)
 	return _G.UnitExists(Obj) or g.ObjectExists(Obj)
 end
 
-function f.UnitCombatRange(a, b, shouldPrint)
+function f.UnitCombatRange(a, b)
     if not NeP.DSL:Get('exists')(a)
     or not NeP.DSL:Get('exists')(b) then
         return 999
@@ -108,9 +111,7 @@ function f.LineOfSight(a, b)
 end
 
 
-function f.OM_Maker()
-	
-end
+function f.OM_Maker() end
 
 gbl:AddUnlocker('EasyWoWToolBox', {
 	test = function() return _G.EWT end,
