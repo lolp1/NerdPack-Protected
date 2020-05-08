@@ -68,7 +68,7 @@ function f.CastGround(spell, target)
 		return gbl.Generic.CastGround(spell, target)
 	end
 	if not NeP.DSL:Get('exists')(target) then return end
-	local rX, rY =0, 0
+	local rX, rY = math.random(), math.random()
 	local oX, oY, oZ = g.ObjectPosition(target)
 	if oX then
 		oX = oX + rX;
