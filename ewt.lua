@@ -73,10 +73,10 @@ function f.CastGround(spell, target)
 	if oX then
 		oX = oX + rX;
 		oY = oY + rY
+		gbl.Generic.Cast(spell)
+		g.CastAtPosition(oX, oY, oZ)
+		g.CancelPendingSpell()
 	end
-	gbl.Generic.Cast(spell)
-	if oX then g.CastAtPosition(oX, oY, oZ) end
-	g.CancelPendingSpell()
 end
 
 function f.ObjectExists(Obj)
