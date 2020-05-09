@@ -59,13 +59,13 @@ function f.Infront(a, b)
 end
 
 function f.CastGround(spell, target)
-    -- Need to know if the spell comes from a Item for use UseItemByName or CastSpellByName
-	local IsItem = NeP._G.GetItemSpell(spell)
     -- fallback to generic if we can cast it using macros
-	if not IsItem and gbl.validGround[target] then
+	if gbl.validGround[target] then
         return gbl.Generic.CastGround(spell, target)
     end
     if not NeP.DSL:Get('exists')(target) then return end
+    -- Need to know if the spell comes from a Item for use UseItemByName or CastSpellByName
+	local IsItem = NeP._G.GetItemSpell(spell)
 	local func = IsItem and gbl.Generic.UseItem or gbl.Generic.Cast
 	local oX, oY, oZ = NeP._G.ObjectPosition(target)
 	local rX, rY = math.random(), math.random()
