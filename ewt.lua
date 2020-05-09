@@ -59,23 +59,6 @@ function f.Infront(a, b)
 end
 
 function f.CastGround(spell, target)
-    -- fallback to generic if we can cast it using macros
-    if gbl.validGround[target] then
-        return gbl.Generic.CastGround(spell, target)
-    end
-    if not NeP.DSL:Get('exists')(target) then return end
-    local rX, rY = math.random(), math.random()
-    local oX, oY, oZ = g.ObjectPosition(target)
-    if oX then
-        oX = oX + rX;
-        oY = oY + rY
-        gbl.Generic.Cast(spell)
-        g.CastAtPosition(oX, oY, oZ)
-        g.CancelPendingSpell()
-    end
-end
-
-function f.CastGround(spell, target)
 	if not NeP.DSL:Get('exists')(target) then return end
     -- Need to know if the spell comes from a Item for use UseItemByName or CastSpellByName
 	local IsItem = NeP._G.GetItemSpell(spell)
@@ -84,8 +67,11 @@ function f.CastGround(spell, target)
         return gbl.Generic.CastGround(spell, target)
     end
 	local func = IsItem and gbl.Generic.UseItem or gbl.Generic.Cast
-    local oX, oY, oZ = NeP._G.ObjectPosition(target)
+	local oX, oY, oZ = NeP._G.ObjectPosition(target)
+	local rX, rY = math.random(), math.random()
 	if oX then
+		oX = oX + rX;
+        oY = oY + rY
 		local i = -100
 		func(spell)
         local mouselookup = NeP._G.IsMouseButtonDown(2)
