@@ -12,5 +12,6 @@
 	<Script file="customOcr.lua" />
 	<Script file="pxb.lua" />
 	<Script file="unnamed_unlocker.lua" />
+	<Script file="apep.lua" />
 
 </Ui>
