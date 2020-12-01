@@ -66,25 +66,25 @@ function f.CastGround(spell, target)
     end
     if not NeP.DSL:Get('exists')(target) then return end
     -- Need to know if the spell comes from a Item for use UseItemByName or CastSpellByName
-	local IsItem = NeP._G.GetItemSpell(spell)
+	local IsItem = gbl.gapis.GetItemSpell(spell)
 	local func = IsItem and gbl.Generic.UseItem or gbl.Generic.Cast
-	local oX, oY, oZ = NeP._G.ObjectPosition(target)
+	local oX, oY, oZ = gbl.gapis.ObjectPosition(target)
 	local rX, rY = math.random(), math.random()
 	if oX then
 		oX = oX + rX;
         oY = oY + rY
 		local i = -100
 		func(spell)
-        local mouselookup = NeP._G.IsMouseButtonDown(2)
-        if mouselookup then NeP._G.MouselookStop() end
-        while NeP._G.SpellIsTargeting() and i <= 100 do
+        local mouselookup = gbl.gapis.IsMouseButtonDown(2)
+        if mouselookup then gbl.gapis.MouselookStop() end
+        while gbl.gapis.SpellIsTargeting() and i <= 100 do
             g.ClickPosition(oX, oY, oZ)
             i = i + 1
             oZ = i
         end
-        if mouselookup then NeP._G.MouselookStart() end
-        if i >= 100 and NeP._G.SpellIsTargeting() then
-            NeP._G.SpellStopTargeting()
+        if mouselookup then gbl.gapis.MouselookStart() end
+        if i >= 100 and gbl.gapis.SpellIsTargeting() then
+            gbl.gapis.SpellStopTargeting()
         end
     end
 end
