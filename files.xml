@@ -13,5 +13,6 @@
 	<Script file="pxb.lua" />
 	<Script file="unnamed_unlocker.lua" />
 	<Script file="apep.lua" />
+	<Script file="minibot.lua" />
 
 </Ui>
