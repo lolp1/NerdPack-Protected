@@ -40,6 +40,7 @@ function f.Load()
 	gapis = gbl.MergeTable(wrappers, gapis)
 	gapis.ObjectGUID = g.UnitGUID
 	gapis.ObjectIsVisible = g.UnitIsVisible
+	gapis.ObjectExists = g.ObjectExists
 	gbl.gapis = gapis 
 end
 
@@ -102,7 +103,7 @@ function f.CastGround(spell, target)
 end
 
 function f.ObjectExists(Obj)
-    return Obj and g.UnitExists(Obj) or g.ObjectExists(Obj)
+    return Obj and g.UnitExists(Obj)
 end
 
 function f.UnitCombatRange(a, b)
