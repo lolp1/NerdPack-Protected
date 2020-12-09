@@ -44,18 +44,11 @@ function gbl.TryLoads()
 	end
 end
 
-function gbl.loadGlobals()
-	for name, func in pairs(_G) do
-		NeP._G[name] = func
-	end
-end
-
 function gbl.FindUnlocker()
 	for i=1, #unlockers do
 		local unlocker = unlockers[i]
 		if unlocker.test() then
 			NeP.Unlocked = nil -- this is created by the generic unlocker (get rid of it)
-			gbl.loadGlobals()
 			gbl:SetUnlocker(unlocker.name, unlocker)
 			gbl.TryLoads()
 			return true
