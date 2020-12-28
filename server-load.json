@@ -1,0 +1,15 @@
+[
+  "core.lua",
+  "external\\LibDraw.lua",
+  "conditions.lua",
+  "actions.lua",
+  "generic.lua",
+  "firehack.lua",
+  "ewt.lua",
+  "wToolkit64.lua",
+  "customOcr.lua",
+  "pxb.lua",
+  "unnamed_unlocker.lua",
+  "apep.lua",
+  "minibot.lua"
+]
