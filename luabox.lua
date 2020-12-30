@@ -6,7 +6,7 @@ local g = gbl.gapis
 local lb
 
 function f.Load()
-    NeP.Core:Print('LB is still under dev... v7')
+    NeP.Core:Print('LB is still under dev... v8')
     lb = g. _G.__LB__;
     local _G = _G
 	g.CameraOrSelectOrMoveStart = function (...) return lb.Unlock(_G.CameraOrSelectOrMoveStart, ...) end
