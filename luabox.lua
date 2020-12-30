@@ -103,9 +103,6 @@ function f.Load()
 			return sX, sY
 		end
     end
-    f.ObjectExists = g.UnitExists
-    f.UnitName = g.UnitName
-    f.ObjectGUID = g.UnitGUID
 end
 
 function f.OM_Maker()
