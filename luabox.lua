@@ -102,9 +102,9 @@ function f.Load()
 		else
 			return sX, sY
 		end
-    end,
-    f.ObjectExists = g.UnitExists,
-    f.UnitName = g.UnitName,
+    end
+    f.ObjectExists = g.UnitExists
+    f.UnitName = g.UnitName
     f.ObjectGUID = g.UnitGUID
 end
 
