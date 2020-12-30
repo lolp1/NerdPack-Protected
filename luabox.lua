@@ -12,7 +12,7 @@ function f.Load()
 	g.CameraOrSelectOrMoveStop = function (...) return lb.Unlock(_G.CameraOrSelectOrMoveStop, ...) end
 	g.CancelShapeshiftForm = function (...) return lb.Unlock(_G.CancelShapeshiftForm, ...) end
 	g.CastSpellByID = function (...) return lb.UnitTagHandler(lb.Unlock, _G.CastSpellByID, ...) end
-	g.CastSpellByName = function (...) return lb.UnitTagHandler(lb.Unlock, _G.CastSpellByName, ...)	g.end,
+	g.CastSpellByName = function (...) return lb.UnitTagHandler(lb.Unlock, _G.CastSpellByName, ...) end
 	g.PetAssistMode = function (...) return lb.Unlock(_G.PetAssistMode, ...) end
 	g.PetPassiveMode = function (...) return lb.Unlock(_G.PetPassiveMode, ...) end
 	g.RunMacroText = function (...) return  lb.Unlock(_G.RunMacroText, ...); end
