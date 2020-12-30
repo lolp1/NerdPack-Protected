@@ -6,7 +6,7 @@ local g = gbl.gapis
 local lb
 
 function f.Load()
-    NeP.Core:Print('LB is still under dev... v3')
+    NeP.Core:Print('LB is still under dev... v4')
     lb = g. _G.__LB__;
     local _G = _G
 	g.CameraOrSelectOrMoveStart = function (...) return lb.Unlock(_G.CameraOrSelectOrMoveStart, ...) end
@@ -107,7 +107,6 @@ end
 
 function f.OM_Maker()
     for i, Obj in ipairs(lb.GetObjects(100)) do
-        print(Obj, lb.ObjectType(Obj) == 8)
         NeP.OM:Add(Obj, lb.ObjectType(Obj) == 8)
     end
 end
