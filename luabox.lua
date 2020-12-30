@@ -127,6 +127,30 @@ function f.UnitCombatRange(a, b)
     return distance - (reachA + reachB)
 end
 
+function f.Infront(a, b)
+	if not NeP.DSL:Get('exists')(a)
+	or not NeP.DSL:Get('exists')(b) then
+        return false
+    end
+    local aX, aY, aZ = lb.ObjectPosition(unit)
+    local bX, bY, bZ = lb.ObjectPosition('player')
+    local playerFacing = lb.ObjectFacing()
+    local facing = math.atan2(bY - aY, bX - aX) % 6.2831853071796
+    return math.abs( math.abs(playerFacing - facing) - 180 ) < 1.5707963267949
+end
+
+function f.LineOfSight(a, b)
+    if not NeP.DSL:Get('exists')(a) or not NeP.DSL:Get('exists')(b) then
+        return false
+    end
+    -- skip if its a boss
+    if NeP.BossID:Eval(a) or NeP.BossID:Eval(b) then return true end
+    local ax, ay, az = lb.ObjectPosition(a)
+    if not ax then return false end
+    local bx, by, bz = lb.ObjectPosition(b)
+    return bx and not lb.Raycast(ax, ay, az + 2.25, bx, by, bz + 2.25, g.bit.bor(0x10, 0x100))
+end
+
 function f.OM_Maker()
     for i, Obj in ipairs(lb.GetObjects(100)) do
         local xType = lb.ObjectType(Obj) 
