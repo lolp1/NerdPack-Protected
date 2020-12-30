@@ -40,7 +40,7 @@ function f.Load()
 	g.UnitGetIncomingHeals = function (...) return lb.UnitTagHandler(_G.UnitGetIncomingHeals, ...) or 0 end
 	g.UnitGetTotalHealAbsorbs = function (...) return lb.UnitTagHandler(_G.UnitGetTotalHealAbsorbs, ...) or 0 end
 	g.UnitGroupRolesAssigned = function (...) return lb.UnitTagHandler(_G.UnitGroupRolesAssigned, ...) end
-	g.UnitGUID = function (...) return print(...) lb.UnitTagHandler(_G.UnitGUID, ...) end
+	g.UnitGUID = function (...) return lb.UnitTagHandler(_G.UnitGUID, ...) end
 	g.UnitHealth = function (...) return lb.UnitTagHandler(_G.UnitHealth, ...) or 100 end
 	g.UnitHealthMax = function (...) return lb.UnitTagHandler(_G.UnitHealthMax, ...) or 100 end
     g.UnitInRaid = function (...) return lb.UnitTagHandler(_G.UnitInRaid, ...) end
