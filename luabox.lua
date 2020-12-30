@@ -58,7 +58,8 @@ function f.Load()
 	g.UnitLevel = function (...) return lb.UnitTagHandler(_G.UnitLevel, ...) or 120 end
 	g.UnitName = function (...) return lb.UnitTagHandler(_G.UnitName, ...) end
 	g.UnitRace = function (...) return lb.UnitTagHandler(_G.UnitRace, ...) end
-	g.UnitPlayerOrPetInParty = function (...) return lb.UnitTagHandler(_G.UnitPlayerOrPetInParty , ...) end
+    g.UnitPlayerOrPetInParty = function (...) return lb.UnitTagHandler(_G.UnitPlayerOrPetInParty , ...) end
+    g.UnitIsFriend = function(...) return lb.UnitTagHandler(_G.UnitIsFriend , ...) end 
 	g.UnitPlayerOrPetInRaid = function (...) return lb.UnitTagHandler(_G.UnitPlayerOrPetInRaid , ...) end
 	g.UnitThreatSituation = function (...) return lb.UnitTagHandler(_G.UnitThreatSituation, ...) or 0 end
 	g.UnitTarget = function (...) return lb.UnitTagHandler(_G.UnitTarget, ...) end
