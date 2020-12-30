@@ -106,7 +106,8 @@ function f.Load()
 end
 
 function f.OM_Maker()
-    for i, GUID in ipairs(__LB__.GetObjects(60)) do
+    for i, GUID in ipairs(lb.GetObjects(100)) do
+        print(Obj, lb.ObjectType(Obj) == 8)
         NeP.OM:Add(Obj, lb.ObjectType(Obj) == 8)
     end
 end
