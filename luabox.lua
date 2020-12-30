@@ -104,6 +104,12 @@ function f.Load()
 	end
 end
 
+function f.OM_Maker()
+    for i, GUID in ipairs(__LB__.GetObjects(60)) do
+        NeP.OM:Add(Obj, lb.ObjectType(Obj) == 8)
+    end
+end
+
 gbl:AddUnlocker('LuaBox', {
 	test = function() return _G.__LB__ end,
 	init = f.Load,
