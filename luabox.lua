@@ -6,7 +6,7 @@ local g = gbl.gapis
 local lb
 
 function f.Load()
-    NeP.Core:Print('LB is still under dev... v8')
+    NeP.Core:Print('LB is still under dev... v9')
     lb = g. _G.__LB__;
     local _G = _G
 	g.CameraOrSelectOrMoveStart = function (...) return lb.Unlock(_G.CameraOrSelectOrMoveStart, ...) end
@@ -107,6 +107,24 @@ function f.Load()
     f.ObjectExists = g.UnitExists
     f.UnitName = g.UnitName
     f.ObjectGUID = g.UnitGUID
+end
+
+function f.Distance(a, b)
+	if not NeP.DSL:Get('exists')(a)
+	or not NeP.DSL:Get('exists')(b) then
+        return 999
+    end
+    return lb.GetDistance3D(a, b) or 0
+end
+
+function f.UnitCombatRange(a, b)
+    if not NeP.DSL:Get('exists')(a) or not NeP.DSL:Get('exists')(b) then
+        return 999
+    end
+    local reachA = lb.UnitCombatReach(a) or 1.5
+    local reachB = lb.UnitCombatReach(b) or 1.5
+    local distance = NeP.DSL:Get('distance')(a, nil, b) or 0
+    return distance - (reachA + reachB)
 end
 
 function f.OM_Maker()
