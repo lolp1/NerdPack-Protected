@@ -6,7 +6,7 @@ local g = gbl.gapis
 local lb
 
 function f.Load()
-    NeP.Core:Print('LB is still under dev... v10')
+    NeP.Core:Print('LB is still under dev... v11')
     lb = g. _G.__LB__;
     local _G = _G
 	g.CameraOrSelectOrMoveStart = function (...) return lb.Unlock(_G.CameraOrSelectOrMoveStart, ...) end
@@ -148,7 +148,7 @@ function f.LineOfSight(a, b)
     local ax, ay, az = lb.ObjectPosition(a)
     if not ax then return false end
     local bx, by, bz = lb.ObjectPosition(b)
-    return bx and not lb.Raycast(ax, ay, az + 2.25, bx, by, bz + 2.25, g.bit.bor(0x10, 0x100))
+    return bx and not lb.Raycast(ax, ay, az + 2.25, bx, by, bz + 2.25, 0x100010)
 end
 
 function f.OM_Maker()
