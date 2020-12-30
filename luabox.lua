@@ -60,7 +60,7 @@ function f.Load()
 	g.UnitPlayerOrPetInParty = function (...) return lb.UnitTagHandler(_G.UnitPlayerOrPetInParty , ...) end
 	g.UnitPlayerOrPetInRaid = function (...) return lb.UnitTagHandler(_G.UnitPlayerOrPetInRaid , ...) end
 	g.UnitThreatSituation = function (...) return lb.UnitTagHandler(_G.UnitThreatSituation, ...) or 0 end
-	g.UnitTarget = function (...) return lb.UnitTagHandler(lb.UnitTarget, ...) end
+	g.UnitTarget = function (...) return lb.UnitTagHandler(_G.UnitTarget, ...) end
 	g.UnitBuff = function (...) return lb.UnitTagHandler(_G.UnitBuff, ...) end
 	g.UnitDebuff = function (...) return lb.UnitTagHandler(_G.UnitDebuff, ...) end
 	g.UnitAura = function (...) return lb.UnitTagHandler(_G.UnitAura, ...) end
@@ -91,8 +91,8 @@ function f.Load()
 	g.GetRaidTargetIndex = function (...) lb.UnitTagHandler(_G.GetRaidTargetIndex, ...) end
 	g.UnitIsWildBattlePet = function (...) return lb.UnitTagHandler(_G.UnitIsWildBattlePet, ...) end
 	g.AcceptProposal = function (...) return lb.Unlock(_G.AcceptProposal, ...) end
-	g.UnlockedInteract = function (...) return lb.Unlock(lb.ObjectInteract, ...) end
-	g.UnlockedClickPosition = function (...) return lb.Unlock(lb.ClickPosition, ...) end
+	g.ObjectInteract = function (...) return lb.Unlock(_G.ObjectInteract, ...) end
+	g.ClickPosition = function (...) return lb.Unlock(_G.ClickPosition, ...) end
 	g.WorldToScreen = function (wX, wY, wZ)
 		local ResolutionCoef = _G.WorldFrame:GetWidth() / lb.GetWindowSize()
 		local sX, sY = lb.WorldToScreen(wX, wY, wZ)
