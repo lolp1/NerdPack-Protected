@@ -1,6 +1,6 @@
 [
   "core.lua",
-  "external\\LibDraw.lua",
+  "external/LibDraw.lua",
   "conditions.lua",
   "actions.lua",
   "generic.lua",
