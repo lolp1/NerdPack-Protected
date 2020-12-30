@@ -6,7 +6,7 @@ local g = gbl.gapis
 local lb
 
 function f.Load()
-    NeP.Core:Print('LB is still under dev... v4')
+    NeP.Core:Print('LB is still under dev... v5')
     lb = g. _G.__LB__;
     local _G = _G
 	g.CameraOrSelectOrMoveStart = function (...) return lb.Unlock(_G.CameraOrSelectOrMoveStart, ...) end
@@ -103,8 +103,8 @@ function f.Load()
 			return sX, sY
 		end
     end,
-    f.ObjectExists = g.UnitExists
-    f.UnitName = g.UnitName
+    f.ObjectExists = g.UnitExists,
+    f.UnitName = g.UnitName,
     f.ObjectGUID = g.UnitGUID
 end
 
