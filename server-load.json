@@ -11,5 +11,6 @@
   "pxb.lua",
   "unnamed_unlocker.lua",
   "apep.lua",
-  "minibot.lua"
+  "minibot.lua",
+  "luabox.lua"
 ]
