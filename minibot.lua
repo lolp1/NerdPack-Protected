@@ -11,13 +11,6 @@ local g = gbl.gapis
 
 local ObjectTypes
 
-local wrappers = {
-	ObjectIsUnit = function(obj) return obj and g.ObjectIsType(obj, ObjectTypes.Unit) end,
-	ObjectIsPlayer = function(obj) return obj and g.ObjectIsType(obj, ObjectTypes.Player) end,
-	ObjectIsGameObject = function(obj) return obj and g.ObjectIsType(obj, ObjectTypes.GameObject) end,
-	ObjectIsAreaTrigger = function(obj) return obj and g.ObjectIsType(obj, ObjectTypes.AreaTrigger) end,
-}
-
 function f.Load()
 	local GetObjectTypeFlagsTable = _G.wmbapi.GetObjectTypeFlagsTable()
 	ObjectTypes = {
@@ -36,12 +29,14 @@ function f.Load()
 		SceneObject = GetObjectTypeFlagsTable.SceneObject,
 		ConversationData = GetObjectTypeFlagsTable.Conversation
 	}
-	local gapis = gbl.MergeTable(_G.wmbapi, gbl.gapis)
-	gapis = gbl.MergeTable(wrappers, gapis)
-	gapis.ObjectGUID = g.UnitGUID
-	gapis.ObjectIsVisible = g.UnitIsVisible
-	gapis.ObjectExists = g.ObjectExists
-	gbl.gapis = gapis 
+	for k,v in pairs(_G.wmbapi) do g[k] = v end
+	g.ObjectIsUnit = function(obj) return obj and g.ObjectIsType(obj, ObjectTypes.Unit) end
+	g.ObjectIsPlayer = function(obj) return obj and g.ObjectIsType(obj, ObjectTypes.Player) end
+	g.ObjectIsGameObject = function(obj) return obj and g.ObjectIsType(obj, ObjectTypes.GameObject) end
+	g.ObjectIsAreaTrigger = function(obj) return obj and g.ObjectIsType(obj, ObjectTypes.AreaTrigger) end
+	g.ObjectGUID = g.UnitGUID
+	g.ObjectIsVisible = g.UnitIsVisible
+	g.ObjectExists = g.ObjectExists
 end
 
 function f.ObjectCreator(a)
