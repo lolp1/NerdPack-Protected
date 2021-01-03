@@ -165,10 +165,6 @@ function f.Infront(a, b)
 end
 
 function f.LineOfSight(a, b)
-	return true
-end
-
---[[function f.LineOfSight(a, b)
 
     if not a or not b then return false end
 
@@ -189,7 +185,7 @@ end
 
     if ax and ay and az and bx and by and bz then
 	local flags = bit.bor(0x10, 0x100, 0x1)
-	local hit = (g.TraceLine(ax, ay, az, bx, by, bz, flags) == 1)
+	local hit = (g.TraceLine(ax, ay, az + 2.25, bx, by, bz + 2.25, flags) == 1)
 	if NeP._G.UnitExists('target') then
 		local gt = NeP._G.UnitGUID('target')
 		if (a == gt or b == gt) then
@@ -199,7 +195,7 @@ end
         return hit
     end
     return false
-end]] -- broken
+end
 
 local ObjectTypes = {
     Object = 0,
