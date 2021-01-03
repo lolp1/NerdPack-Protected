@@ -179,8 +179,7 @@ function f.LineOfSight(a, b)
     local bx, by, bz = g.GetUnitPosition(b)
 
     if ax and ay and az and bx and by and bz then
-        local flags = bit.bor(0x10, 0x100, 0x1)
-        return (g.TraceLine(ax, ay, az, bx, by, bz, flags) == 1)
+        return (g.TraceLine(ax, ay, az, bx, by, bz, 0x111) == 1)
     end
     return false
 end
