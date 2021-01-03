@@ -236,7 +236,7 @@ f.TargetUnit = function(Obj)
 end
 
 gbl:AddUnlocker('WowAdvanced', {
-    test = function() return _G.CallSecureFunction ~= nil end,
+    test = function() return NeP._G.CallSecureFunction ~= nil end,
     init = f.Load,
     prio = 9,
     functions = f
