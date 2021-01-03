@@ -116,7 +116,9 @@ function f.SpellStopCasting() g.CallSecureFunction('SpellStopCasting') end
 
 function f.Distance(a, b)
 
-    if not a or not b then return 999 end
+    if not NeP.DSL:Get('exists')(a) or not NeP.DSL:Get('exists')(b) then
+        return 999
+    end
 
     local ax, ay, az = g.GetUnitPosition(a) -- 'Attacker'
     local bx, by, bz = g.GetUnitPosition(b) -- 'Defender'
@@ -124,6 +126,13 @@ function f.Distance(a, b)
 
     return math.sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay) + (bz - az) *
                          (bz - az))
+end
+
+function f.UnitCombatRange(a, b)
+    if not NeP.DSL:Get('exists')(a) or not NeP.DSL:Get('exists')(b) then
+        return 999
+    end
+    return NeP.DSL:Get('distance')(a, nil, b) or 0
 end
 
 function f.Infront(a, b)
