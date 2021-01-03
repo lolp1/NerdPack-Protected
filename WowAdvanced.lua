@@ -4,16 +4,20 @@ gbl.Wownet = {}
 local f = gbl.Wownet
 local g = gbl.gapis
 
--- WoW 8.1.5.29981
 local Offsets = {
-    ['BoundingRadius'] = 0x15DC,
-    ['CombatReach'] = 0x15E0, -- BoundingRadius + 4
-    ['CastingTarget'] = 0x1910,
-    ['SpecID'] = 0x1AE4,
-    ['SummonedBy'] = 0x1510,
-    ['CreatedBy'] = 0x1520, -- SummonedBy + 10
-    ['Target'] = 0x1550,
-    ['Rotation'] = 0x160
+    ["BoundingRadius"] = 0x1CD4,
+    ["CombatReach"] = 0x1CD8, --BoundingRadius + 4 --
+    ["SpecID"] = 0x224c,
+    ["SummonedBy"] = 0x1c10,
+    ["CreatedBy"] = 0x1c20, --SummonedBy + 10
+    ['Target'] = 0x1c40,
+    ["CastingTarget"] = 0x4C8,
+    ["DynamicFlags"] = 0x5e8,
+    ['UnitFlag'] = 0x1C40,
+    ['LocationX'] = 0x650, --X
+    ['LocationY'] = 0x654, --Y
+    ['LocationZ'] = 0x658, --z
+    ['RotationR'] = 0x650 + 0x10, --Location + 1
 }
 
 local apis = {
@@ -84,7 +88,8 @@ function f.Load()
     loaded_once = true;
     hookGuids()
 	g.UnitGUID = function(Obj) return Obj and (g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj)) or nil end
-	g.UnitExists = function(Obj) return Obj and (g.IsGuid(Obj) or _G.UnitGUID(Obj)) or nil end
+    g.UnitExists = function(Obj) return Obj and (g.IsGuid(Obj) or _G.UnitGUID(Obj)) or nil end
+    g.g.UnitCombatReach = function(unit) g.ObjectField(unit, Offsets.CombatReach, 15) end
 end
 
 function f.Cast(spell, target)
@@ -129,7 +134,15 @@ function f.Distance(a, b)
 	return math.sqrt(dx*dx + dy*dy + dz*dz)
 end
 
-f.UnitCombatRange = f.Distance
+function f.UnitCombatRange(a, b)
+    if not NeP.DSL:Get('exists')(a) or not NeP.DSL:Get('exists')(b) then
+        return 999
+    end
+    local reachA = g.UnitCombatReach(a) or 1.5
+    local reachB = g.UnitCombatReach(b) or 1.5
+    local distance = NeP.DSL:Get('distance')(a, nil, b) or 0
+    return distance - (reachA + reachB)
+end
 
 function f.Infront(a, b)
 
@@ -228,8 +241,8 @@ function f.OM_Maker()
 end
 
 f.ObjectCreator = function(Obj)
-    return g.ObjectField((Obj), Offsets.SummonedBy, 15) or
-               g.ObjectField((Obj), Offsets.CreatedBy, 15) or 0
+    return g.ObjectField(Obj, Offsets.SummonedBy, 15) or
+               g.ObjectField(Obj, Offsets.CreatedBy, 15) or 0
 end
 
 f.ObjectGUID = function(Obj) return g.IsGuid(Obj) and Obj or g.UnitGUID(Obj) end
