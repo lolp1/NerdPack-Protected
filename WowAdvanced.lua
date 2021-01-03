@@ -197,15 +197,8 @@ function f.LineOfSight(a, b)
     local bx, by, bz = g.GetUnitPosition(b)
 
     if ax and ay and az and bx and by and bz then
-	local flags = bit.bor(0x10, 0x100, 0x1)
-	local hit = (g.TraceLine(ax, ay, az + 2.25, bx, by, bz + 2.25, flags) == 1)
-	if NeP._G.UnitExists('target') then
-		local gt = NeP._G.UnitGUID('target')
-		if (a == gt or b == gt) then
-			print('los check', hit)
-		end
-	end
-        return hit
+	    local flags = bit.bor(0x10, 0x100, 0x1)
+        return (g.TraceLine(ax, ay, az + 2.25, bx, by, bz + 2.25, flags) == 0)
     end
     return false
 end
