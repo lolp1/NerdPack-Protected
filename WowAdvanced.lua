@@ -123,9 +123,8 @@ function f.Distance(a, b)
     local ax, ay, az = g.GetUnitPosition(a) -- 'Attacker'
     local bx, by, bz = g.GetUnitPosition(b) -- 'Defender'
     if ax == nil or bx == nil then return math.huge end
-
-    local dx, dy, dz = ax-bx, ay-by, az-bz
-	return math.sqrt(dx*dx + dy*dy + dz*dz
+	local dx, dy, dz = ax-bx, ay-by, az-bz
+	return math.sqrt(dx*dx + dy*dy + dz*dz)
 end
 
 function f.UnitCombatRange(a, b)
