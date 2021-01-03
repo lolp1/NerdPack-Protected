@@ -20,7 +20,7 @@ local apis = {
     'UnitInRange', 'UnitPlayerControlled', 'UnitIsVisible', 'GetUnitSpeed',
     'UnitExists', 'UnitClass', 'UnitIsTappedByPlayer', 'UnitThreatSituation',
     'UnitCanAttack', 'GetUnitSpeed', 'UnitCreatureType', 'UnitIsDeadOrGhost',
-    'UnitDetailedThreatSituation', 'UnitGUID', 'UnitIsUnit', 'UnitHealthMax',
+    'UnitDetailedThreatSituation', 'UnitIsUnit', 'UnitHealthMax',
     'UnitAffectingCombat', 'UnitReaction', 'UnitIsPlayer', 'UnitIsDead',
     'UnitInParty', 'UnitInRaid', 'UnitHealth', 'UnitCastingInfo',
     'UnitChannelInfo', 'UnitName', 'UnitBuff', 'UnitDebuff', 'UnitInPhase',
@@ -83,6 +83,7 @@ function f.Load()
     if loaded_once then return end
     loaded_once = true;
     hookGuids()
+	g.UnitGUID = function(Obj) return g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj) end
 end
 
 function f.Cast(spell, target)
