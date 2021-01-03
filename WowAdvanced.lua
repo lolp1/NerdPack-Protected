@@ -165,6 +165,10 @@ function f.Infront(a, b)
 end
 
 function f.LineOfSight(a, b)
+	return false
+end
+
+--[[function f.LineOfSight(a, b)
 
     if not a or not b then return false end
 
@@ -195,7 +199,7 @@ function f.LineOfSight(a, b)
         return hit
     end
     return false
-end
+end]] -- broken
 
 local ObjectTypes = {
     Object = 0,
