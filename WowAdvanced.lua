@@ -126,7 +126,7 @@ function f.Distance(a, b)
 	local dx, dy, dz = ax-bx, ay-by, az-bz
 	if g.UnitExists('target') then
 		local gt = g.UnitGUID('target')
-		if (g.UnitGUID(a) == gt)
+		if (g.UnitGUID(a) == gt) then
 			print('a', b)
 		else
 			print('b', a)
