@@ -98,6 +98,7 @@ function f.Load()
         return sX * multiplier, sY * multiplier * -1
      end
      g.ObjectPosition = g.GetUnitPosition
+     g.GetObjectPosition = g.GetUnitPosition
      g.UnitTarget = function(unit) return unit and (((g.IsGuid(unit) and g.SetMouseOver(unit) ) or unit) .. 'target') or nil end
      g.ObjectIsVisible = g.UnitIsVisible
 end
