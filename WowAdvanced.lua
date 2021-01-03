@@ -124,16 +124,6 @@ function f.Distance(a, b)
     local bx, by, bz = g.GetUnitPosition(b) -- 'Defender'
     if ax == nil or bx == nil then return math.huge end
 	local dx, dy, dz = ax-bx, ay-by, az-bz
-	if g.UnitExists('target') then
-		local gt = g.UnitGUID('target')
-		if (g.UnitGUID(a) == gt) then
-			print('a', b)
-			print('NEP', math.sqrt(dx*dx + dy*dy + dz*dz), a, b)
-		elseif (g.UnitGUID(b) == gt) then
-			print('b', a)
-			print('NEP', math.sqrt(dx*dx + dy*dy + dz*dz), a, b)
-		end
-	end
 	return math.sqrt(dx*dx + dy*dy + dz*dz)
 end
 
