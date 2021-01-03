@@ -18,7 +18,7 @@ local Offsets = {
 
 local apis = {
     'UnitInRange', 'UnitPlayerControlled', 'UnitIsVisible', 'GetUnitSpeed',
-    'UnitExists', 'UnitClass', 'UnitIsTappedByPlayer', 'UnitThreatSituation',
+    'UnitClass', 'UnitIsTappedByPlayer', 'UnitThreatSituation',
     'UnitCanAttack', 'GetUnitSpeed', 'UnitCreatureType', 'UnitIsDeadOrGhost',
     'UnitDetailedThreatSituation', 'UnitIsUnit', 'UnitHealthMax',
     'UnitAffectingCombat', 'UnitReaction', 'UnitIsPlayer', 'UnitIsDead',
@@ -84,6 +84,7 @@ function f.Load()
     loaded_once = true;
     hookGuids()
 	g.UnitGUID = function(Obj) return g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj) end
+	g.UnitExists = function(Obj) return g.IsGuid(Obj) or _G.UnitGUID(Obj) end
 end
 
 function f.Cast(spell, target)
