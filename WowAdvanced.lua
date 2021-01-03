@@ -128,10 +128,11 @@ function f.Distance(a, b)
 		local gt = g.UnitGUID('target')
 		if (g.UnitGUID(a) == gt) then
 			print('a', b)
-		else
+			print('NEP', math.sqrt(dx*dx + dy*dy + dz*dz), a, b)
+		elseif (g.UnitGUID(b) == gt) then
 			print('b', a)
+			print('NEP', math.sqrt(dx*dx + dy*dy + dz*dz), a, b)
 		end
-		print('NEP', math.sqrt(dx*dx + dy*dy + dz*dz), a, b)
 	end
 	return math.sqrt(dx*dx + dy*dy + dz*dz)
 end
