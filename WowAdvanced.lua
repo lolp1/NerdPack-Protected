@@ -179,7 +179,7 @@ function f.LineOfSight(a, b)
     local bx, by, bz = g.GetUnitPosition(b)
 
     if ax and ay and az and bx and by and bz then
-        return (g.TraceLine(ax, ay, az, bx, by, bz, 0x111) == 1)
+        return (g.TraceLine(ax, ay, az, bx, by, bz, 0x100010) == 1)
     end
     return false
 end
