@@ -165,7 +165,7 @@ function f.Infront(a, b)
 end
 
 function f.LineOfSight(a, b)
-	return false
+	return true
 end
 
 --[[function f.LineOfSight(a, b)
