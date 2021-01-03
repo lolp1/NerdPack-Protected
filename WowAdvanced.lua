@@ -97,6 +97,7 @@ function f.Load()
         local sX, sY = _WorldToScreen(wX, wY, wZ);
         return sX * multiplier, sY * multiplier * -1
      end
+     g.ObjectPosition = g.GetUnitPosition
 end
 
 function f.Cast(spell, target)
