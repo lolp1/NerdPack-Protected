@@ -89,7 +89,7 @@ function f.Load()
     hookGuids()
 	g.UnitGUID = function(Obj) return Obj and (g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj)) or nil end
     g.UnitExists = function(Obj) return Obj and (g.IsGuid(Obj) or _G.UnitGUID(Obj)) or nil end
-    g.g.UnitCombatReach = function(unit) g.ObjectField(unit, Offsets.CombatReach, 15) end
+    g.UnitCombatReach = function(unit) g.ObjectField(unit, Offsets.CombatReach, 15) end
 end
 
 function f.Cast(spell, target)
