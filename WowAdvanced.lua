@@ -187,7 +187,7 @@ function f.LineOfSight(a, b)
 	local hit = (g.TraceLine(ax, ay, az, bx, by, bz, 0x100010) == 1)
 	if NeP._G.UnitExists('target') then
 		local gt = NeP._G.UnitGUID('target')
-		if (unit == gt or unit2 == gt) then
+		if (a == gt or b == gt) then
 			print('los check', hit)
 		end
 	end
