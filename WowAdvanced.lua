@@ -83,17 +83,6 @@ function f.Load()
     if loaded_once then return end
     loaded_once = true;
     hookGuids()
-    g.ObjectExists = function(obj)
-        if not IsGuid(obj) then
-            return UnitExists(obj)
-        end
-        for i = 1, GetObjectCount(), 1 do
-            local guid = GetObjectWithIndex(i)
-            if guid == obj then
-                return true
-            end
-        end
-    end
 end
 
 function f.Cast(spell, target)
@@ -233,7 +222,7 @@ end
 f.ObjectGUID = function(Obj) return g.IsGuid(Obj) and Obj or g.UnitGUID(Obj) end
 
 f.ObjectExists = function(Obj)
-    return g.ObjectExists(Obj)
+    return g.UnitExists(Obj)
 end
 
 f.UnitName = function(Obj) return g.ObjectName(Obj) end
