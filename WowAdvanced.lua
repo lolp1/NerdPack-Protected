@@ -84,7 +84,7 @@ function f.Load()
     loaded_once = true;
     hookGuids()
     g.ObjectExists = function(obj)
-        if not IsGuid then
+        if not IsGuid(obj) then
             return UnitExists(obj)
         end
         for i = 1, GetObjectCount(), 1 do
