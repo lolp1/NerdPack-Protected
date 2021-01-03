@@ -83,8 +83,8 @@ function f.Load()
     if loaded_once then return end
     loaded_once = true;
     hookGuids()
-	g.UnitGUID = function(Obj) return g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj) end
-	g.UnitExists = function(Obj) return g.IsGuid(Obj) or _G.UnitGUID(Obj) end
+	g.UnitGUID = function(Obj) return Obj and (g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj)) or nil end
+	g.UnitExists = function(Obj) return Obj and (g.IsGuid(Obj) or _G.UnitGUID(Obj)) or nil end
 end
 
 function f.Cast(spell, target)
