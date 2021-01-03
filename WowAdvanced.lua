@@ -98,7 +98,7 @@ function f.Load()
         return sX * multiplier, sY * multiplier * -1
      end
      g.ObjectPosition = g.GetUnitPosition
-     g.UnitTarget = function(unit) return unit and (((g.IsGuid(Obj) and g.SetMouseOver(unit) ) or unit) .. 'target') or nil
+     g.UnitTarget = function(unit) return unit and (((g.IsGuid(Obj) and g.SetMouseOver(unit) ) or unit) .. 'target') or nil end
 end
 
 function f.Cast(spell, target)
