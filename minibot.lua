@@ -37,6 +37,12 @@ function f.Load()
 	g.ObjectGUID = g.UnitGUID
 	g.ObjectIsVisible = g.UnitIsVisible
 	g.ObjectExists = g.ObjectExists
+	g.WorldToScreen = function(...)
+		local scale, x, y = UIParent:GetEffectiveScale(), select(2,wmbapi.WorldToScreen(...))
+		local sx = GetScreenWidth() * scale
+		local sy = GetScreenHeight() * scale
+		return x * sx, y * sy
+	end
 end
 
 function f.ObjectCreator(a)
