@@ -90,13 +90,13 @@ function f.Load()
 	g.UnitGUID = function(Obj) return Obj and (g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj)) or nil end
     g.UnitExists = function(Obj) return Obj and (g.IsGuid(Obj) or _G.UnitGUID(Obj)) or nil end
     g.UnitCombatReach = function(unit) g.ObjectField(unit, Offsets.CombatReach, 15) end
-    --[[local _WorldToScreen = g.WorldToScreen;
+    g.WorldToScreenRaw = g.WorldToScreen;
     g.WorldToScreen = function (wX, wY, wZ)
         local _,height = string.match(GetCVar("gxWindowedResolution"), "(%d+)x(%d+)")
         local multiplier = 768 / height / UIParent:GetScale()
-        local sX, sY = _WorldToScreen(wX, wY, wZ);
+        local sX, sY = g.WorldToScreenRaw(wX, wY, wZ);
         return sX * multiplier, sY * multiplier * -1
-     end]] -- dosent work...
+     end
      g.ObjectPosition = g.GetUnitPosition
      g.GetObjectPosition = g.GetUnitPosition
      g.UnitTarget = function(unit) return unit and (((g.IsGuid(unit) and g.SetMouseOver(unit) ) or unit) .. 'target') or nil end
