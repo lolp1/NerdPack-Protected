@@ -105,7 +105,7 @@ function f.CastGround(spell, target)
 end
 
 function f.ObjectExists(Obj)
-    return Obj and g.UnitExists(Obj)
+    return Obj and g.UnitExists(Obj) or g.ObjectExists(Obj)
 end
 
 function f.UnitCombatRange(a, b)
