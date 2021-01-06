@@ -87,20 +87,25 @@ function f.Load()
     if loaded_once then return end
     loaded_once = true;
     hookGuids()
-	g.UnitGUID = function(Obj) return Obj and (g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj)) or nil end
+    g.UnitGUID = function(Obj) return Obj and (g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj)) or nil end
     g.UnitExists = function(Obj) return Obj and (g.IsGuid(Obj) or _G.UnitGUID(Obj)) or nil end
     g.UnitCombatReach = function(unit) g.ObjectField(unit, Offsets.CombatReach, 15) end
+    g.ObjectPosition = g.GetUnitPosition
+    g.GetObjectPosition = g.GetUnitPosition
+    g.UnitTarget = function(unit) return unit and (((g.IsGuid(unit) and g.SetMouseOver(unit) ) or unit) .. 'target') or nil end
+    g.ObjectIsVisible = g.UnitIsVisible
     g.WorldToScreenRaw = g.WorldToScreen;
     g.WorldToScreen = function (wX, wY, wZ)
+        if wZ == nil then wZ = select(3,g.GetObjectPosition("player")) end
         local _,height = string.match(GetCVar("gxWindowedResolution"), "(%d+)x(%d+)")
         local multiplier = 768 / height / UIParent:GetScale()
-        local sX, sY = g.WorldToScreenRaw(wX, wY, wZ);
-        return sX * multiplier, sY * multiplier * -1
+        local sX, sY = g.WorldToScreenRaw(wX, wY, wZ)
+        if sX and sY then
+            return sX * multiplier, sY * multipler;
+        else
+            return sX, sY;
+        end
      end
-     g.ObjectPosition = g.GetUnitPosition
-     g.GetObjectPosition = g.GetUnitPosition
-     g.UnitTarget = function(unit) return unit and (((g.IsGuid(unit) and g.SetMouseOver(unit) ) or unit) .. 'target') or nil end
-     g.ObjectIsVisible = g.UnitIsVisible
 end
 
 function f.Cast(spell, target)
