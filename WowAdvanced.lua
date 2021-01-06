@@ -96,15 +96,10 @@ function f.Load()
     g.ObjectIsVisible = g.UnitIsVisible
     g.WorldToScreenRaw = g.WorldToScreen;
     g.WorldToScreen = function (wX, wY, wZ)
-        if wZ == nil then wZ = select(3,g.GetObjectPosition("player")) end
         local _,height = string.match(GetCVar("gxWindowedResolution"), "(%d+)x(%d+)")
         local multiplier = 768 / height / UIParent:GetScale()
-        local sX, sY = g.WorldToScreenRaw(wX, wY, wZ)
-        if sX and sY then
-            return sX * multiplier, sY * multipler;
-        else
-            return sX, sY;
-        end
+        local sX, sY = g.WorldToScreenRaw(wX, wY, wZ);
+        return sX * multiplier, -(WorldFrame:GetTop() + (sY * multiplier));
      end
 end
 
