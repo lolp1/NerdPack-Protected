@@ -99,7 +99,7 @@ function f.Load()
         local _,height = string.match(GetCVar("gxWindowedResolution"), "(%d+)x(%d+)")
         local multiplier = 768 / height / UIParent:GetScale()
         local sX, sY = g.WorldToScreenRaw(wX, wY, wZ);
-        return sX * multiplier, sY * multiplier + WorldFrame:GetTop()
+        return sX, sY + WorldFrame:GetTop();
      end
 end
 
