@@ -12,31 +12,32 @@ local g = gbl.gapis
 local ObjectTypes
 
 function f.Load()
-	local GetObjectTypeFlagsTable = _G.wmbapi.GetObjectTypeFlagsTable()
+	local objectTypeFlagsTable = _G.wmbapi.GetObjectTypeFlagsTable()
 	ObjectTypes = {
-		Object = GetObjectTypeFlagsTable.Object,
-		Item = GetObjectTypeFlagsTable.Item,
-		Container = GetObjectTypeFlagsTable.Container,
-		AzeriteEmpoweredItem = GetObjectTypeFlagsTable.AzeriteEmpoweredItem,
-		AzeriteItem = GetObjectTypeFlagsTable.AzeriteItem,
-		Unit = GetObjectTypeFlagsTable.Unit,
-		Player = GetObjectTypeFlagsTable.Player,
-		ActivePlayer = GetObjectTypeFlagsTable.ActivePlayer,
-		GameObject = GetObjectTypeFlagsTable.GameObject,
-		DynamicObject = GetObjectTypeFlagsTable.DynamicObject,
-		Corpse = GetObjectTypeFlagsTable.Corpse,
-		AreaTrigger = GetObjectTypeFlagsTable.AreaTrigger,
-		SceneObject = GetObjectTypeFlagsTable.SceneObject,
-		ConversationData = GetObjectTypeFlagsTable.Conversation
+		Object = objectTypeFlagsTable.Object,
+		Item = objectTypeFlagsTable.Item,
+		Container = objectTypeFlagsTable.Container,
+		AzeriteEmpoweredItem = objectTypeFlagsTable.AzeriteEmpoweredItem,
+		AzeriteItem = objectTypeFlagsTable.AzeriteItem,
+		Unit = objectTypeFlagsTable.Unit,
+		Player = objectTypeFlagsTable.Player,
+		ActivePlayer = objectTypeFlagsTable.ActivePlayer,
+		GameObject = objectTypeFlagsTable.GameObject,
+		DynamicObject = objectTypeFlagsTable.DynamicObject,
+		Corpse = objectTypeFlagsTable.Corpse,
+		AreaTrigger = objectTypeFlagsTable.AreaTrigger,
+		SceneObject = objectTypeFlagsTable.SceneObject,
+		ConversationData = objectTypeFlagsTable.Conversation
 	}
 	for k,v in pairs(_G.wmbapi) do g[k] = v end
 	g.ObjectIsUnit = function(obj) return obj and g.ObjectIsType(obj, ObjectTypes.Unit) end
-	g.ObjectIsPlayer = function(obj) return obj and g.ObjectIsType(obj, ObjectTypes.Player) end
+	g.ObjectIsPlayer = function(obj) return obj and g.ObjectIsType(obj, objectTypeFlagsTable.Player) end
 	g.ObjectIsGameObject = function(obj) return obj and g.ObjectIsType(obj, ObjectTypes.GameObject) end
 	g.ObjectIsAreaTrigger = function(obj) return obj and g.ObjectIsType(obj, ObjectTypes.AreaTrigger) end
 	g.ObjectGUID = g.UnitGUID
 	g.ObjectIsVisible = g.UnitIsVisible
 	g.ObjectExists = g.ObjectExists
+	g.ObjectTypes = ObjectTypes
 	g.WorldToScreen = function(...)
 		local scale, x, y = UIParent:GetEffectiveScale(), select(2,wmbapi.WorldToScreen(...))
 		local sx = GetScreenWidth() * scale
@@ -132,7 +133,7 @@ end
 function f.OM_Maker()
 	for i=1, g.GetObjectCount() do
 		local Obj = g.GetObjectWithIndex(i)
-		NeP.OM:Add(Obj, g.ObjectIsType(Obj, ObjectTypes.GameObject))
+		NeP.OM:Add(Obj, g.ObjectIsGameObject(Obj), g.ObjectIsAreaTrigger(Obj))
 	end
 end
 
