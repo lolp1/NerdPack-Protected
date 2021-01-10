@@ -23,8 +23,8 @@ function f.Load()
 	g.TargetUnit = function (...) return ... and lb.UnitTagHandler(_G.TargetUnit, ...) or false end
 	g.UseInventoryItem = function (...) return ... and lb.UnitTagHandler(lb.Unlock, _G.UseInventoryItem, ...) or lb.Unlock(_G.UseInventoryItem, ...) end
     g.UseItemByName = function (...) return ... and lb.UnitTagHandler(lb.Unlock, _G.UseItemByName, ...) or lb.Unlock(_G.UseItemByName, ...) end
-	g.CastingInfo = function (...) return lb.UnitTagHandler(_G.CastingInfo) end
-	g.ChannelInfo = function (...) return lb.UnitTagHandler(_G.ChannelInfo) end
+	g.CastingInfo = function (...) return lb.UnitTagHandler(_G.CastingInfo, ...) end
+	g.ChannelInfo = function (...) return lb.UnitTagHandler(_G.ChannelInfo, ...) end
 	g.GetRaidRosterInfo = function (...) return lb.UnitTagHandler(_G.GetRaidRosterInfo, ...) end
 	g.GetRaidTargetIndex = function (...) return lb.UnitTagHandler(_G.GetRaidTargetIndex, ...) end
 	g.GetUnitSpeed = function (...) return lb.UnitTagHandler(_G.GetUnitSpeed, ...) end
@@ -59,7 +59,7 @@ function f.Load()
 	g.UnitName = function (...) return lb.UnitTagHandler(_G.UnitName, ...) end
 	g.UnitRace = function (...) return lb.UnitTagHandler(_G.UnitRace, ...) end
     g.UnitPlayerOrPetInParty = function (...) return lb.UnitTagHandler(_G.UnitPlayerOrPetInParty , ...) end
-    g.UnitIsFriend = function(...) return lb.UnitTagHandler(_G.UnitIsFriend , ...) end 
+    g.UnitIsFriend = function(...) return lb.UnitTagHandler(_G.UnitIsFriend , ...) end
 	g.UnitPlayerOrPetInRaid = function (...) return lb.UnitTagHandler(_G.UnitPlayerOrPetInRaid , ...) end
 	g.UnitThreatSituation = function (...) return lb.UnitTagHandler(_G.UnitThreatSituation, ...) or 0 end
 	g.UnitTarget = function (...) return lb.UnitTagHandler(_G.UnitTarget, ...) end
@@ -142,14 +142,14 @@ function f.LineOfSight(a, b)
 end
 
 function f.OM_Maker()
-    for i, Obj in ipairs(lb.GetObjects(100)) do
-        local xType = lb.ObjectType(Obj) 
+    for _, Obj in ipairs(lb.GetObjects(100)) do
+        local xType = lb.ObjectType(Obj)
         NeP.OM:Add(Obj, xType == 8, xType == 11)
     end
 end
 
 gbl:AddUnlocker('LuaBox', {
-	test = function() return _G.__LB__ end,
+	test = function() return __LB__ end,
 	init = f.Load,
 	prio = 1,
 	functions = f,
