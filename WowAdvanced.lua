@@ -251,7 +251,7 @@ function f.OM_Maker()
 end
 
 f.ObjectCreator = function(Obj)
-    return g.ObjectField(Obj, 0x720, 15) == g.UnitGUID('player')
+    return g.ObjectField(Obj, 0x720, 15)
 end
 
 f.ObjectGUID = function(Obj) return g.IsGuid(Obj) and Obj or g.UnitGUID(Obj) end
