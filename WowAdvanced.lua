@@ -232,7 +232,14 @@ local ObjectTypes = {
 
 local function ObjectIsType(obj, i) return g.ObjectType(obj) == ObjectTypes[i] end
 
-function f.ObjectExists() return true end
+function f.GameObjectIsAnimating(a)
+	if not g.ObjectIsVisible(a) then
+		return false
+	end
+	local animationState = g.ObjectField(a, 0x60, 3)
+	if animationState ~= nil and animationState > 0 then return true end
+	return false
+end
 
 function f.OM_Maker()
     for i = 1, g.GetObjectCount() do
@@ -244,8 +251,7 @@ function f.OM_Maker()
 end
 
 f.ObjectCreator = function(Obj)
-    return g.ObjectField(Obj, Offsets.SummonedBy, 15) or
-               g.ObjectField(Obj, Offsets.CreatedBy, 15) or 0
+    return g.ObjectField(Obj, 0x720, 15) == g.UnitGUID('player')
 end
 
 f.ObjectGUID = function(Obj) return g.IsGuid(Obj) and Obj or g.UnitGUID(Obj) end

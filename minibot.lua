@@ -36,6 +36,7 @@ function f.Load()
 	g.ObjectIsAreaTrigger = function(obj) return obj and g.ObjectIsType(obj, ObjectTypes.AreaTrigger) end
 	g.ObjectGUID = g.UnitGUID
 	g.ObjectIsVisible = g.UnitIsVisible
+	g.ObjectCreator = g.UnitCreator
 	g.ObjectExists = g.ObjectExists
 	g.ObjectTypes = ObjectTypes
 	g.WorldToScreen = function(...)
@@ -51,7 +52,12 @@ function f.ObjectCreator(a)
 end
 
 function f.GameObjectIsAnimating(a)
-	return g.ObjectIsVisible(a) and g.GameObjectIsAnimating(a)
+	if not g.ObjectIsVisible(a) then
+		return false
+	end
+	local animationState = g.ObjectField(a, 0x60, 3)
+	if animationState ~= nil and animationState > 0 then return true end
+	return false
 end
 
 function f.Distance(a, b)
