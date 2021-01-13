@@ -48,7 +48,10 @@ function f.Load()
 end
 
 function f.ObjectCreator(a)
-	return g.ObjectIsVisible(a) and g.ObjectCreator(a)
+	if not g.ObjectIsVisible(a) then
+		return nil
+	end
+	return g.ObjectField(a, 0x720, 15)
 end
 
 function f.GameObjectIsAnimating(a)
