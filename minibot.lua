@@ -48,19 +48,18 @@ function f.Load()
 end
 
 function f.ObjectCreator(a)
-	if not g.ObjectIsVisible(a) then
+	if not g.ObjectExists(a) then
 		return nil
 	end
 	return g.ObjectField(a, 0x720, 15)
 end
 
 function f.GameObjectIsAnimating(a)
-	if not g.ObjectIsVisible(a) then
+	if not g.ObjectExists(a) then
 		return false
 	end
 	local animationState = g.ObjectField(a, 0x60, 3)
-	if animationState ~= nil and animationState > 0 then return true end
-	return false
+	return animationState ~= nil and animationState > 0
 end
 
 function f.Distance(a, b)

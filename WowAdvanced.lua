@@ -233,12 +233,11 @@ local ObjectTypes = {
 local function ObjectIsType(obj, i) return g.ObjectType(obj) == ObjectTypes[i] end
 
 function f.GameObjectIsAnimating(a)
-	if not g.ObjectIsVisible(a) then
+	if not g.ObjectExists(a) then
 		return false
 	end
 	local animationState = g.ObjectField(a, 0x60, 3)
-	if animationState ~= nil and animationState > 0 then return true end
-	return false
+	return animationState ~= nil and animationState > 0
 end
 
 function f.OM_Maker()
@@ -251,6 +250,9 @@ function f.OM_Maker()
 end
 
 f.ObjectCreator = function(Obj)
+    if not g.ObjectExists(Obj) then
+		return nil
+	end
     return g.ObjectField(Obj, 0x720, 15)
 end
 
