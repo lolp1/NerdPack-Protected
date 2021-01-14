@@ -44,6 +44,7 @@ end
 function f.Load()
 
     -- ADD GUID
+    g.UnitExists = function(...) return UnitTagHandler(_G.UnitExists, ...) end
     g.UnitInRange = function(...) return UnitTagHandler(_G.UnitInRange, ...) end
     g.UnitPlayerControlled = function(...) return UnitTagHandler(_G.UnitPlayerControlled, ...) end
     g.UnitIsVisible = function(...) return UnitTagHandler(_G.UnitIsVisible, ...) end
@@ -194,10 +195,8 @@ function f.Load()
     g.PitchDownStop = function(...) return g.CallSecureFunction('PitchDownStop', ...) end
     g.ClearTarget = function(...) return g.CallSecureFunction('ClearTarget', ...) end
     g.AcceptProposal = function(...) return g.CallSecureFunction('AcceptProposal', ...) end
-    g.ObjectInteract = function(...) return g.CallSecureFunction('ObjectInteract', ...) end
 
     g.UnitGUID = function(Obj) return Obj and (g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj)) or nil end
-    g.UnitExists = function(Obj) return Obj and (g.IsGuid(Obj) or _G.UnitGUID(Obj)) or nil end
     g.ObjectExists = g.UnitExists
     g.UnitCombatReach = function(unit) g.ObjectField(unit, Offsets.CombatReach, 15) end
     g.ObjectPosition = g.GetUnitPosition
