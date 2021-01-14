@@ -156,14 +156,44 @@ function f.Load()
     g.GetCritChanceFromAgility = function(...) return UnitTagHandler(_G.GetCritChanceFromAgility, ...) end
     g.GetSpellCritChanceFromIntellect = function(...) return UnitTagHandler(_G.GetSpellCritChanceFromIntellect, ...) end
 
-    --PROTECTED
+    --PROTECTED with units
     g.CastSpellByName = function(...) return UnitTagHandler(g.CallSecureFunction, 'CastSpellByName', ...) end
     g.CastSpellByID = function(...) return UnitTagHandler(g.CallSecureFunction, 'CastSpellByID', ...) end
     g.UseItemByName = function(...) return UnitTagHandler(g.CallSecureFunction, 'UseItemByName', ...) end
+    g.SpellIsTargeting = function(...) return UnitTagHandler(g.CallSecureFunction, 'SpellIsTargeting', ...) end
+
+    -- Portected
     g.RunMacroText = function(...) return g.CallSecureFunction('RunMacroText', ...) end
     g.TargetUnit = function(...) return g.CallSecureFunction('TargetUnit', ...) end
     g.UseInventoryItem = function(...) return g.CallSecureFunction('UseInventoryItem', ...) end
     g.SpellStopCasting = function(...) return g.CallSecureFunction('SpellStopCasting', ...) end
+    g.CameraOrSelectOrMoveStart = function(...) return g.CallSecureFunction('CameraOrSelectOrMoveStart', ...) end
+    g.CameraOrSelectOrMoveStop = function(...) return g.CallSecureFunction('CameraOrSelectOrMoveStop', ...) end
+    g.CancelShapeshiftForm = function(...) return g.CallSecureFunction('CancelShapeshiftForm', ...) end
+    g.PetAssistMode = function(...) return g.CallSecureFunction('PetAssistMode', ...) end
+    g.PetPassiveMode = function(...) return g.CallSecureFunction('PetPassiveMode', ...) end
+    g.SpellStopCasting = function(...) return g.CallSecureFunction('SpellStopCasting', ...) end
+    g.SpellStopTargeting = function(...) return g.CallSecureFunction('SpellStopTargeting', ...) end
+    g.AscendStop = function(...) return g.CallSecureFunction('AscendStop', ...) end
+    g.JumpOrAscendStart = function(...) return g.CallSecureFunction('JumpOrAscendStart', ...) end
+    g.JumpOrAscendStop = function(...) return g.CallSecureFunction('JumpOrAscendStop', ...) end
+    g.MoveBackwardStart = function(...) return g.CallSecureFunction('MoveBackwardStart', ...) end
+    g.MoveBackwardStop = function(...) return g.CallSecureFunction('MoveBackwardStop', ...) end
+    g.MoveForwardStart = function(...) return g.CallSecureFunction('MoveForwardStart', ...) end
+    g.StrafeLeftStart = function(...) return g.CallSecureFunction('StrafeLeftStart', ...) end
+    g.StrafeLeftStop = function(...) return g.CallSecureFunction('StrafeLeftStop', ...) end
+    g.StrafeRightStart = function(...) return g.CallSecureFunction('StrafeRightStart', ...) end
+    g.StrafeRightStop = function(...) return g.CallSecureFunction('StrafeRightStop', ...) end
+    g.TurnLeftStart = function(...) return g.CallSecureFunction('TurnLeftStart', ...) end
+    g.TurnLeftStop = function(...) return g.CallSecureFunction('TurnLeftStop', ...) end
+    g.TurnRightStart = function(...) return g.CallSecureFunction('TurnRightStart', ...) end
+    g.TurnRightStop = function(...) return g.CallSecureFunction('TurnRightStop', ...) end
+    g.PitchUpStart = function(...) return g.CallSecureFunction('PitchUpStart', ...) end
+    g.PitchDownStart = function(...) return g.CallSecureFunction('PitchDownStart', ...) end
+    g.PitchDownStop = function(...) return g.CallSecureFunction('PitchDownStop', ...) end
+    g.ClearTarget = function(...) return g.CallSecureFunction('ClearTarget', ...) end
+    g.AcceptProposal = function(...) return g.CallSecureFunction('AcceptProposal', ...) end
+    g.ObjectInteract = function(...) return g.CallSecureFunction('ObjectInteract', ...) end
 
     g.UnitGUID = function(Obj) return Obj and (g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj)) or nil end
     g.UnitExists = function(Obj) return Obj and (g.IsGuid(Obj) or _G.UnitGUID(Obj)) or nil end
