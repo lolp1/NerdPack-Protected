@@ -197,7 +197,21 @@ function f.Load()
     g.AcceptProposal = function(...) return g.CallSecureFunction('AcceptProposal', ...) end
 
     g.UnitGUID = function(Obj) return Obj and (g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj)) or nil end
-    g.ObjectExists = g.UnitExists
+    g.ObjectExists = function(Obj)
+        if g.UnitExists(Obj) then
+            return true
+        end
+        if not g.IsGuid(Obj) then
+            return false
+        end
+        for i = 1, g.GetObjectCount() do
+            local object = g.GetObjectWithIndex(i)
+            if object == Obj then
+              return true
+            end
+        end
+        return false
+    end
     g.UnitCombatReach = function(unit) g.ObjectField(unit, Offsets.CombatReach, 15) end
     g.ObjectPosition = g.GetUnitPosition
     g.GetObjectPosition = g.GetUnitPosition
