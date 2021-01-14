@@ -20,73 +20,151 @@ local Offsets = {
     ['RotationR'] = 0x650 + 0x10, --Location + 1
 }
 
-local apis = {
-    'UnitInRange', 'UnitPlayerControlled', 'UnitIsVisible', 'GetUnitSpeed',
-    'UnitClass', 'UnitIsTappedByPlayer', 'UnitThreatSituation',
-    'UnitCanAttack', 'GetUnitSpeed', 'UnitCreatureType', 'UnitIsDeadOrGhost',
-    'UnitDetailedThreatSituation', 'UnitIsUnit', 'UnitHealthMax',
-    'UnitAffectingCombat', 'UnitReaction', 'UnitIsPlayer', 'UnitIsDead',
-    'UnitInParty', 'UnitInRaid', 'UnitHealth', 'UnitCastingInfo',
-    'UnitChannelInfo', 'UnitName', 'UnitBuff', 'UnitDebuff', 'UnitInPhase',
-    'UnitIsFriend', 'IsSpellInRange', 'UnitClassification', 'UnitAura',
-    'UnitGroupRolesAssigned', -- untested
-    'SetPortraitTexture', 'UnitXPMax', 'UnitXP', 'UnitUsingVehicle', 'UnitStat',
-    'UnitSex', 'UnitSelectionColor', 'UnitResistance', 'UnitReaction',
-    'UnitRangedDamage', 'UnitRangedAttackPower', 'UnitRangedAttack', 'UnitRace',
-    'UnitPowerType', 'UnitPowerMax', 'UnitPower', 'UnitPVPName',
-    'UnitPlayerOrPetInRaid', 'UnitPlayerOrPetInParty', 'UnitManaMax',
-    'UnitMana', 'UnitLevel', 'UnitIsTrivial', 'UnitIsTapped',
-    'UnitIsSameServer', 'UnitIsPossessed', 'UnitIsPVPSanctuary',
-    'UnitIsPVPFreeForAll', 'UnitIsPVP', 'UnitIsGhost', 'UnitIsFeignDeath',
-    'UnitIsEnemy', 'UnitIsDND', 'UnitIsCorpse', 'UnitIsConnected',
-    'UnitIsCharmed', 'UnitIsAFK', 'UnitIsInMyGuild', 'UnitInBattleground',
-    'GetPlayerInfoByGUID', 'UnitDefense', 'UnitDamage', 'UnitCreatureType',
-    'UnitCreatureFamily', 'UnitClass', 'UnitCanCooperate', 'UnitCanAttack',
-    'UnitCanAssist', 'UnitAttackSpeed', 'UnitAttackPower',
-    'UnitAttackBothHands', 'UnitArmor', 'InviteUnit', 'GetUnitSpeed',
-    'GetUnitPitch', 'GetUnitName', 'FollowUnit', 'CheckInteractDistance',
-    'InitiateTrade', 'UnitOnTaxi', 'AssistUnit', 'SpellTargetUnit',
-    'SpellCanTargetUnit', 'CombatTextSetActiveUnit', 'SummonFriend',
-    'CanSummonFriend', 'GrantLevel', 'CanGrantLevel', 'SetRaidTarget',
-    'GetReadyCheckStatus', 'GetRaidTargetIndex', 'GetPartyAssignment',
-    'DemoteAssistant', 'PromoteToAssistant', 'IsUnitOnQuest', 'DropItemOnUnit',
-    'GetDefaultLanguage', 'GetCritChanceFromAgility',
-    'GetSpellCritChanceFromIntellect'
-}
+local function UnitTagHandler(func, ...)
 
-local original_apis = {}
-local loaded_once = false;
-local UnitExists = _G.UnitExists;
+    local mouseover;
+    local focus;
+    local args = {...}
 
-local function hookGuids()
-    for _, api in pairs(apis) do
-        -- save original
-        if not original_apis[api] then original_apis[api] = _G[api] end
-        -- intercept guids
-        g[api] = function(...)
-            local mouseover;
-            local focus;
-            local args = {...}
-            for k, v in pairs(args) do
-                if v and not UnitExists(v) and g.IsGuid(v) then
-                    if not mouseover then
-                        args[k] = g.SetMouseOver(v)
-                        mouseover = true
-                    elseif not focus then
-                        args[k] = g.SetFocusTarget(v)
-                        focus = true
-                    end
-                end
+    for k, v in pairs(args) do
+        if v and not _G.UnitExists(v) and g.IsGuid(v) then
+            if not mouseover then
+                args[k] = g.SetMouseOver(v)
+                mouseover = true
+            elseif not focus then
+                args[k] = g.SetFocusTarget(v)
+                focus = true
             end
-            return original_apis[api](unpack(args))
         end
     end
+
+    return func(unpack(args))
 end
 
 function f.Load()
-    if loaded_once then return end
-    loaded_once = true;
-    hookGuids()
+
+    -- ADD GUID
+    g.UnitInRange = function(...) UnitTagHandler(_G.UnitInRange, ...) end
+    g.UnitPlayerControlled = function(...) UnitTagHandler(_G.UnitPlayerControlled, ...) end
+    g.UnitIsVisible = function(...) UnitTagHandler(_G.UnitIsVisible, ...) end
+    g.GetUnitSpeed = function(...) UnitTagHandler(_G.GetUnitSpeed, ...) end
+    g.UnitClass = function(...) UnitTagHandler(_G.UnitClass, ...) end
+    g.UnitIsTappedByPlayer = function(...) UnitTagHandler(_G.UnitIsTappedByPlayer, ...) end
+    g.UnitThreatSituation = function(...) UnitTagHandler(_G.UnitThreatSituation, ...) end
+    g.UnitCanAttack = function(...) UnitTagHandler(_G.UnitCanAttack, ...) end
+    g.GetUnitSpeed = function(...) UnitTagHandler(_G.GetUnitSpeed, ...) end
+    g.UnitCreatureType = function(...) UnitTagHandler(_G.UnitCreatureType, ...) end
+    g.UnitIsDeadOrGhost = function(...) UnitTagHandler(_G.UnitIsDeadOrGhost, ...) end
+    g.UnitDetailedThreatSituation = function(...) UnitTagHandler(_G.UnitDetailedThreatSituation, ...) end
+    g.UnitIsUnit = function(...) UnitTagHandler(_G.UnitIsUnit, ...) end
+    g.UnitHealthMax = function(...) UnitTagHandler(_G.UnitHealthMax, ...) end
+    g.UnitAffectingCombat = function(...) UnitTagHandler(_G.UnitAffectingCombat, ...) end
+    g.UnitReaction = function(...) UnitTagHandler(_G.UnitReaction, ...) end
+    g.UnitIsPlayer = function(...) UnitTagHandler(_G.UnitIsPlayer, ...) end
+    g.UnitIsDead = function(...) UnitTagHandler(_G.UnitIsDead, ...) end
+    g.UnitInParty = function(...) UnitTagHandler(_G.UnitInParty, ...) end
+    g.UnitInRaid = function(...) UnitTagHandler(_G.UnitInRaid, ...) end
+    g.UnitHealth = function(...) UnitTagHandler(_G.UnitHealth, ...) end
+    g.UnitCastingInfo = function(...) UnitTagHandler(_G.UnitCastingInfo, ...) end
+    g.UnitChannelInfo = function(...) UnitTagHandler(_G.UnitChannelInfo, ...) end
+    g.UnitName = function(...) UnitTagHandler(_G.UnitName, ...) end
+    g.UnitBuff = function(...) UnitTagHandler(_G.UnitBuff, ...) end
+    g.UnitDebuff = function(...) UnitTagHandler(_G.UnitDebuff, ...) end
+    g.UnitInPhase = function(...) UnitTagHandler(_G.UnitInPhase, ...) end
+    g.UnitIsFriend = function(...) UnitTagHandler(_G.UnitIsFriend, ...) end
+    g.IsSpellInRange = function(...) UnitTagHandler(_G.IsSpellInRange, ...) end
+    g.UnitClassification = function(...) UnitTagHandler(_G.UnitClassification, ...) end
+    g.UnitAura = function(...) UnitTagHandler(_G.UnitAura, ...) end
+    g.UnitGroupRolesAssigned = function(...) UnitTagHandler(_G.UnitGroupRolesAssigned, ...) end
+    g.SetPortraitTexture = function(...) UnitTagHandler(_G.SetPortraitTexture, ...) end
+    g.UnitXPMax = function(...) UnitTagHandler(_G.UnitXPMax, ...) end
+    g.UnitXP = function(...) UnitTagHandler(_G.UnitXP, ...) end
+    g.UnitUsingVehicle = function(...) UnitTagHandler(_G.UnitUsingVehicle, ...) end
+    g.UnitStat = function(...) UnitTagHandler(_G.UnitStat, ...) end
+    g.UnitSex = function(...) UnitTagHandler(_G.UnitSex, ...) end
+    g.UnitSelectionColor = function(...) UnitTagHandler(_G.UnitSelectionColor, ...) end
+    g.UnitResistance = function(...) UnitTagHandler(_G.UnitResistance, ...) end
+    g.UnitReaction = function(...) UnitTagHandler(_G.UnitReaction, ...) end
+    g.UnitRangedDamage = function(...) UnitTagHandler(_G.UnitRangedDamage, ...) end
+    g.UnitRangedAttackPower = function(...) UnitTagHandler(_G.UnitRangedAttackPower, ...) end
+    g.UnitRangedAttack = function(...) UnitTagHandler(_G.UnitRangedAttack, ...) end
+    g.UnitRace = function(...) UnitTagHandler(_G.UnitRace, ...) end
+    g.UnitPowerType = function(...) UnitTagHandler(_G.UnitPowerType, ...) end
+    g.UnitPowerMax = function(...) UnitTagHandler(_G.UnitPowerMax, ...) end
+    g.UnitPower = function(...) UnitTagHandler(_G.UnitPower, ...) end
+    g.UnitPVPName = function(...) UnitTagHandler(_G.UnitPVPName, ...) end
+    g.UnitPlayerOrPetInRaid = function(...) UnitTagHandler(_G.UnitPlayerOrPetInRaid, ...) end
+    g.UnitPlayerOrPetInParty = function(...) UnitTagHandler(_G.UnitPlayerOrPetInParty, ...) end
+    g.UnitManaMax = function(...) UnitTagHandler(_G.UnitManaMax, ...) end
+    g.UnitMana = function(...) UnitTagHandler(_G.UnitMana, ...) end
+    g.UnitLevel = function(...) UnitTagHandler(_G.UnitLevel, ...) end
+    g.UnitIsTrivial = function(...) UnitTagHandler(_G.UnitIsTrivial, ...) end
+    g.UnitIsTapped = function(...) UnitTagHandler(_G.UnitIsTapped, ...) end
+    g.UnitIsSameServer = function(...) UnitTagHandler(_G.UnitIsSameServer, ...) end
+    g.UnitIsPossessed = function(...) UnitTagHandler(_G.UnitIsPossessed, ...) end
+    g.UnitIsPVPSanctuary = function(...) UnitTagHandler(_G.UnitIsPVPSanctuary, ...) end
+    g.UnitIsPVPFreeForAll = function(...) UnitTagHandler(_G.UnitIsPVPFreeForAll, ...) end
+    g.UnitIsPVP = function(...) UnitTagHandler(_G.UnitIsPVP, ...) end
+    g.UnitIsGhost = function(...) UnitTagHandler(_G.UnitIsGhost, ...) end
+    g.UnitIsFeignDeath = function(...) UnitTagHandler(_G.UnitIsFeignDeath, ...) end
+    g.UnitIsEnemy = function(...) UnitTagHandler(_G.UnitIsEnemy, ...) end
+    g.UnitIsDND = function(...) UnitTagHandler(_G.UnitIsDND, ...) end
+    g.UnitIsCorpse = function(...) UnitTagHandler(_G.UnitIsCorpse, ...) end
+    g.UnitIsConnected = function(...) UnitTagHandler(_G.UnitIsConnected, ...) end
+    g.UnitIsCharmed = function(...) UnitTagHandler(_G.UnitIsCharmed, ...) end
+    g.UnitIsAFK = function(...) UnitTagHandler(_G.UnitIsAFK, ...) end
+    g.UnitIsInMyGuild = function(...) UnitTagHandler(_G.UnitIsInMyGuild, ...) end
+    g.UnitInBattleground = function(...) UnitTagHandler(_G.UnitInBattleground, ...) end
+    g.GetPlayerInfoByGUID = function(...) UnitTagHandler(_G.GetPlayerInfoByGUID, ...) end
+    g.UnitDefense = function(...) UnitTagHandler(_G.UnitDefense, ...) end
+    g.UnitDamage = function(...) UnitTagHandler(_G.UnitDamage, ...) end
+    g.UnitCreatureType = function(...) UnitTagHandler(_G.UnitCreatureType, ...) end
+    g.UnitCreatureFamily = function(...) UnitTagHandler(_G.UnitCreatureFamily, ...) end
+    g.UnitClass = function(...) UnitTagHandler(_G.UnitClass, ...) end
+    g.UnitCanCooperate = function(...) UnitTagHandler(_G.UnitCanCooperate, ...) end
+    g.UnitCanAttack = function(...) UnitTagHandler(_G.UnitCanAttack, ...) end
+    g.UnitCanAssist = function(...) UnitTagHandler(_G.UnitCanAssist, ...) end
+    g.UnitAttackSpeed = function(...) UnitTagHandler(_G.UnitAttackSpeed, ...) end
+    g.UnitAttackPower = function(...) UnitTagHandler(_G.UnitAttackPower, ...) end
+    g.UnitAttackBothHands = function(...) UnitTagHandler(_G.UnitAttackBothHands, ...) end
+    g.UnitArmor = function(...) UnitTagHandler(_G.UnitArmor, ...) end
+    g.InviteUnit = function(...) UnitTagHandler(_G.InviteUnit, ...) end
+    g.GetUnitSpeed = function(...) UnitTagHandler(_G.GetUnitSpeed, ...) end
+    g.GetUnitPitch = function(...) UnitTagHandler(_G.GetUnitPitch, ...) end
+    g.GetUnitName = function(...) UnitTagHandler(_G.GetUnitName, ...) end
+    g.FollowUnit = function(...) UnitTagHandler(_G.FollowUnit, ...) end
+    g.CheckInteractDistance = function(...) UnitTagHandler(_G.CheckInteractDistance, ...) end
+    g.InitiateTrade = function(...) UnitTagHandler(_G.InitiateTrade, ...) end
+    g.UnitOnTaxi = function(...) UnitTagHandler(_G.UnitOnTaxi, ...) end
+    g.AssistUnit = function(...) UnitTagHandler(_G.AssistUnit, ...) end
+    g.SpellTargetUnit = function(...) UnitTagHandler(_G.SpellTargetUnit, ...) end
+    g.SpellCanTargetUnit = function(...) UnitTagHandler(_G.SpellCanTargetUnit, ...) end
+    g.CombatTextSetActiveUnit = function(...) UnitTagHandler(_G.CombatTextSetActiveUnit, ...) end
+    g.SummonFriend = function(...) UnitTagHandler(_G.SummonFriend, ...) end
+    g.CanSummonFriend = function(...) UnitTagHandler(_G.CanSummonFriend, ...) end
+    g.GrantLevel = function(...) UnitTagHandler(_G.GrantLevel, ...) end
+    g.CanGrantLevel = function(...) UnitTagHandler(_G.CanGrantLevel, ...) end
+    g.SetRaidTarget = function(...) UnitTagHandler(_G.SetRaidTarget, ...) end
+    g.GetReadyCheckStatus = function(...) UnitTagHandler(_G.GetReadyCheckStatus, ...) end
+    g.GetRaidTargetIndex = function(...) UnitTagHandler(_G.GetRaidTargetIndex, ...) end
+    g.GetPartyAssignment = function(...) UnitTagHandler(_G.GetPartyAssignment, ...) end
+    g.DemoteAssistant = function(...) UnitTagHandler(_G.DemoteAssistant, ...) end
+    g.PromoteToAssistant = function(...) UnitTagHandler(_G.PromoteToAssistant, ...) end
+    g.IsUnitOnQuest = function(...) UnitTagHandler(_G.IsUnitOnQuest, ...) end
+    g.DropItemOnUnit = function(...) UnitTagHandler(_G.DropItemOnUnit, ...) end
+    g.GetDefaultLanguage = function(...) UnitTagHandler(_G.GetDefaultLanguage, ...) end
+    g.GetCritChanceFromAgility = function(...) UnitTagHandler(_G.GetCritChanceFromAgility, ...) end
+    g.GetSpellCritChanceFromIntellect = function(...) UnitTagHandler(_G.GetSpellCritChanceFromIntellect, ...) end
+
+    --PROTECTED
+    g.CastSpellByName = function(...) UnitTagHandler(g.CallSecureFunction, 'CastSpellByName', ...) end
+    g.CastSpellByID = function(...) UnitTagHandler(g.CallSecureFunction, 'CastSpellByID', ...) end
+    g.UseItemByName = function(...) UnitTagHandler(g.CallSecureFunction, 'UseItemByName', ...) end
+    g.RunMacroText = function(...) g.CallSecureFunction('RunMacroText', ...) end
+    g.TargetUnit = function(...) g.CallSecureFunction('TargetUnit', ...) end
+    g.UseInventoryItem = function(...) g.CallSecureFunction('UseInventoryItem', ...) end
+    g.SpellStopCasting = function(...) g.CallSecureFunction('SpellStopCasting', ...) end
+
     g.UnitGUID = function(Obj) return Obj and (g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj)) or nil end
     g.UnitExists = function(Obj) return Obj and (g.IsGuid(Obj) or _G.UnitGUID(Obj)) or nil end
     g.UnitCombatReach = function(unit) g.ObjectField(unit, Offsets.CombatReach, 15) end
@@ -103,8 +181,7 @@ function f.Load()
 end
 
 function f.Cast(spell, target)
-    g.CallSecureFunction('CastSpellByName', spell,
-                         g.IsGuid(target) and g.SetMouseOver(target) or target)
+    g.CastSpellByName(spell, target)
 end
 
 function f.CastGround(spell, target)
@@ -113,23 +190,29 @@ function f.CastGround(spell, target)
     if gbl.validGround[target] then
         return gbl.Generic.CastGround(spell, target)
     end
-    g.CallSecureFunction('CastSpellByName', spell)
+    f.Cast(spell)
     g.ClickPosition(g.GetUnitPosition(target or 'player'))
 end
 
-function f.Macro(text) g.CallSecureFunction('RunMacroText', text) end
+function f.Macro(text)
+    g.RunMacroText(text)
+end
 
 function f.UseItem(name, target)
-    g.CallSecureFunction('UseItemByName', name, target)
+    g.UseItemByName(name, target)
 end
 
-function f.UseInvItem(name) g.CallSecureFunction('UseInventoryItem', name) end
+function f.UseInvItem(name)
+    g.UseInventoryItem(name)
+end
 
 function f.TargetUnit(target)
-    g.CallSecureFunction('TargetUnit', g.SetMouseOver(target))
+    g.TargetUnit(target)
 end
 
-function f.SpellStopCasting() g.CallSecureFunction('SpellStopCasting') end
+function f.SpellStopCasting()
+    g.SpellStopCasting()
+end
 
 function f.Distance(a, b)
 
@@ -192,8 +275,8 @@ function f.LineOfSight(a, b)
     if not a or not b then return false end
 
     -- Make Sure the Unit Exists
-    local aGUID = not g.IsGuid(a) and g.UnitGUID(a) or a
-    local bGUID = not g.IsGuid(b) and g.UnitGUID(b) or b
+    local aGUID = g.UnitGUID(a)
+    local bGUID = g.UnitGUID(b)
 
     if aGUID == bGUID then return true end
 
@@ -256,21 +339,15 @@ f.ObjectCreator = function(Obj)
     return g.ObjectField(Obj, 0x720, 15)
 end
 
-f.ObjectGUID = function(Obj) return g.IsGuid(Obj) and Obj or g.UnitGUID(Obj) end
+f.ObjectGUID = function(Obj)
+    return g.UnitGUID(Obj)
+end
 
 f.ObjectExists = function(Obj)
     return g.UnitExists(Obj)
 end
 
 f.UnitName = function(Obj) return g.ObjectName(Obj) end
-
-f.TargetUnit = function(Obj)
-    if g.IsGuid(Obj) then
-        g.CallSecureFunction('TargetUnit', g.SetMouseOver(Obj))
-        return
-    end
-    g.CallSecureFunction('TargetUnit', Obj)
-end
 
 gbl:AddUnlocker('WowAdvanced', {
     test = function() return NeP._G.CallSecureFunction ~= nil end,
