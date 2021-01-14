@@ -343,7 +343,9 @@ local ObjectTypes = {
     Conversation = 13
 }
 
-local function ObjectIsType(obj, i) return g.ObjectType(obj) == ObjectTypes[i] end
+local function ObjectIsType(obj, i)
+    return g.ObjectType(obj) == ObjectTypes[i]
+end
 
 function f.GameObjectIsAnimating(a)
 	if not g.ObjectExists(a) then
@@ -356,9 +358,10 @@ end
 function f.OM_Maker()
     for i = 1, g.GetObjectCount() do
         local Obj = g.GetObjectWithIndex(i)
-        if Obj and g.IsGuid(Obj) then
-            NeP.OM:Add(Obj, ObjectIsType(Obj, ObjectTypes.GameObject))
+        if ObjectIsType(Obj, ObjectTypes.GameObject) then
+            print(Obj)
         end
+        NeP.OM:Add(Obj, ObjectIsType(Obj, ObjectTypes.GameObject), ObjectIsType(Obj, ObjectTypes.AreaTrigger))
     end
 end
 
