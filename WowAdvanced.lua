@@ -155,6 +155,88 @@ function f.Load()
     g.GetDefaultLanguage = function(...) return UnitTagHandler(_G.GetDefaultLanguage, ...) end
     g.GetCritChanceFromAgility = function(...) return UnitTagHandler(_G.GetCritChanceFromAgility, ...) end
     g.GetSpellCritChanceFromIntellect = function(...) return UnitTagHandler(_G.GetSpellCritChanceFromIntellect, ...) end
+    g.CastPetAction = function(...) return g.CallSecureFunction('CastPetAction', ...) end
+    g.CastShapeshiftForm = function(...) return g.CallSecureFunction('CastShapeshiftForm', ...) end
+    g.CastSpell = function(...) return g.CallSecureFunction('CastSpell', ...) end
+    g.ChangeActionBarPage = function(...) return g.CallSecureFunction('ChangeActionBarPage', ...) end
+    g.ClearOverrideBindings = function(...) return g.CallSecureFunction('ClearOverrideBindings', ...) end
+    g.CreateMacro = function(...) return g.CallSecureFunction('CreateMacro', ...) end
+    g.DeleteCursorItem = function(...) return g.CallSecureFunction('DeleteCursorItem', ...) end
+    g.DeleteMacro = function(...) return g.CallSecureFunction('DeleteMacro', ...) end
+    g.DescendStop = function(...) return g.CallSecureFunction('DescendStop', ...) end
+    g.DestroyTotem = function(...) return g.CallSecureFunction('DestroyTotem', ...) end
+    g.FocusUnit = function(...) return g.CallSecureFunction('FocusUnit', ...) end
+    g.ForceQuit = function(...) return g.CallSecureFunction('ForceQuit', ...) end
+    g.GetUnscaledFrameRect = function(...) return g.CallSecureFunction('GetUnscaledFrameRect', ...) end
+    g.GuildControlSetRank = function(...) return g.CallSecureFunction('GuildControlSetRank', ...) end
+    g.GuildControlSetRankFlag = function(...) return g.CallSecureFunction('GuildControlSetRankFlag', ...) end
+    g.GuildDemote = function(...) return g.CallSecureFunction('GuildDemote', ...) end
+    g.GuildPromote = function(...) return g.CallSecureFunction('GuildPromote', ...) end
+    g.GuildUninvite = function(...) return g.CallSecureFunction('GuildUninvite', ...) end
+    g.JoinBattlefield = function(...) return g.CallSecureFunction('JoinBattlefield', ...) end
+    g.JumpOrAscendStart = function(...) return g.CallSecureFunction('JumpOrAscendStart', ...) end
+    g.Logout = function(...) return g.CallSecureFunction('Logout', ...) end
+    g.MoveBackwardStart = function(...) return g.CallSecureFunction('MoveBackwardStart', ...) end
+    g.MoveBackwardStop = function(...) return g.CallSecureFunction('MoveBackwardStop', ...) end
+    g.MoveForwardStart = function(...) return g.CallSecureFunction('MoveForwardStart', ...) end
+    g.MoveForwardStop = function(...) return g.CallSecureFunction('MoveForwardStop', ...) end
+    g.PetAssistMode = function(...) return g.CallSecureFunction('PetAssistMode', ...) end
+    g.PetAttack = function(...) return g.CallSecureFunction('PetAttack', ...) end
+    g.PetDefensiveAssistMode = function(...) return g.CallSecureFunction('PetDefensiveAssistMode', ...) end
+    g.PetDefensiveMode = function(...) return g.CallSecureFunction('PetDefensiveMode', ...) end
+    g.PetFollow = function(...) return g.CallSecureFunction('PetFollow', ...) end
+    g.PetStopAttack = function(...) return g.CallSecureFunction('PetStopAttack', ...) end
+    g.PetWait = function(...) return g.CallSecureFunction('PetWait', ...) end
+    g.PickupAction = function(...) return g.CallSecureFunction('PickupAction', ...) end
+    g.PickupCompanion = function(...) return g.CallSecureFunction('PickupCompanion', ...) end
+    g.PickupMacro = function(...) return g.CallSecureFunction('PickupMacro', ...) end
+    g.PickupPetAction = function(...) return g.CallSecureFunction('PickupPetAction', ...) end
+    g.PickupSpell = function(...) return g.CallSecureFunction('PickupSpell', ...) end
+    g.PickupSpellBookItem = function(...) return g.CallSecureFunction('PickupSpellBookItem', ...) end
+    g.Quit = function(...) return g.CallSecureFunction('Quit', ...) end
+    g.Region_GetBottom = function(...) return g.CallSecureFunction('Region_GetBottom', ...) end
+    g.Region_GetCenter = function(...) return g.CallSecureFunction('Region_GetCenter', ...) end
+    g.Region_GetPoint = function(...) return g.CallSecureFunction('Region_GetPoint', ...) end
+    g.Region_GetRect = function(...) return g.CallSecureFunction('Region_GetRect', ...) end
+    g.Region_Hide = function(...) return g.CallSecureFunction('Region_Hide', ...) end
+    g.Region_SetPoint = function(...) return g.CallSecureFunction('Region_SetPoint', ...) end
+    g.Region_Show = function(...) return g.CallSecureFunction('Region_Show', ...) end
+    g.RegisterForSave = function(...) return g.CallSecureFunction('RegisterForSave', ...) end
+    g.ReplaceEnchant = function(...) return g.CallSecureFunction('ReplaceEnchant', ...) end
+    g.ReplaceTradeEnchant = function(...) return g.CallSecureFunction('ReplaceTradeEnchant', ...) end
+    g.RunMacro = function(...) return g.CallSecureFunction('RunMacro', ...) end
+    g.SendChatMessage = function(...) return g.CallSecureFunction('SendChatMessage', ...) end
+    g.SetBinding = function(...) return g.CallSecureFunction('SetBinding', ...) end
+    g.SetBindingClick = function(...) return g.CallSecureFunction('SetBindingClick', ...) end
+    g.SetBindingItem = function(...) return g.CallSecureFunction('SetBindingItem', ...) end
+    g.SetBindingMacro = function(...) return g.CallSecureFunction('SetBindingMacro', ...) end
+    g.SetBindingSpell = function(...) return g.CallSecureFunction('SetBindingSpell', ...) end
+    g.SetCurrentTitle = function(...) return g.CallSecureFunction('SetCurrentTitle', ...) end
+    g.SetMoveEnabled = function(...) return g.CallSecureFunction('SetMoveEnabled', ...) end
+    g.SetOverrideBinding = function(...) return g.CallSecureFunction('SetOverrideBinding', ...) end
+    g.SetOverrideBindingClick = function(...) return g.CallSecureFunction('SetOverrideBindingClick', ...) end
+    g.SetOverrideBindingItem = function(...) return g.CallSecureFunction('SetOverrideBindingItem', ...) end
+    g.SetOverrideBindingMacro = function(...) return g.CallSecureFunction('SetOverrideBindingMacro', ...) end
+    g.SetOverrideBindingSpell = function(...) return g.CallSecureFunction('SetOverrideBindingSpell', ...) end
+    g.SetTurnEnabled = function(...) return g.CallSecureFunction('SetTurnEnabled', ...) end
+    g.ShowUIPanel = function(...) return g.CallSecureFunction('ShowUIPanel', ...) end
+    g.SitStandOrDescendStart = function(...) return g.CallSecureFunction('SitStandOrDescendStart', ...) end
+    g.Stuck = function(...) return g.CallSecureFunction('Stuck', ...) end
+    g.SwapRaidSubgroup = function(...) return g.CallSecureFunction('SwapRaidSubgroup', ...) end
+    g.TargetLastEnemy = function(...) return g.CallSecureFunction('TargetLastEnemy', ...) end
+    g.TargetLastTarget = function(...) return g.CallSecureFunction('TargetLastTarget', ...) end
+    g.TargetNearestEnemy = function(...) return g.CallSecureFunction('TargetNearestEnemy', ...) end
+    g.TargetNearestFriend = function(...) return g.CallSecureFunction('TargetNearestFriend', ...) end
+    g.ToggleAutoRun = function(...) return g.CallSecureFunction('ToggleAutoRun', ...) end
+    g.ToggleRun = function(...) return g.CallSecureFunction('ToggleRun', ...) end
+    g.TurnOrActionStart = function(...) return g.CallSecureFunction('TurnOrActionStart', ...) end
+    g.TurnOrActionStop = function(...) return g.CallSecureFunction('TurnOrActionStop', ...) end
+    g.UIObject_SetForbidden = function(...) return g.CallSecureFunction('UIObject_SetForbidden', ...) end
+    g.UninviteUnit = function(...) return g.CallSecureFunction('UninviteUnit', ...) end
+    g.UseAction = function(...) return g.CallSecureFunction('UseAction', ...) end
+    g.UseContainerItem = function(...) return g.CallSecureFunction('UseContainerItem', ...) end
+    g.UseToy = function(...) return g.CallSecureFunction('UseToy', ...) end
+    g.UseToyByName = function(...) return g.CallSecureFunction('UseToyByName', ...) end
 
     --PROTECTED with units
     g.CastSpellByName = function(...) return UnitTagHandler(g.CallSecureFunction, 'CastSpellByName', ...) end
@@ -162,6 +244,7 @@ function f.Load()
     g.UseItemByName = function(...) return UnitTagHandler(g.CallSecureFunction, 'UseItemByName', ...) end
     g.SpellIsTargeting = function(...) return UnitTagHandler(g.CallSecureFunction, 'SpellIsTargeting', ...) end
     g.InteractUnit = function(...) return UnitTagHandler(g.CallSecureFunction, 'InteractUnit', ...) end
+
 
     -- Portected
     g.RunMacroText = function(...) return g.CallSecureFunction('RunMacroText', ...) end
@@ -194,6 +277,46 @@ function f.Load()
     g.PitchDownStop = function(...) return g.CallSecureFunction('PitchDownStop', ...) end
     g.ClearTarget = function(...) return g.CallSecureFunction('ClearTarget', ...) end
     g.AcceptProposal = function(...) return g.CallSecureFunction('AcceptProposal', ...) end
+    g.CancelUnitBuff
+
+    g.AcceptBattlefieldPort
+    g.AcceptProposal
+    g.AcceptTrade
+    g.AttackTarget
+    g.C_AuctionHouse.PostCommodity
+    g.C_AuctionHouse.PostItem
+    g.C_AuctionHouse.SearchForFavorites
+    g.C_AuctionHouse.SendSearchQuery
+    g.C_AuctionHouse.StartCommoditiesPurchase
+    g.C_BlackMarket.ItemPlaceBid
+    g.C_Calendar.AddEvent
+    g.C_Calendar.UpdateEvent
+    g.C_Club.CreateTicket
+    g.C_Club.SendCharacterInvitation
+    g.C_Club.SendInvitation
+    g.C_Club.SendMessage
+    g.C_CovenantSanctumUI.DepositAnima
+    g.C_EquipmentSet.UseEquipmentSet
+    g.C_FriendList.SendWho
+    g.C_LFGList.ApplyToGroup
+    g.C_LFGList.ClearSearchResults
+    g.C_LFGList.CreateListing
+    g.C_LFGList.RemoveListing
+    g.C_LFGList.Search
+    g.C_PetBattles.SkipTurn
+    g.C_PetBattles.UseAbility
+    g.C_PetBattles.UseTrap
+    g.C_PetJournal.PickupPet
+    g.C_PetJournal.SummonPetByGUID
+    g.C_ReportSystem.InitiateReportPlayer
+    g.C_ReportSystem.SendReportPlayer
+    g.C_Social.TwitterCheckStatus
+    g.C_Social.TwitterConnect
+    g.C_Social.TwitterDisconnect
+    g.C_UI.Reload
+    g.CancelItemTempEnchantment
+    g.CancelLogout
+    g.CancelShapeshiftForm
 
     g.UnitGUID = function(Obj) return Obj and (g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj)) or nil end
     g.UnitExists = function(Obj)
