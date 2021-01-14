@@ -197,6 +197,7 @@ function f.Load()
 
     g.UnitGUID = function(Obj) return Obj and (g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj)) or nil end
     g.UnitExists = function(Obj) return Obj and (g.IsGuid(Obj) or _G.UnitGUID(Obj)) or nil end
+    g.ObjectExists = g.UnitExists
     g.UnitCombatReach = function(unit) g.ObjectField(unit, Offsets.CombatReach, 15) end
     g.ObjectPosition = g.GetUnitPosition
     g.GetObjectPosition = g.GetUnitPosition
