@@ -155,6 +155,48 @@ function f.Load()
     g.GetDefaultLanguage = function(...) return UnitTagHandler(_G.GetDefaultLanguage, ...) end
     g.GetCritChanceFromAgility = function(...) return UnitTagHandler(_G.GetCritChanceFromAgility, ...) end
     g.GetSpellCritChanceFromIntellect = function(...) return UnitTagHandler(_G.GetSpellCritChanceFromIntellect, ...) end
+    
+
+    --PROTECTED with units
+    g.CastSpellByName = function(...) return UnitTagHandler(g.CallSecureFunction, 'CastSpellByName', ...) end
+    g.CastSpellByID = function(...) return UnitTagHandler(g.CallSecureFunction, 'CastSpellByID', ...) end
+    g.UseItemByName = function(...) return UnitTagHandler(g.CallSecureFunction, 'UseItemByName', ...) end
+    g.SpellIsTargeting = function(...) return UnitTagHandler(g.CallSecureFunction, 'SpellIsTargeting', ...) end
+    g.InteractUnit = function(...) return UnitTagHandler(g.CallSecureFunction, 'InteractUnit', ...) end
+
+
+    -- Portected
+    g.RunMacroText = function(...) return g.CallSecureFunction('RunMacroText', ...) end
+    g.TargetUnit = function(...) return g.CallSecureFunction('TargetUnit', ...) end
+    g.UseInventoryItem = function(...) return g.CallSecureFunction('UseInventoryItem', ...) end
+    g.SpellStopCasting = function(...) return g.CallSecureFunction('SpellStopCasting', ...) end
+    g.CameraOrSelectOrMoveStart = function(...) return g.CallSecureFunction('CameraOrSelectOrMoveStart', ...) end
+    g.CameraOrSelectOrMoveStop = function(...) return g.CallSecureFunction('CameraOrSelectOrMoveStop', ...) end
+    g.CancelShapeshiftForm = function(...) return g.CallSecureFunction('CancelShapeshiftForm', ...) end
+    g.PetAssistMode = function(...) return g.CallSecureFunction('PetAssistMode', ...) end
+    g.PetPassiveMode = function(...) return g.CallSecureFunction('PetPassiveMode', ...) end
+    g.SpellStopCasting = function(...) return g.CallSecureFunction('SpellStopCasting', ...) end
+    g.SpellStopTargeting = function(...) return g.CallSecureFunction('SpellStopTargeting', ...) end
+    g.AscendStop = function(...) return g.CallSecureFunction('AscendStop', ...) end
+    g.JumpOrAscendStart = function(...) return g.CallSecureFunction('JumpOrAscendStart', ...) end
+    g.JumpOrAscendStop = function(...) return g.CallSecureFunction('JumpOrAscendStop', ...) end
+    g.MoveBackwardStart = function(...) return g.CallSecureFunction('MoveBackwardStart', ...) end
+    g.MoveBackwardStop = function(...) return g.CallSecureFunction('MoveBackwardStop', ...) end
+    g.MoveForwardStart = function(...) return g.CallSecureFunction('MoveForwardStart', ...) end
+    g.StrafeLeftStart = function(...) return g.CallSecureFunction('StrafeLeftStart', ...) end
+    g.StrafeLeftStop = function(...) return g.CallSecureFunction('StrafeLeftStop', ...) end
+    g.StrafeRightStart = function(...) return g.CallSecureFunction('StrafeRightStart', ...) end
+    g.StrafeRightStop = function(...) return g.CallSecureFunction('StrafeRightStop', ...) end
+    g.TurnLeftStart = function(...) return g.CallSecureFunction('TurnLeftStart', ...) end
+    g.TurnLeftStop = function(...) return g.CallSecureFunction('TurnLeftStop', ...) end
+    g.TurnRightStart = function(...) return g.CallSecureFunction('TurnRightStart', ...) end
+    g.TurnRightStop = function(...) return g.CallSecureFunction('TurnRightStop', ...) end
+    g.PitchUpStart = function(...) return g.CallSecureFunction('PitchUpStart', ...) end
+    g.PitchDownStart = function(...) return g.CallSecureFunction('PitchDownStart', ...) end
+    g.PitchDownStop = function(...) return g.CallSecureFunction('PitchDownStop', ...) end
+    g.ClearTarget = function(...) return g.CallSecureFunction('ClearTarget', ...) end
+    g.AcceptProposal = function(...) return g.CallSecureFunction('AcceptProposal', ...) end
+    g.CancelUnitBuff = function(...) return UnitTagHandler(g.CallSecureFunction, 'CancelUnitBuff', ...) end
     g.CastPetAction = function(...) return g.CallSecureFunction('CastPetAction', ...) end
     g.CastShapeshiftForm = function(...) return g.CallSecureFunction('CastShapeshiftForm', ...) end
     g.CastSpell = function(...) return g.CallSecureFunction('CastSpell', ...) end
@@ -237,86 +279,43 @@ function f.Load()
     g.UseContainerItem = function(...) return g.CallSecureFunction('UseContainerItem', ...) end
     g.UseToy = function(...) return g.CallSecureFunction('UseToy', ...) end
     g.UseToyByName = function(...) return g.CallSecureFunction('UseToyByName', ...) end
-
-    --PROTECTED with units
-    g.CastSpellByName = function(...) return UnitTagHandler(g.CallSecureFunction, 'CastSpellByName', ...) end
-    g.CastSpellByID = function(...) return UnitTagHandler(g.CallSecureFunction, 'CastSpellByID', ...) end
-    g.UseItemByName = function(...) return UnitTagHandler(g.CallSecureFunction, 'UseItemByName', ...) end
-    g.SpellIsTargeting = function(...) return UnitTagHandler(g.CallSecureFunction, 'SpellIsTargeting', ...) end
-    g.InteractUnit = function(...) return UnitTagHandler(g.CallSecureFunction, 'InteractUnit', ...) end
-
-
-    -- Portected
-    g.RunMacroText = function(...) return g.CallSecureFunction('RunMacroText', ...) end
-    g.TargetUnit = function(...) return g.CallSecureFunction('TargetUnit', ...) end
-    g.UseInventoryItem = function(...) return g.CallSecureFunction('UseInventoryItem', ...) end
-    g.SpellStopCasting = function(...) return g.CallSecureFunction('SpellStopCasting', ...) end
-    g.CameraOrSelectOrMoveStart = function(...) return g.CallSecureFunction('CameraOrSelectOrMoveStart', ...) end
-    g.CameraOrSelectOrMoveStop = function(...) return g.CallSecureFunction('CameraOrSelectOrMoveStop', ...) end
-    g.CancelShapeshiftForm = function(...) return g.CallSecureFunction('CancelShapeshiftForm', ...) end
-    g.PetAssistMode = function(...) return g.CallSecureFunction('PetAssistMode', ...) end
-    g.PetPassiveMode = function(...) return g.CallSecureFunction('PetPassiveMode', ...) end
-    g.SpellStopCasting = function(...) return g.CallSecureFunction('SpellStopCasting', ...) end
-    g.SpellStopTargeting = function(...) return g.CallSecureFunction('SpellStopTargeting', ...) end
-    g.AscendStop = function(...) return g.CallSecureFunction('AscendStop', ...) end
-    g.JumpOrAscendStart = function(...) return g.CallSecureFunction('JumpOrAscendStart', ...) end
-    g.JumpOrAscendStop = function(...) return g.CallSecureFunction('JumpOrAscendStop', ...) end
-    g.MoveBackwardStart = function(...) return g.CallSecureFunction('MoveBackwardStart', ...) end
-    g.MoveBackwardStop = function(...) return g.CallSecureFunction('MoveBackwardStop', ...) end
-    g.MoveForwardStart = function(...) return g.CallSecureFunction('MoveForwardStart', ...) end
-    g.StrafeLeftStart = function(...) return g.CallSecureFunction('StrafeLeftStart', ...) end
-    g.StrafeLeftStop = function(...) return g.CallSecureFunction('StrafeLeftStop', ...) end
-    g.StrafeRightStart = function(...) return g.CallSecureFunction('StrafeRightStart', ...) end
-    g.StrafeRightStop = function(...) return g.CallSecureFunction('StrafeRightStop', ...) end
-    g.TurnLeftStart = function(...) return g.CallSecureFunction('TurnLeftStart', ...) end
-    g.TurnLeftStop = function(...) return g.CallSecureFunction('TurnLeftStop', ...) end
-    g.TurnRightStart = function(...) return g.CallSecureFunction('TurnRightStart', ...) end
-    g.TurnRightStop = function(...) return g.CallSecureFunction('TurnRightStop', ...) end
-    g.PitchUpStart = function(...) return g.CallSecureFunction('PitchUpStart', ...) end
-    g.PitchDownStart = function(...) return g.CallSecureFunction('PitchDownStart', ...) end
-    g.PitchDownStop = function(...) return g.CallSecureFunction('PitchDownStop', ...) end
-    g.ClearTarget = function(...) return g.CallSecureFunction('ClearTarget', ...) end
+    g.AcceptBattlefieldPort = function(...) return g.CallSecureFunction('AcceptBattlefieldPort', ...) end
     g.AcceptProposal = function(...) return g.CallSecureFunction('AcceptProposal', ...) end
-    g.CancelUnitBuff
-
-    g.AcceptBattlefieldPort
-    g.AcceptProposal
-    g.AcceptTrade
-    g.AttackTarget
-    g.C_AuctionHouse.PostCommodity
-    g.C_AuctionHouse.PostItem
-    g.C_AuctionHouse.SearchForFavorites
-    g.C_AuctionHouse.SendSearchQuery
-    g.C_AuctionHouse.StartCommoditiesPurchase
-    g.C_BlackMarket.ItemPlaceBid
-    g.C_Calendar.AddEvent
-    g.C_Calendar.UpdateEvent
-    g.C_Club.CreateTicket
-    g.C_Club.SendCharacterInvitation
-    g.C_Club.SendInvitation
-    g.C_Club.SendMessage
-    g.C_CovenantSanctumUI.DepositAnima
-    g.C_EquipmentSet.UseEquipmentSet
-    g.C_FriendList.SendWho
-    g.C_LFGList.ApplyToGroup
-    g.C_LFGList.ClearSearchResults
-    g.C_LFGList.CreateListing
-    g.C_LFGList.RemoveListing
-    g.C_LFGList.Search
-    g.C_PetBattles.SkipTurn
-    g.C_PetBattles.UseAbility
-    g.C_PetBattles.UseTrap
-    g.C_PetJournal.PickupPet
-    g.C_PetJournal.SummonPetByGUID
-    g.C_ReportSystem.InitiateReportPlayer
-    g.C_ReportSystem.SendReportPlayer
-    g.C_Social.TwitterCheckStatus
-    g.C_Social.TwitterConnect
-    g.C_Social.TwitterDisconnect
-    g.C_UI.Reload
-    g.CancelItemTempEnchantment
-    g.CancelLogout
-    g.CancelShapeshiftForm
+    g.AcceptTrade = function(...) return g.CallSecureFunction('AcceptTrade', ...) end
+    g.AttackTarget = function(...) return g.CallSecureFunction('AttackTarget', ...) end
+    g.C_AuctionHouse.PostCommodity = function(...) return g.CallSecureFunction('C_AuctionHouse.PostCommodity', ...) end
+    g.C_AuctionHouse.PostItem = function(...) return g.CallSecureFunction('C_AuctionHouse.PostItem', ...) end
+    g.C_AuctionHouse.SearchForFavorites = function(...) return g.CallSecureFunction('C_AuctionHouse.SearchForFavorites', ...) end
+    g.C_AuctionHouse.SendSearchQuery = function(...) return g.CallSecureFunction('C_AuctionHouse.SendSearchQuery', ...) end
+    g.C_AuctionHouse.StartCommoditiesPurchase = function(...) return g.CallSecureFunction('C_AuctionHouse.StartCommoditiesPurchase', ...) end
+    g.C_BlackMarket.ItemPlaceBid = function(...) return g.CallSecureFunction('C_BlackMarket.ItemPlaceBid', ...) end
+    g.C_Calendar.AddEvent = function(...) return g.CallSecureFunction('C_Calendar.AddEvent', ...) end
+    g.C_Calendar.UpdateEvent = function(...) return g.CallSecureFunction('C_Calendar.UpdateEvent', ...) end
+    g.C_Club.CreateTicket = function(...) return g.CallSecureFunction('C_Club.CreateTicket', ...) end
+    g.C_Club.SendCharacterInvitation = function(...) return g.CallSecureFunction('C_Club.SendCharacterInvitation', ...) end
+    g.C_Club.SendInvitation = function(...) return g.CallSecureFunction('C_Club.SendInvitation', ...) end
+    g.C_Club.SendMessage = function(...) return g.CallSecureFunction('C_Club.SendMessage', ...) end
+    g.C_CovenantSanctumUI.DepositAnima = function(...) return g.CallSecureFunction('C_CovenantSanctumUI.DepositAnima', ...) end
+    g.C_EquipmentSet.UseEquipmentSet = function(...) return g.CallSecureFunction('C_EquipmentSet.UseEquipmentSet', ...) end
+    g.C_FriendList.SendWho = function(...) return g.CallSecureFunction('C_FriendList.SendWho', ...) end
+    g.C_LFGList.ApplyToGroup = function(...) return g.CallSecureFunction('.C_LFGList.ApplyToGroup', ...) end
+    g.C_LFGList.ClearSearchResults = function(...) return g.CallSecureFunction('.C_LFGList.ClearSearchResults', ...) end
+    g.C_LFGList.CreateListing = function(...) return g.CallSecureFunction('.C_LFGList.CreateListing', ...) end
+    g.C_LFGList.RemoveListing = function(...) return g.CallSecureFunction('.C_LFGList.RemoveListing', ...) end
+    g.C_LFGList.Search = function(...) return g.CallSecureFunction('.C_LFGList.Search', ...) end
+    g.C_PetBattles.SkipTurn = function(...) return g.CallSecureFunction('C_PetBattles.SkipTurn', ...) end
+    g.C_PetBattles.UseAbility = function(...) return g.CallSecureFunction('C_PetBattles.UseAbility', ...) end
+    g.C_PetBattles.UseTrap = function(...) return g.CallSecureFunction('C_PetBattles.UseTrap', ...) end
+    g.C_PetJournal.PickupPet = function(...) return g.CallSecureFunction('C_PetJournal.PickupPet', ...) end
+    g.C_PetJournal.SummonPetByGUID = function(...) return g.CallSecureFunction('C_PetJournal.SummonPetByGUID', ...) end
+    g.C_ReportSystem.InitiateReportPlayer = function(...) return g.CallSecureFunction('C_ReportSystem.InitiateReportPlayer', ...) end
+    g.C_ReportSystem.SendReportPlayer = function(...) return g.CallSecureFunction('C_ReportSystem.SendReportPlayer', ...) end
+    g.C_Social.TwitterCheckStatus = function(...) return g.CallSecureFunction('C_Social.TwitterCheckStatus', ...) end
+    g.C_Social.TwitterConnect = function(...) return g.CallSecureFunction('C_Social.TwitterConnect', ...) end
+    g.C_Social.TwitterDisconnect = function(...) return g.CallSecureFunction('C_Social.TwitterDisconnect', ...) end
+    g.C_UI.Reload = function(...) return g.CallSecureFunction('C_UI.Reload', ...) end
+    g.CancelItemTempEnchantment = function(...) return g.CallSecureFunction('CancelItemTempEnchantment', ...) end
+    g.CancelLogout = function(...) return g.CallSecureFunction('CancelLogout', ...) end
 
     g.UnitGUID = function(Obj) return Obj and (g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj)) or nil end
     g.UnitExists = function(Obj)
