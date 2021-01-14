@@ -155,7 +155,7 @@ function f.Load()
     g.GetDefaultLanguage = function(...) return UnitTagHandler(_G.GetDefaultLanguage, ...) end
     g.GetCritChanceFromAgility = function(...) return UnitTagHandler(_G.GetCritChanceFromAgility, ...) end
     g.GetSpellCritChanceFromIntellect = function(...) return UnitTagHandler(_G.GetSpellCritChanceFromIntellect, ...) end
-    
+
 
     --PROTECTED with units
     g.CastSpellByName = function(...) return UnitTagHandler(g.CallSecureFunction, 'CastSpellByName', ...) end
@@ -163,6 +163,7 @@ function f.Load()
     g.UseItemByName = function(...) return UnitTagHandler(g.CallSecureFunction, 'UseItemByName', ...) end
     g.SpellIsTargeting = function(...) return UnitTagHandler(g.CallSecureFunction, 'SpellIsTargeting', ...) end
     g.InteractUnit = function(...) return UnitTagHandler(g.CallSecureFunction, 'InteractUnit', ...) end
+    g.CancelUnitBuff = function(...) return UnitTagHandler(g.CallSecureFunction, 'CancelUnitBuff', ...) end
 
 
     -- Portected
@@ -196,7 +197,6 @@ function f.Load()
     g.PitchDownStop = function(...) return g.CallSecureFunction('PitchDownStop', ...) end
     g.ClearTarget = function(...) return g.CallSecureFunction('ClearTarget', ...) end
     g.AcceptProposal = function(...) return g.CallSecureFunction('AcceptProposal', ...) end
-    g.CancelUnitBuff = function(...) return UnitTagHandler(g.CallSecureFunction, 'CancelUnitBuff', ...) end
     g.CastPetAction = function(...) return g.CallSecureFunction('CastPetAction', ...) end
     g.CastShapeshiftForm = function(...) return g.CallSecureFunction('CastShapeshiftForm', ...) end
     g.CastSpell = function(...) return g.CallSecureFunction('CastSpell', ...) end
@@ -298,11 +298,11 @@ function f.Load()
     g.C_CovenantSanctumUI.DepositAnima = function(...) return g.CallSecureFunction('C_CovenantSanctumUI.DepositAnima', ...) end
     g.C_EquipmentSet.UseEquipmentSet = function(...) return g.CallSecureFunction('C_EquipmentSet.UseEquipmentSet', ...) end
     g.C_FriendList.SendWho = function(...) return g.CallSecureFunction('C_FriendList.SendWho', ...) end
-    g.C_LFGList.ApplyToGroup = function(...) return g.CallSecureFunction('.C_LFGList.ApplyToGroup', ...) end
-    g.C_LFGList.ClearSearchResults = function(...) return g.CallSecureFunction('.C_LFGList.ClearSearchResults', ...) end
-    g.C_LFGList.CreateListing = function(...) return g.CallSecureFunction('.C_LFGList.CreateListing', ...) end
-    g.C_LFGList.RemoveListing = function(...) return g.CallSecureFunction('.C_LFGList.RemoveListing', ...) end
-    g.C_LFGList.Search = function(...) return g.CallSecureFunction('.C_LFGList.Search', ...) end
+    g.C_LFGList.ApplyToGroup = function(...) return g.CallSecureFunction('C_LFGList.ApplyToGroup', ...) end
+    g.C_LFGList.ClearSearchResults = function(...) return g.CallSecureFunction('C_LFGList.ClearSearchResults', ...) end
+    g.C_LFGList.CreateListing = function(...) return g.CallSecureFunction('C_LFGList.CreateListing', ...) end
+    g.C_LFGList.RemoveListing = function(...) return g.CallSecureFunction('C_LFGList.RemoveListing', ...) end
+    g.C_LFGList.Search = function(...) return g.CallSecureFunction('C_LFGList.Search', ...) end
     g.C_PetBattles.SkipTurn = function(...) return g.CallSecureFunction('C_PetBattles.SkipTurn', ...) end
     g.C_PetBattles.UseAbility = function(...) return g.CallSecureFunction('C_PetBattles.UseAbility', ...) end
     g.C_PetBattles.UseTrap = function(...) return g.CallSecureFunction('C_PetBattles.UseTrap', ...) end
