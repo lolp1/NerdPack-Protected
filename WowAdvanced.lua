@@ -198,9 +198,11 @@ function f.Load()
     g.UnitGUID = function(Obj) return Obj and (g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj)) or nil end
     g.UnitExists = function(Obj)
         if UnitTagHandler(_G.UnitExists, Obj) then
+            print('UnitExists')
             return true
         end
         if not g.IsGuid(Obj) then
+            print('!IsGuid')
             return false
         end
         for i = 1, g.GetObjectCount() do
