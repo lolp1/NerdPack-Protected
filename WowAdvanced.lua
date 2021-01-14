@@ -161,6 +161,7 @@ function f.Load()
     g.CastSpellByID = function(...) return UnitTagHandler(g.CallSecureFunction, 'CastSpellByID', ...) end
     g.UseItemByName = function(...) return UnitTagHandler(g.CallSecureFunction, 'UseItemByName', ...) end
     g.SpellIsTargeting = function(...) return UnitTagHandler(g.CallSecureFunction, 'SpellIsTargeting', ...) end
+    g.InteractUnit = function(...) return UnitTagHandler(g.CallSecureFunction, 'InteractUnit', ...) end
 
     -- Portected
     g.RunMacroText = function(...) return g.CallSecureFunction('RunMacroText', ...) end
@@ -194,7 +195,6 @@ function f.Load()
     g.ClearTarget = function(...) return g.CallSecureFunction('ClearTarget', ...) end
     g.AcceptProposal = function(...) return g.CallSecureFunction('AcceptProposal', ...) end
     g.ObjectInteract = function(...) return g.CallSecureFunction('ObjectInteract', ...) end
-    g.InteractUnit = function(...) return g.CallSecureFunction('InteractUnit', ...) end
 
     g.UnitGUID = function(Obj) return Obj and (g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj)) or nil end
     g.UnitExists = function(Obj) return Obj and (g.IsGuid(Obj) or _G.UnitGUID(Obj)) or nil end
