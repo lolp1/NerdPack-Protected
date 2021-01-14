@@ -206,6 +206,7 @@ function f.Load()
         end
         for i = 1, g.GetObjectCount() do
             local object = g.GetObjectWithIndex(i)
+            print(object, Obj)
             if object == Obj then
               return true
             end
