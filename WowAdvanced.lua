@@ -44,7 +44,6 @@ end
 function f.Load()
 
     -- ADD GUID
-    g.UnitExists = function(...) return UnitTagHandler(_G.UnitExists, ...) end
     g.UnitInRange = function(...) return UnitTagHandler(_G.UnitInRange, ...) end
     g.UnitPlayerControlled = function(...) return UnitTagHandler(_G.UnitPlayerControlled, ...) end
     g.UnitIsVisible = function(...) return UnitTagHandler(_G.UnitIsVisible, ...) end
@@ -197,8 +196,8 @@ function f.Load()
     g.AcceptProposal = function(...) return g.CallSecureFunction('AcceptProposal', ...) end
 
     g.UnitGUID = function(Obj) return Obj and (g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj)) or nil end
-    g.ObjectExists = function(Obj)
-        if g.UnitExists(Obj) then
+    g.UnitExists = function(Obj)
+        if UnitTagHandler(_G.UnitExists, Obj) then
             return true
         end
         if not g.IsGuid(Obj) then
@@ -206,13 +205,13 @@ function f.Load()
         end
         for i = 1, g.GetObjectCount() do
             local object = g.GetObjectWithIndex(i)
-            print(object, Obj)
             if object == Obj then
               return true
             end
         end
         return false
     end
+    g.ObjectExists = g.UnitExists
     g.UnitCombatReach = function(unit) g.ObjectField(unit, Offsets.CombatReach, 15) end
     g.ObjectPosition = g.GetUnitPosition
     g.GetObjectPosition = g.GetUnitPosition
