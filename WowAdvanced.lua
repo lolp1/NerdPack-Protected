@@ -194,6 +194,7 @@ function f.Load()
     g.ClearTarget = function(...) return g.CallSecureFunction('ClearTarget', ...) end
     g.AcceptProposal = function(...) return g.CallSecureFunction('AcceptProposal', ...) end
     g.ObjectInteract = function(...) return g.CallSecureFunction('ObjectInteract', ...) end
+    g.InteractUnit = function(...) return g.CallSecureFunction('InteractUnit', ...) end
 
     g.UnitGUID = function(Obj) return Obj and (g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj)) or nil end
     g.UnitExists = function(Obj) return Obj and (g.IsGuid(Obj) or _G.UnitGUID(Obj)) or nil end
