@@ -29,7 +29,7 @@ local function UnitTagHandler(func, ...)
     local args = {...}
 
     for k, v in pairs(args) do
-        if v and not _G.UnitExists(v) and g.IsGuid(v) then
+        if v and validUnitsOM[v] then
             if not mouseover then
                 args[k] = g.SetMouseOver(v)
                 mouseover = true
@@ -45,7 +45,7 @@ end
 
 function f.Load()
 
-    print('LOADED test')
+    print('LOADED test v2')
 
     -- ADD GUID
     g.UnitInRange = function(...) return UnitTagHandler(_G.UnitInRange, ...) end
