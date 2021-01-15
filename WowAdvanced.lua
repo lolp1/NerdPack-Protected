@@ -59,8 +59,6 @@ end
 
 function f.Load()
 
-    print('LOADED test v6')
-
     -- ADD GUID
     g.UnitInRange = UnitTagHandler(_G.UnitInRange)
     g.UnitPlayerControlled = UnitTagHandler(_G.UnitPlayerControlled)
@@ -364,10 +362,18 @@ function f.Load()
         local sX, sY = NeP._G.WorldToScreenRaw(wX, wY, wZ)
         return sX * multiplier, sY * multiplier * -1 + WorldFrame:GetTop()
     end
-end
 
-function f.Cast(spell, target)
-    g.CastSpellByName(spell, target)
+    -- rapid
+    f.Macro = g.RunMacroText
+    f.UseItem = g.UseItemByName
+    f.UseInvItem = g.UseInventoryItem
+    f.TargetUnit = g.TargetUnit
+    f.SpellStopCasting = g.SpellStopCasting
+    f.Cast = g.CastSpellByName
+    f.ObjectGUID = g.UnitGUID
+    f.ObjectExists = g.UnitExists
+    f.UnitName = g.ObjectName
+
 end
 
 function f.CastGround(spell, target)
@@ -378,26 +384,6 @@ function f.CastGround(spell, target)
     end
     f.Cast(spell)
     g.ClickPosition(g.GetUnitPosition(target or 'player'))
-end
-
-function f.Macro(text)
-    g.RunMacroText(text)
-end
-
-function f.UseItem(name, target)
-    g.UseItemByName(name, target)
-end
-
-function f.UseInvItem(name)
-    g.UseInventoryItem(name)
-end
-
-function f.TargetUnit(target)
-    g.TargetUnit(target)
-end
-
-function f.SpellStopCasting()
-    g.SpellStopCasting()
 end
 
 function f.Distance(a, b)
@@ -522,16 +508,6 @@ f.ObjectCreator = function(Obj)
 	end
     return g.ObjectField(Obj, 0x720, 15)
 end
-
-f.ObjectGUID = function(Obj)
-    return g.UnitGUID(Obj)
-end
-
-f.ObjectExists = function(Obj)
-    return g.UnitExists(Obj)
-end
-
-f.UnitName = function(Obj) return g.ObjectName(Obj) end
 
 gbl:AddUnlocker('WowAdvanced', {
     test = function() return NeP._G.CallSecureFunction ~= nil end,
