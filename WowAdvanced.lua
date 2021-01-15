@@ -22,23 +22,17 @@ local Offsets = {
     ['RotationR'] = 0x650 + 0x10, --Location + 1
 }
 
-local function handleUnits(...)
-    local mouseover;
-    local focus;
-    local args = {...}
-    for i=1, #args do
-        local v = args[i]
-        if v and validUnitsOM[v] then
-            if not mouseover then
-                args[i] = g.SetMouseOver(v)
-                mouseover = true
-            elseif not focus then
-                args[i] = g.SetFocusTarget(v)
-                focus = true
-            end
+local function handleUnits(param1, param2, ...)
+    if validUnitsOM[param1] then
+        if validUnitsOM[param2] then
+            return g.SetMouseOver(param1), g.SetFocus(param2), ...
+        else
+            return g.SetMouseOver(param1), param2, ...
         end
+    elseif validUnitsOM[param2] then
+        return param1, g.SetMouseOver(param2), ...
     end
-    return unpack(args)
+    return param1, param2, ...
 end
 
 local function UnitTagHandler(func)
@@ -60,7 +54,7 @@ end
 
 function f.Load()
 
-    print('test loaded')
+    print('test loaded v2')
     -- ADD GUID
     g.UnitInRange = UnitTagHandler(_G.UnitInRange)
     g.UnitPlayerControlled = UnitTagHandler(_G.UnitPlayerControlled)
