@@ -22,7 +22,7 @@ local Offsets = {
     ['RotationR'] = 0x650 + 0x10, --Location + 1
 }
 
-local function UnitTagHandler(func, ...)
+--[[local function UnitTagHandler(func, ...)
 
     local mouseover;
     local focus;
@@ -41,11 +41,27 @@ local function UnitTagHandler(func, ...)
     end
 
     return func(unpack(args))
+end]]
+
+local UnitTagHandler = function(func, param1, param2, ...)
+    if validUnitsOM[param1] then
+        if validUnitsOM[param2] then
+            return func(g.SetMouseOver(param1), g.SetFocus(param2),...)
+        else
+            return func(g.SetMouseOver(param1), param2,...)
+        end
+    else
+        if validUnitsOM[param2] then
+            return func(param1, g.SetMouseOver(param2),...)
+        else
+            return func(param1, param2,...)
+        end
+    end
 end
 
 function f.Load()
 
-    print('LOADED test v3')
+    print('LOADED test v4')
 
     -- ADD GUID
     g.UnitInRange = function(...) return UnitTagHandler(_G.UnitInRange, ...) end
