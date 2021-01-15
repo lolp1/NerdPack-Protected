@@ -4,6 +4,8 @@ gbl.Wownet = {}
 local f = gbl.Wownet
 local g = gbl.gapis
 
+local validUnitsOM = {}
+
 local Offsets = {
     ["BoundingRadius"] = 0x1CD4,
     ["CombatReach"] = 0x1CD8, --BoundingRadius + 4 --
@@ -235,7 +237,7 @@ function f.Load()
     g.PickupPetAction = function(...) return g.CallSecureFunction('PickupPetAction', ...) end
     g.PickupSpell = function(...) return g.CallSecureFunction('PickupSpell', ...) end
     g.PickupSpellBookItem = function(...) return g.CallSecureFunction('PickupSpellBookItem', ...) end
-    --g.Quit = function(...) return g.CallSecureFunction('Quit', ...) end
+    g.Quit = function(...) return g.CallSecureFunction('Quit', ...) end
     g.Region_GetBottom = function(...) return g.CallSecureFunction('Region_GetBottom', ...) end
     g.Region_GetCenter = function(...) return g.CallSecureFunction('Region_GetCenter', ...) end
     g.Region_GetPoint = function(...) return g.CallSecureFunction('Region_GetPoint', ...) end
@@ -263,8 +265,8 @@ function f.Load()
     g.SetTurnEnabled = function(...) return g.CallSecureFunction('SetTurnEnabled', ...) end
     g.ShowUIPanel = function(...) return g.CallSecureFunction('ShowUIPanel', ...) end
     g.SitStandOrDescendStart = function(...) return g.CallSecureFunction('SitStandOrDescendStart', ...) end
-    --g.Stuck = function(...) return g.CallSecureFunction('Stuck', ...) end
-    --g.SwapRaidSubgroup = function(...) return g.CallSecureFunction('SwapRaidSubgroup', ...) end
+    g.Stuck = function(...) return g.CallSecureFunction('Stuck', ...) end
+    g.SwapRaidSubgroup = function(...) return g.CallSecureFunction('SwapRaidSubgroup', ...) end
     g.TargetLastEnemy = function(...) return g.CallSecureFunction('TargetLastEnemy', ...) end
     g.TargetLastTarget = function(...) return g.CallSecureFunction('TargetLastTarget', ...) end
     g.TargetNearestEnemy = function(...) return g.CallSecureFunction('TargetNearestEnemy', ...) end
@@ -283,12 +285,12 @@ function f.Load()
     g.AcceptProposal = function(...) return g.CallSecureFunction('AcceptProposal', ...) end
     g.AcceptTrade = function(...) return g.CallSecureFunction('AcceptTrade', ...) end
     g.AttackTarget = function(...) return g.CallSecureFunction('AttackTarget', ...) end
-    g.C_AuctionHouse.PostCommodity = function(...) return g.CallSecureFunction('C_AuctionHouse.PostCommodity', ...) end
-    g.C_AuctionHouse.PostItem = function(...) return g.CallSecureFunction('C_AuctionHouse.PostItem', ...) end
-    g.C_AuctionHouse.SearchForFavorites = function(...) return g.CallSecureFunction('C_AuctionHouse.SearchForFavorites', ...) end
-    g.C_AuctionHouse.SendSearchQuery = function(...) return g.CallSecureFunction('C_AuctionHouse.SendSearchQuery', ...) end
-    g.C_AuctionHouse.StartCommoditiesPurchase = function(...) return g.CallSecureFunction('C_AuctionHouse.StartCommoditiesPurchase', ...) end
-    g.C_BlackMarket.ItemPlaceBid = function(...) return g.CallSecureFunction('C_BlackMarket.ItemPlaceBid', ...) end
+    --g.C_AuctionHouse.PostCommodity = function(...) return g.CallSecureFunction('C_AuctionHouse.PostCommodity', ...) end
+    --g.C_AuctionHouse.PostItem = function(...) return g.CallSecureFunction('C_AuctionHouse.PostItem', ...) end
+    --g.C_AuctionHouse.SearchForFavorites = function(...) return g.CallSecureFunction('C_AuctionHouse.SearchForFavorites', ...) end
+    --g.C_AuctionHouse.SendSearchQuery = function(...) return g.CallSecureFunction('C_AuctionHouse.SendSearchQuery', ...) end
+    --g.C_AuctionHouse.StartCommoditiesPurchase = function(...) return g.CallSecureFunction('C_AuctionHouse.StartCommoditiesPurchase', ...) end
+    --g.C_BlackMarket.ItemPlaceBid = function(...) return g.CallSecureFunction('C_BlackMarket.ItemPlaceBid', ...) end
     --g.C_Calendar.AddEvent = function(...) return g.CallSecureFunction('C_Calendar.AddEvent', ...) end
     --g.C_Calendar.UpdateEvent = function(...) return g.CallSecureFunction('C_Calendar.UpdateEvent', ...) end
     --g.C_Club.CreateTicket = function(...) return g.CallSecureFunction('C_Club.CreateTicket', ...) end
@@ -303,11 +305,11 @@ function f.Load()
     --g.C_LFGList.CreateListing = function(...) return g.CallSecureFunction('C_LFGList.CreateListing', ...) end
     --g.C_LFGList.RemoveListing = function(...) return g.CallSecureFunction('C_LFGList.RemoveListing', ...) end
     --g.C_LFGList.Search = function(...) return g.CallSecureFunction('C_LFGList.Search', ...) end
-    g.C_PetBattles.SkipTurn = function(...) return g.CallSecureFunction('C_PetBattles.SkipTurn', ...) end
-    g.C_PetBattles.UseAbility = function(...) return g.CallSecureFunction('C_PetBattles.UseAbility', ...) end
-    g.C_PetBattles.UseTrap = function(...) return g.CallSecureFunction('C_PetBattles.UseTrap', ...) end
-    g.C_PetJournal.PickupPet = function(...) return g.CallSecureFunction('C_PetJournal.PickupPet', ...) end
-    g.C_PetJournal.SummonPetByGUID = function(...) return g.CallSecureFunction('C_PetJournal.SummonPetByGUID', ...) end
+    --g.C_PetBattles.SkipTurn = function(...) return g.CallSecureFunction('C_PetBattles.SkipTurn', ...) end
+    --g.C_PetBattles.UseAbility = function(...) return g.CallSecureFunction('C_PetBattles.UseAbility', ...) end
+    --g.C_PetBattles.UseTrap = function(...) return g.CallSecureFunction('C_PetBattles.UseTrap', ...) end
+    --g.C_PetJournal.PickupPet = function(...) return g.CallSecureFunction('C_PetJournal.PickupPet', ...) end
+    --g.C_PetJournal.SummonPetByGUID = function(...) return g.CallSecureFunction('C_PetJournal.SummonPetByGUID', ...) end
     --g.C_ReportSystem.InitiateReportPlayer = function(...) return g.CallSecureFunction('C_ReportSystem.InitiateReportPlayer', ...) end
     --g.C_ReportSystem.SendReportPlayer = function(...) return g.CallSecureFunction('C_ReportSystem.SendReportPlayer', ...) end
     --g.C_Social.TwitterCheckStatus = function(...) return g.CallSecureFunction('C_Social.TwitterCheckStatus', ...) end
@@ -315,23 +317,17 @@ function f.Load()
     --g.C_Social.TwitterDisconnect = function(...) return g.CallSecureFunction('C_Social.TwitterDisconnect', ...) end
     --g.C_UI.Reload = function(...) return g.CallSecureFunction('C_UI.Reload', ...) end
     g.CancelItemTempEnchantment = function(...) return g.CallSecureFunction('CancelItemTempEnchantment', ...) end
-    --g.CancelLogout = function(...) return g.CallSecureFunction('CancelLogout', ...) end
+    g.CancelLogout = function(...) return g.CallSecureFunction('CancelLogout', ...) end
 
     g.UnitGUID = function(Obj) return Obj and (g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj)) or nil end
     g.UnitExists = function(Obj)
-        if UnitTagHandler(_G.UnitExists, Obj) then
-            return true
-        end
-        if not g.IsGuid(Obj) then
+        if not Obj then
             return false
         end
-        for i = 1, g.GetObjectCount() do
-            local object = g.GetObjectWithIndex(i)
-            if object == Obj then
-              return true
-            end
+        if validUnitsOM[Obj] then
+            return true
         end
-        return false
+        return _G.UnitExists(Obj)
     end
     g.ObjectExists = g.UnitExists
     g.UnitCombatReach = function(unit) g.ObjectField(unit, Offsets.CombatReach, 15) end
@@ -489,8 +485,10 @@ function f.GameObjectIsAnimating(a)
 end
 
 function f.OM_Maker()
+    validUnitsOM = {}
     for i = 1, g.GetObjectCount() do
         local Obj = g.GetObjectWithIndex(i)
+        validUnitsOM[Obj] = true;
         NeP.OM:Add(Obj, g.ObjectType(Obj) == ObjectTypes.GameObject, g.ObjectType(Obj) == ObjectTypes.AreaTrigger)
     end
 end
