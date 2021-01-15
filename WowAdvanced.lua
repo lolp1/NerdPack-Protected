@@ -45,7 +45,7 @@ end
 
 function f.Load()
 
-    print('LOADED test v2')
+    print('LOADED test v3')
 
     -- ADD GUID
     g.UnitInRange = function(...) return UnitTagHandler(_G.UnitInRange, ...) end
@@ -321,7 +321,15 @@ function f.Load()
     g.CancelItemTempEnchantment = function(...) return g.CallSecureFunction('CancelItemTempEnchantment', ...) end
     g.CancelLogout = function(...) return g.CallSecureFunction('CancelLogout', ...) end
 
-    g.UnitGUID = function(Obj) return Obj and (g.IsGuid(Obj) and Obj or _G.UnitGUID(Obj)) or nil end
+    g.UnitGUID = function(Obj)
+        if not Obj then
+            return nil
+        end
+        if validUnitsOM[Obj] then
+            return Obj
+        end
+        return _G.UnitGUID(Obj)
+    end
     g.UnitExists = function(Obj)
         if not Obj then
             return false
