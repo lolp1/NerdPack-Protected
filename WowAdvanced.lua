@@ -45,6 +45,8 @@ end
 
 function f.Load()
 
+    print('LOADED test')
+
     -- ADD GUID
     g.UnitInRange = function(...) return UnitTagHandler(_G.UnitInRange, ...) end
     g.UnitPlayerControlled = function(...) return UnitTagHandler(_G.UnitPlayerControlled, ...) end
