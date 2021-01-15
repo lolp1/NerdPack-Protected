@@ -49,7 +49,7 @@ end
 
 local function UnitTagHandlerSecure(func)
     return function(...)
-        print(func)
+        print(func, handleUnits(...))
         return g.CallSecureFunction(func, handleUnits(...))
     end
 end
