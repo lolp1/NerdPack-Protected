@@ -22,9 +22,6 @@ local Offsets = {
     ['RotationR'] = 0x650 + 0x10, --Location + 1
 }
 
-local cachedUnitResults = {}
-
-
 local function handleUnits(...)
     local mouseover;
     local focus;
@@ -46,12 +43,7 @@ end
 
 local function UnitTagHandler(func)
     return function(...)
-        local k1, k2, k3 = ...
-        local key = tostring(func) .. tostring(k1 or '') .. tostring(k2 or '') .. tostring(k3 or '')
-        if not cachedUnitResults[key] then
-            cachedUnitResults[key] = func(handleUnits(...))
-        end
-        return cachedUnitResults[key]
+        return func(handleUnits(...))
     end
 end
 
@@ -68,7 +60,6 @@ end
 function f.Load()
 
     print('LOADED test v6')
-    NeP.Timer.Add('nep_wa_cachedUnitResults', function() wipe(cachedUnitResults) end, 1)
 
     -- ADD GUID
     g.UnitInRange = UnitTagHandler(_G.UnitInRange)
