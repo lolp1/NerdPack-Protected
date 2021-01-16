@@ -30,6 +30,7 @@ local function handleUnits(param1, param2, ...)
             return g.SetMouseOver(param1), param2, ...
         end
     elseif validUnitsOM[param2] then
+        print(param2, g.SetMouseOver(param2))
         return param1, g.SetMouseOver(param2), ...
     end
     return param1, param2, ...
@@ -43,7 +44,6 @@ end
 
 local function UnitTagHandlerSecure(func)
     return function(...)
-        print(func, handleUnits(...))
         return g.CallSecureFunction(func, handleUnits(...))
     end
 end
