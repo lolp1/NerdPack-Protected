@@ -90,7 +90,8 @@ end
 
 function f.CastGround(spell, target)
     -- fallback to generic if we can cast it using macros
-	if NeP.Protected.validGround[target] then
+    if NeP.Protected.validGround[target] then
+        print(target)
         return f.Macro("/cast [@"..target.."]"..spell)
     end
     if not NeP.DSL:Get('exists')(target) then return end
