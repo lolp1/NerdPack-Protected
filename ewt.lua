@@ -45,8 +45,8 @@ function f.SpellStopCasting()
 end
 
 function f.Load()
-	g.ObjectCreator = _G.GetObjectDescriptorAccessor("CGUnitData::createdBy", _G.Type.GUID)
-	g.GameObjectIsAnimating = _G.GetObjectFieldAccessor(0x1C4, _G.Type.Bool)
+	g.ObjectCreator = _G.GetObjectDescriptorAccessor("CGUnitData::createdBy", g.Types.GUID)
+	g.GameObjectIsAnimating = _G.GetObjectFieldAccessor(0x1C4, g.Types.Bool)
 	-- FireHack b27 breaks InCombatLockdown, lets fix it
 	_G.InCombatLockdown = function() return g.UnitAffectingCombat("player") end
 	g.InCombatLockdown = _G.InCombatLockdown;
