@@ -50,8 +50,8 @@ function f.Load()
 end
 
 function f.ObjectCreator(a)
-	if not a then
-		return nil
+	if not g.ObjectExists(a) then
+		return false
 	end
 	return g.ObjectCreator(a)
 end
@@ -60,7 +60,7 @@ function f.GameObjectIsAnimating(a)
 	if not g.ObjectExists(a) then
 		return false
 	end
-	local animationState = g.ObjectField(a, 0x60, 3)
+	local animationState = g.ObjectAnimation(a)
 	return animationState ~= nil and animationState > 0
 end
 
