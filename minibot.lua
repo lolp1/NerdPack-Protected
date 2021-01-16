@@ -70,6 +70,10 @@ function f.SpellStopCasting()
 	g.SpellStopCasting()
 end
 
+function f.ResetAfk()
+	g.ResetAfk()
+end
+
 function f.ObjectCreator(a)
 	if not g.ObjectExists(a) then
 		return nil

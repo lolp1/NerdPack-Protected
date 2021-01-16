@@ -388,6 +388,10 @@ function f.SpellStopCasting()
 	g.SpellStopCasting()
 end
 
+function f.ResetAfk()
+	g.ResetHardwareAction()
+end
+
 function f.CastGround(spell, target)
     if not spell then return end
     f.Cast(spell)
