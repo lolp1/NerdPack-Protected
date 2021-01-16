@@ -1,21 +1,16 @@
-local n_name, gbl = ...
-local NeP = _G.NeP
+
 
 local noop = function() end
-gbl.version = 2.0
-gbl.unlocked = false
+NeP.Protected.version = 2.0
+NeP.Protected.unlocked = false
 local unlockers = {}
 
-NeP.Listener:Add(n_name, "ADDON_ACTION_FORBIDDEN", function(...)
-	local addon = ...
-	if addon == n_name then
-		_G.StaticPopup1:Hide()
-		NeP.Core:Print('Didn\'t find any unlocker, using facerool.',
-		'\n-> Right click the |cffff0000MasterToggle|r and press |cffff0000'..n_name..' v:'..gbl.version..'|r to try again.')
-	end
-end)
+NeP.Protected.validGround = {
+	["player"] = true,
+	["cursor"] = true
+}
 
-function gbl.AddUnlocker(_, name, eval)
+function NeP.Protected.AddUnlocker(_, name, eval)
 	table.insert(unlockers, {
 		name = name,
 		test = eval.test,
@@ -28,14 +23,14 @@ function gbl.AddUnlocker(_, name, eval)
 	table.sort( unlockers, function(a,b) return a.prio > b.prio end )
 end
 
-function gbl.SetUnlocker(_, name, unlocker)
+function NeP.Protected.SetUnlocker(_, name, unlocker)
 	NeP.Core:Print('|cffff0000Found:|r ' .. name)
 	unlocker.init()
-	gbl.MergeTable(unlocker.functions, NeP.Protected)
+	NeP.Protected.MergeTable(unlocker.functions, NeP.Protected)
 end
 
 local _loads = NeP.Protected.callbacks
-function gbl.TryLoads()
+function NeP.Protected.TryLoads()
 	for i=1, #_loads do
 		if _loads[i] and _loads[i]() then
 			_loads[i] = nil
@@ -43,28 +38,23 @@ function gbl.TryLoads()
 	end
 end
 
-function gbl.FindUnlocker()
+function NeP.Protected.FindUnlocker()
 	for i=1, #unlockers do
 		local unlocker = unlockers[i]
 		if unlocker.test() then
 			NeP.Unlocked = nil -- this is created by the generic unlocker (get rid of it)
-			gbl:SetUnlocker(unlocker.name, unlocker)
-			gbl.TryLoads()
+			NeP.Protected:SetUnlocker(unlocker.name, unlocker)
+			NeP.Protected.TryLoads()
 			return true
 		end
 	 end
 end
 
-function gbl.MergeTable(a,b)
+function NeP.Protected.MergeTable(a,b)
     for name, func in pairs(a) do
         b[name] = func
     end
     return b
 end
 
-NeP.Interface:Add(n_name..' v:'..gbl.version, gbl.FindUnlocker)
-
--- Delay until everything is ready
-NeP.Core:WhenInGame(function()
-	_G.C_Timer.After(1, gbl.FindUnlocker)
-end)
+NeP.Protected.FindUnlocker()
