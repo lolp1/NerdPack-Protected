@@ -42,9 +42,6 @@ end
 
 local function UnitTagHandlerSecure(func)
     return function(...)
-        if func == 'CastSpellByName' then
-            print(tostring(g.CallSecureFunction), func, ...)
-        end
         return g.CallSecureFunction(func, handleUnits(...))
     end
 end
@@ -55,10 +52,18 @@ end
 
 function f.Load()
 
-    print('test loaded v5')
+    print('test loaded v6')
     NeP.Protected.nPlates = nil
 
     -- ADD GUID
+    local oldTest = g.CallSecureFunction
+    g.CallSecureFunction = function(func, ...)
+        if func == 'CastSpellByName' then
+            print(tostring(g.CallSecureFunction), func, ...)
+        end
+        return oldTest(func, ...)
+    end
+
     g.UnitInRange = UnitTagHandler(_G.UnitInRange)
     g.UnitPlayerControlled = UnitTagHandler(_G.UnitPlayerControlled)
     g.UnitIsVisible = UnitTagHandler(_G.UnitIsVisible)
