@@ -106,10 +106,14 @@ function f.Infront(a, b)
 end
 
 function f.CastGround(spell, target)
+    -- fallback to generic if we can cast it using macros
+	if NeP.Protected.validGround[target] then
+        return f.Macro("/cast [@"..target.."]"..spell)
+    end
     if not NeP.DSL:Get('exists')(target) then return end
     -- Need to know if the spell comes from a Item for use UseItemByName or CastSpellByName
 	local IsItem = g.GetItemSpell(spell)
-	local func = IsItem and NeP.Protected.Generic.UseItem or NeP.Protected.Generic.Cast
+	local func = IsItem and f.UseItem or f.Cast
 	local oX, oY, oZ = g.ObjectPosition(target)
 	local rX, rY = math.random(), math.random()
 	if oX then

@@ -87,31 +87,27 @@ function f.Infront(a, b)
 end
 
 function f.CastGround(spell, target)
-    -- fallback to generic if we can cast it using macros
-	if NeP.Protected.validGround[target] then
-        return NeP.Protected.Macro("/cast [@"..target.."]"..spell)
-    end
     if not NeP.DSL:Get('exists')(target) then return end
     -- Need to know if the spell comes from a Item for use UseItemByName or CastSpellByName
-	local IsItem = NeP.Protected.gapis.GetItemSpell(spell)
-	local func = IsItem and NeP.Protected.Generic.UseItem or NeP.Protected.Generic.Cast
-	local oX, oY, oZ = NeP.Protected.gapis.ObjectPosition(target)
+	local IsItem = g.GetItemSpell(spell)
+	local func = IsItem and f.UseItem or f.Cast
+	local oX, oY, oZ = g.ObjectPosition(target)
 	local rX, rY = math.random(), math.random()
 	if oX then
 		oX = oX + rX;
         oY = oY + rY
 		local i = -100
 		func(spell)
-        local mouselookup = NeP.Protected.gapis.IsMouseButtonDown(2)
-        if mouselookup then NeP.Protected.gapis.MouselookStop() end
-        while NeP.Protected.gapis.SpellIsTargeting() and i <= 100 do
+        local mouselookup = g.IsMouseButtonDown(2)
+        if mouselookup then g.MouselookStop() end
+        while g.SpellIsTargeting() and i <= 100 do
             g.ClickPosition(oX, oY, oZ)
             i = i + 1
             oZ = i
         end
-        if mouselookup then NeP.Protected.gapis.MouselookStart() end
-        if i >= 100 and NeP.Protected.gapis.SpellIsTargeting() then
-            NeP.Protected.gapis.SpellStopTargeting()
+        if mouselookup then g.MouselookStart() end
+        if i >= 100 and g.SpellIsTargeting() then
+            g.SpellStopTargeting()
         end
     end
 end
