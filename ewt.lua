@@ -61,7 +61,6 @@ function f.GameObjectIsAnimating(a)
 		return false
 	end
     local animationState = g.ObjectAnimation(a)
-    print(animationState)
 	return animationState ~= nil and animationState > 0
 end
 
