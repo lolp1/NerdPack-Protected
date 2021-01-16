@@ -357,18 +357,18 @@ function f.Load()
         return sX * multiplier, sY * multiplier * -1 + WorldFrame:GetTop()
     end
 
-    -- rapid
-    f.Macro = g.RunMacroText
-    f.UseItem = g.UseItemByName
-    f.UseInvItem = g.UseInventoryItem
-    f.TargetUnit = g.TargetUnit
-    f.SpellStopCasting = g.SpellStopCasting
-    f.Cast = g.CastSpellByName
-    f.ObjectGUID = g.UnitGUID
-    f.ObjectExists = g.UnitExists
-    f.UnitName = g.ObjectName
-
 end
+
+-- rapid
+f.Macro = function (...) return g.RunMacroText(...) end
+f.UseItem = function (...) return g.UseItemByName(...) end
+f.UseInvItem = function (...) return g.UseInventoryItem(...) end
+f.TargetUnit = function (...) return g.TargetUnit(...) end
+f.SpellStopCasting = function (...) return g.SpellStopCasting(...) end
+f.Cast = function (...) return g.CastSpellByName(...) end
+f.ObjectGUID = function (...) return g.UnitGUID(...) end
+f.ObjectExists = function (...) return g.UnitExists(...) end
+f.UnitName = function (...) return g.ObjectName(...) end
 
 function f.CastGround(spell, target)
     if not spell then return end
