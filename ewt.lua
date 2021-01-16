@@ -45,20 +45,23 @@ function f.SpellStopCasting()
 end
 
 function f.Load()
-	g.ObjectCreator = _G.GetObjectDescriptorAccessor("CGUnitData::createdBy", g.Types.GUID)
-	g.GameObjectIsAnimating = _G.GetObjectFieldAccessor(0x1C4, g.Types.Bool)
-	-- FireHack b27 breaks InCombatLockdown, lets fix it
-	_G.InCombatLockdown = function() return g.UnitAffectingCombat("player") end
-	g.InCombatLockdown = _G.InCombatLockdown;
+	g.InCombatLockdown = function() return g.UnitAffectingCombat("player") end
 	NeP.Protected.nPlates = nil
 end
 
 function f.ObjectCreator(a)
-	return g.ObjectIsVisible(a) and g.ObjectCreator(a)
+	if not g.ObjectExists(a) then
+		return nil
+	end
+	return g.ObjectField(a, 0x720, 15)
 end
 
 function f.GameObjectIsAnimating(a)
-	return g.ObjectIsVisible(a) and g.GameObjectIsAnimating(a)
+	if not g.ObjectExists(a) then
+		return false
+	end
+	local animationState = g.ObjectField(a, 0x60, 3)
+	return animationState ~= nil and animationState > 0
 end
 
 
