@@ -43,7 +43,7 @@ end
 local function UnitTagHandlerSecure(func)
     return function(...)
         if func == 'CastSpellByName' then
-            print(...)
+            print(tostring(g.CallSecureFunction), func, ...)
         end
         return g.CallSecureFunction(func, handleUnits(...))
     end
@@ -55,7 +55,7 @@ end
 
 function f.Load()
 
-    print('test loaded v4')
+    print('test loaded v5')
     NeP.Protected.nPlates = nil
 
     -- ADD GUID
