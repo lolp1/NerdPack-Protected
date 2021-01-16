@@ -52,6 +52,7 @@ end
 
 function f.Load()
 
+    print('test loaded v8')
     NeP.Protected.nPlates = nil
 
     g.UnitInRange = UnitTagHandler(_G.UnitInRange)
@@ -394,7 +395,7 @@ function f.CastGround(spell, target)
     if NeP.Protected.validGround[target] then
         return NeP.Protected.Macro("/cast [@"..target.."]"..spell)
     end
-    f.Cast(spell)
+    f.Cast(spell, target)
     g.ClickPosition(g.GetUnitPosition(target or 'player'))
 end
 
