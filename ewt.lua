@@ -50,10 +50,10 @@ function f.Load()
 end
 
 function f.ObjectCreator(a)
-	if not g.ObjectExists(a) then
+	if not a then
 		return nil
 	end
-	return g.ObjectField(a, 0x720, 15)
+	return g.ObjectCreator(a)
 end
 
 function f.GameObjectIsAnimating(a)
