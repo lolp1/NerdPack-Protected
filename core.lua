@@ -5,7 +5,6 @@ local noop = function() end
 gbl.version = 2.0
 gbl.unlocked = false
 local unlockers = {}
-gbl.gapis = NeP._G
 
 NeP.Listener:Add(n_name, "ADDON_ACTION_FORBIDDEN", function(...)
 	local addon = ...

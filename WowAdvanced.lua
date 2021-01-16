@@ -1,8 +1,7 @@
-local _, gbl = ...
-local NeP = _G.NeP
-gbl.Wownet = {}
-local f = gbl.Wownet
-local g = gbl.gapis
+
+NeP.Protected.wowAdvanced = {}
+local f = NeP.Protected.wowAdvanced
+local g = NeP._G
 
 local validUnitsOM = {}
 
@@ -54,6 +53,7 @@ end
 function f.Load()
 
     print('test loaded')
+    NeP.Protected.nPlates = nil
 
     -- ADD GUID
     g.UnitInRange = UnitTagHandler(_G.UnitInRange)
@@ -362,21 +362,21 @@ function f.Load()
 end
 
 -- rapid
-f.Macro = function (...) return g.RunMacroText(...) end
-f.UseItem = function (...) return g.UseItemByName(...) end
-f.UseInvItem = function (...) return g.UseInventoryItem(...) end
-f.TargetUnit = function (...) return g.TargetUnit(...) end
-f.SpellStopCasting = function (...) return g.SpellStopCasting(...) end
-f.Cast = function (...) print(...) return g.CastSpellByName(...) end
-f.ObjectGUID = function (...) return g.UnitGUID(...) end
-f.ObjectExists = function (...) return g.UnitExists(...) end
-f.UnitName = function (...) return g.ObjectName(...) end
+f.Macro = function(...) return g.RunMacroText(...) end
+f.UseItem = function(...) return g.UseItemByName(...) end
+f.UseInvItem = function(...) return g.UseInventoryItem(...) end
+f.TargetUnit = function(...) return g.TargetUnit(...) end
+f.SpellStopCasting = function(...) return g.SpellStopCasting(...) end
+f.Cast = function(...) print(...) return g.CastSpellByName(...) end
+f.ObjectGUID = function(...) return g.UnitGUID(...) end
+f.ObjectExists = function(...) return g.UnitExists(...) end
+f.UnitName = function(...) return g.ObjectName(...) end
 
 function f.CastGround(spell, target)
     if not spell then return end
     -- fallback to generic if we can cast it using macros
-    if gbl.validGround[target] then
-        return gbl.Generic.CastGround(spell, target)
+    if NeP.Protected.validGround[target] then
+        return NeP.Protected.Generic.CastGround(spell, target)
     end
     f.Cast(spell)
     g.ClickPosition(g.GetUnitPosition(target or 'player'))
@@ -505,7 +505,7 @@ f.ObjectCreator = function(Obj)
     return g.ObjectField(Obj, 0x720, 15)
 end
 
-gbl:AddUnlocker('WowAdvanced', {
+NeP.Protected:AddUnlocker('WowAdvanced', {
     test = function() return NeP._G.CallSecureFunction ~= nil end,
     init = f.Load,
     prio = 9,

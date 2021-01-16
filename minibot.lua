@@ -1,11 +1,9 @@
-local _, gbl = ...
-local NeP = _G.NeP
-gbl.Minibot = gbl.MergeTable(gbl.Generic, {})
-local f = gbl.Minibot
-local g = gbl.gapis
+
+NeP.Protected.Minibot = {}
+local f = NeP.Protected.Minibot
+local g = NeP._G
 
 --[[
-	[ this is incomple, ported enough to get it working but some stubs might be missing ]
 	https://github.com/pierre-picard/minibot-wow/blob/master/snippets/EWT-MiniBot-API.lua
 ]]
 
@@ -13,6 +11,7 @@ local ObjectTypes
 
 function f.Load()
 	local objectTypeFlagsTable = _G.wmbapi.GetObjectTypeFlagsTable()
+	NeP.Protected.nPlates = nil
 	ObjectTypes = {
 		Object = objectTypeFlagsTable.Object,
 		Item = objectTypeFlagsTable.Item,
@@ -45,6 +44,30 @@ function f.Load()
 		local sy = GetScreenHeight() * scale
 		return x * sx, y * sy
 	end
+end
+
+function f.Cast(spell, target)
+	g.CastSpellByName(spell, target)
+end
+
+function f.Macro(text)
+	g.RunMacroText(text)
+end
+
+function f.UseItem(name, target)
+	g.UseItemByName(name, target)
+end
+
+function f.UseInvItem(name)
+	g.UseInventoryItem(name)
+end
+
+function f.TargetUnit(target)
+	g.TargetUnit(target)
+end
+
+function f.SpellStopCasting()
+	g.SpellStopCasting()
 end
 
 function f.ObjectCreator(a)
@@ -84,13 +107,13 @@ end
 
 function f.CastGround(spell, target)
     -- fallback to generic if we can cast it using macros
-	if gbl.validGround[target] then
-        return gbl.Generic.CastGround(spell, target)
+	if NeP.Protected.validGround[target] then
+        return NeP.Protected.Macro("/cast [@"..target.."]"..spell)
     end
     if not NeP.DSL:Get('exists')(target) then return end
     -- Need to know if the spell comes from a Item for use UseItemByName or CastSpellByName
 	local IsItem = g.GetItemSpell(spell)
-	local func = IsItem and gbl.Generic.UseItem or gbl.Generic.Cast
+	local func = IsItem and NeP.Protected.Generic.UseItem or NeP.Protected.Generic.Cast
 	local oX, oY, oZ = g.ObjectPosition(target)
 	local rX, rY = math.random(), math.random()
 	if oX then
@@ -145,7 +168,7 @@ function f.OM_Maker()
 	end
 end
 
-gbl:AddUnlocker('Minibot', {
+NeP.Protected:AddUnlocker('Minibot', {
 	test = function()
 		return _G.wmbapi ~= nil
 	end,

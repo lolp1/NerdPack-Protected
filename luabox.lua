@@ -1,13 +1,13 @@
-local _, gbl = ...
-local NeP = _G.NeP
-gbl.LuaBox = gbl.MergeTable(gbl.Generic, {})
-local f = gbl.LuaBox
-local g = gbl.gapis
+
+NeP.Protected.LuaBox = {}
+local f = NeP.Protected.LuaBox
+local g = NeP._G
 local lb
 
 function f.Load()
-    NeP.Core:Print('LB is still under dev... v12')
-    lb = g. _G.__LB__;
+	NeP.Core:Print('LB is still under dev... v12')
+	NeP.Protected.nPlates = nil
+    lb = g.__LB__;
     local _G = _G
 	g.CameraOrSelectOrMoveStart = function (...) return lb.Unlock(_G.CameraOrSelectOrMoveStart, ...) end
 	g.CameraOrSelectOrMoveStop = function (...) return lb.Unlock(_G.CameraOrSelectOrMoveStop, ...) end
@@ -109,6 +109,37 @@ function f.Load()
     f.ObjectGUID = g.UnitGUID
 end
 
+function f.Cast(spell, target)
+	g.CastSpellByName(spell, target)
+end
+
+function f.CastGround(spell, target)
+	if not NeP.Protected.validGround[target] then
+		target = "cursor"
+	end
+	NeP.Protected.Macro("/cast [@"..target.."]"..spell)
+end
+
+function f.Macro(text)
+	g.RunMacroText(text)
+end
+
+function f.UseItem(name, target)
+	g.UseItemByName(name, target)
+end
+
+function f.UseInvItem(name)
+	g.UseInventoryItem(name)
+end
+
+function f.TargetUnit(target)
+	g.TargetUnit(target)
+end
+
+function f.SpellStopCasting()
+	g.SpellStopCasting()
+end
+
 function f.Distance(a, b)
 	if not NeP.DSL:Get('exists')(a)
 	or not NeP.DSL:Get('exists')(b) then
@@ -126,8 +157,6 @@ function f.UnitCombatRange(a, b)
     local distance = NeP.DSL:Get('distance')(a, nil, b) or 0
     return distance - (reachA + reachB)
 end
-
-
 
 function f.LineOfSight(a, b)
     if not NeP.DSL:Get('exists')(a) or not NeP.DSL:Get('exists')(b) then
@@ -148,8 +177,8 @@ function f.OM_Maker()
     end
 end
 
-gbl:AddUnlocker('LuaBox', {
-	test = function() return __LB__ end,
+NeP.Protected:AddUnlocker('LuaBox', {
+	test = function() return g.__LB__ end,
 	init = f.Load,
 	prio = 1,
 	functions = f,

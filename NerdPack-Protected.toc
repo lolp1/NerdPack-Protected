@@ -1,7 +1,0 @@
-## Title: |r[|cff0070deNerdPack|r] Protected
-## Notes: A plugin for NerdPack.
-## Dependencies: NerdPack
-## Interface: 90001
-## Author: MrTheSoulz, Zylla
-
-files.xml
