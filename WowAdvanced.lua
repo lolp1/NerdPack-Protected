@@ -43,11 +43,8 @@ end
 
 local function UnitTagHandlerSecure(func)
     return function(...)
-        local param1, param2 = ...
-        print(func)
-        print(param1, param2)
-        print(handleUnits(...))
-        return g.CallSecureFunction(func, handleUnits(...))
+        local p1, p2, p3, p4 = handleUnits(...)
+        return g.CallSecureFunction(func, p1, p2, p3, p4)
     end
 end
 
