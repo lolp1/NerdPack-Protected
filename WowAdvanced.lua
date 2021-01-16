@@ -52,17 +52,8 @@ end
 
 function f.Load()
 
-    print('test loaded v6')
+    print('test loaded v7')
     NeP.Protected.nPlates = nil
-
-    -- ADD GUID
-    local oldTest = g.CallSecureFunction
-    g.CallSecureFunction = function(func, ...)
-        if func == 'CastSpellByName' then
-            print(tostring(g.CallSecureFunction), func, ...)
-        end
-        return oldTest(func, ...)
-    end
 
     g.UnitInRange = UnitTagHandler(_G.UnitInRange)
     g.UnitPlayerControlled = UnitTagHandler(_G.UnitPlayerControlled)
@@ -370,15 +361,33 @@ function f.Load()
 end
 
 -- rapid
-f.Macro = function(...) return g.RunMacroText(...) end
-f.UseItem = function(...) return g.UseItemByName(...) end
-f.UseInvItem = function(...) return g.UseInventoryItem(...) end
-f.TargetUnit = function(...) return g.TargetUnit(...) end
-f.SpellStopCasting = function(...) return g.SpellStopCasting(...) end
-f.Cast = function(...) return g.CastSpellByName(...) end
-f.ObjectGUID = function(...) return g.UnitGUID(...) end
-f.ObjectExists = function(...) return g.UnitExists(...) end
-f.UnitName = function(...) return g.ObjectName(...) end
+f.ObjectGUID = function(unit) return g.UnitGUID(unit) end
+f.ObjectExists = function(unit) return g.UnitExists(unit) end
+f.UnitName = function(unit) return g.ObjectName(unit) end
+
+function f.Cast(spell, target)
+	g.CastSpellByName(spell, target)
+end
+
+function f.Macro(text)
+	g.RunMacroText(text)
+end
+
+function f.UseItem(name, target)
+	g.UseItemByName(name, target)
+end
+
+function f.UseInvItem(name)
+	g.UseInventoryItem(name)
+end
+
+function f.TargetUnit(target)
+	g.TargetUnit(target)
+end
+
+function f.SpellStopCasting()
+	g.SpellStopCasting()
+end
 
 function f.CastGround(spell, target)
     if not spell then return end
