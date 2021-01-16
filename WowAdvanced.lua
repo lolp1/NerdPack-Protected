@@ -37,16 +37,13 @@ end
 
 local function UnitTagHandler(func)
     return function(...)
-        local p1, p2, p3, p4 = handleUnits(...)
-        return func(p1, p2, p3, p4)
+        return func(handleUnits(...))
     end
 end
 
 local function UnitTagHandlerSecure(func)
     return function(...)
-        local p1, p2, p3, p4 = handleUnits(...)
-        print(p1, p2, p3, p4)
-        return g.CallSecureFunction(func, p1, p2, p3, p4)
+        return g.CallSecureFunction(func, handleUnits(...))
     end
 end
 

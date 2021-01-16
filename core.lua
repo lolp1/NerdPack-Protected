@@ -31,8 +31,8 @@ end
 
 function gbl.SetUnlocker(_, name, unlocker)
 	NeP.Core:Print('|cffff0000Found:|r ' .. name)
-	unlocker.init()
 	gbl.MergeTable(unlocker.functions, NeP.Protected)
+	unlocker.init()
 end
 
 local _loads = NeP.Protected.callbacks
