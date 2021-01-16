@@ -64,7 +64,6 @@ function f.GameObjectIsAnimating(a)
 	return animationState ~= nil and animationState > 0
 end
 
-
 function f.Distance(a, b)
 	if not NeP.DSL:Get('exists')(a)
 	or not NeP.DSL:Get('exists')(b) then

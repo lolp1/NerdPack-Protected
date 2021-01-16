@@ -25,6 +25,8 @@ end
 
 function NeP.Protected.SetUnlocker(_, name, unlocker)
 	NeP.Core:Print('|cffff0000Found:|r ' .. name)
+	NeP.Protected.unlocker = name or ''
+	NeP.Interface.UpdateTitle()
 	unlocker.init()
 	NeP.Protected.MergeTable(unlocker.functions, NeP.Protected)
 end
