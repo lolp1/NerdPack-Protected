@@ -60,7 +60,8 @@ function f.GameObjectIsAnimating(a)
 	if not g.ObjectExists(a) then
 		return false
 	end
-	local animationState = g.ObjectAnimation(a)
+    local animationState = g.ObjectAnimation(a)
+    print(animationState)
 	return animationState ~= nil and animationState > 0
 end
 
