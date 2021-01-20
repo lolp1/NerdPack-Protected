@@ -72,7 +72,7 @@ function f.Load()
 
     NeP.Protected.nPlates = nil
 
-    print('loaded test WA v6')
+    print('loaded test WA v7')
     NeP.Cache.cached_funcs_unlocker = {}
 
 
@@ -109,6 +109,42 @@ function f.Load()
             NeP.Cache.UnitCombatReach[unit] = reach
         end
         return reach
+    end
+
+    -- lets try to cache ObjectType
+    NeP.Cache.ObjectType = NeP.Cache.ObjectType or {}
+    local old_ObjectType = g.ObjectType
+    g.ObjectType = function(unit)
+        if not unit then
+            return nil
+        end
+        local found = NeP.Cache.ObjectType[unit]
+        if found then
+            return found
+        end
+        local result = old_ObjectType(unit)
+        if result then
+            NeP.Cache.ObjectType[unit] = result
+        end
+        return result
+    end
+
+    -- lets try to cache UnitFacing
+    NeP.Cache.UnitFacing = NeP.Cache.UnitFacing or {}
+    local old_UnitFacing = g.UnitFacing
+    g.UnitFacing = function(unit)
+        if not unit then
+            return nil
+        end
+        local found = NeP.Cache.UnitFacing[unit]
+        if found then
+            return found
+        end
+        local result = old_UnitFacing(unit)
+        if result then
+            NeP.Cache.UnitFacing[unit] = result
+        end
+        return result
     end
 
     g.UnitInRange = UnitTagHandler('UnitInRange')
@@ -588,7 +624,7 @@ function f.GameObjectIsAnimating(a)
 end
 
 function f.OM_Maker()
-    validUnitsOM = {}
+    table.wipe(validUnitsOM)
     for i = 1, g.GetObjectCount() do
         local Obj = g.GetObjectWithIndex(i)
         validUnitsOM[Obj] = true;
