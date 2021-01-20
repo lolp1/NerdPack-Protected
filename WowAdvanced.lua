@@ -53,10 +53,12 @@ local function UnitTagHandler(func)
         if found then
             return unpack(found)
         end
-        local current_moveover = g.UnitGUID('mouseover')
         cache_api[key] = {_G[func](handleUnits(...))}
-        if current_moveover then
-            g.SetMouseOver(current_moveover)
+        if NeP.current_moveover then
+            g.SetMouseOver(NeP.current_moveover)
+        end
+        if NeP.current_focus then
+            g.SetMouseOver(NeP.current_focus)
         end
         return unpack(cache_api[key])
     end
@@ -64,10 +66,12 @@ end
 
 local function UnitTagHandlerSecure(func)
     return function(...)
-        local current_moveover = g.UnitGUID('mouseover')
         local result = g.CallSecureFunction(func, handleUnits(...))
-        if current_moveover then
-            g.SetMouseOver(current_moveover)
+        if NeP.current_moveover then
+            g.SetMouseOver(NeP.current_moveover)
+        end
+        if NeP.current_focus then
+            g.SetMouseOver(NeP.current_focus)
         end
         return result
     end
