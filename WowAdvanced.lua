@@ -29,7 +29,7 @@ local function handleUnits(...)
     for k, v in pairs(args) do
         if validUnitsOM[v] then
             if not focus then
-                args[k] = g.SetFocusTarget(v)
+                args[k] = g.SetFocus(v)
                 focus = true
             elseif not mouseover then
                 args[k] = g.SetMouseOver(v)
