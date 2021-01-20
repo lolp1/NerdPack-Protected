@@ -54,7 +54,7 @@ local function UnitTagHandler(func)
             return unpack(found)
         end
         cache_api[key] = {_G[func](handleUnits(...))}
-        return cache_api[key]
+        return unpack(cache_api[key])
     end
 end
 
@@ -72,7 +72,7 @@ function f.Load()
 
     NeP.Protected.nPlates = nil
 
-    print('loaded test WA v4')
+    print('loaded test WA v5')
     NeP.Cache.cached_funcs_unlocker = {}
 
 
