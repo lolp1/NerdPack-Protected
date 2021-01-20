@@ -60,6 +60,26 @@ function f.Load()
 
     NeP.Protected.nPlates = nil
 
+    print('loaded test WA')
+
+    -- lets try to cache ObjectPosition
+    NeP.Cache.GetUnitPosition = NeP.Cache.GetUnitPosition or {}
+    local old_GetUnitPosition = g.GetUnitPosition
+    g.GetUnitPosition = function(unit)
+        if not unit then
+            return nil
+        end
+        local found = NeP.Cache.GetUnitPosition[unit]
+        if found then
+            return unpack(found)
+        end
+        local x, y, z = old_GetUnitPosition(unit)
+        if x then
+            NeP.Cache.GetUnitPosition[unit] = {x, y, z}
+        end
+        return x, y, z
+    end
+
     g.UnitInRange = UnitTagHandler(_G.UnitInRange)
     g.UnitPlayerControlled = UnitTagHandler(_G.UnitPlayerControlled)
     g.UnitIsVisible = UnitTagHandler(_G.UnitIsVisible)
@@ -362,6 +382,8 @@ function f.Load()
         local sX, sY = NeP._G.WorldToScreenRaw(wX, wY, wZ)
         return sX * multiplier, sY * multiplier * -1 + WorldFrame:GetTop()
     end
+
+    
 
 end
 
