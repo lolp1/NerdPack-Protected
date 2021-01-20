@@ -22,10 +22,13 @@ local Offsets = {
     ['RotationR'] = 0x650 + 0x10, --Location + 1
 }
 
-
-NeP.Listener:Add('nep_wowadvanced_reset','UPDATE_MOUSEOVER_UNIT', function(...)
-	print(...)
+-- lets save current mouseover so we can reset it...
+local current_moveover
+NeP.Listener:Add('nep_wowadvanced_reset','UPDATE_MOUSEOVER_UNIT ', function()
+    current_moveover = g.UnitGUID('mousever')
+    print(current_moveover)
 end)
+
 
 local function handleUnits(...)
     local mouseover;
@@ -59,13 +62,20 @@ local function UnitTagHandler(func)
             return unpack(found)
         end
         cache_api[key] = {_G[func](handleUnits(...))}
+        if current_moveover then
+            g.SetMouseOver(current_moveover)
+        end
         return unpack(cache_api[key])
     end
 end
 
 local function UnitTagHandlerSecure(func)
     return function(...)
-        return g.CallSecureFunction(func, handleUnits(...))
+        local result = g.CallSecureFunction(func, handleUnits(...))
+        if current_moveover then
+            g.SetMouseOver(current_moveover)
+        end
+        return result
     end
 end
 
@@ -77,7 +87,7 @@ function f.Load()
 
     NeP.Protected.nPlates = nil
 
-    print('loaded test WA v10')
+    print('loaded test WA v11')
     NeP.Cache.cached_funcs_unlocker = {}
 
 
