@@ -72,7 +72,7 @@ function f.Load()
 
     NeP.Protected.nPlates = nil
 
-    print('loaded test WA v5')
+    print('loaded test WA v6')
     NeP.Cache.cached_funcs_unlocker = {}
 
 
@@ -222,6 +222,8 @@ function f.Load()
     g.GetDefaultLanguage = UnitTagHandler('GetDefaultLanguage')
     g.GetCritChanceFromAgility = UnitTagHandler('GetCritChanceFromAgility')
     g.GetSpellCritChanceFromIntellect = UnitTagHandler('GetSpellCritChanceFromIntellect')
+    g.UnitGetTotalHealAbsorbs = UnitTagHandler('UnitGetTotalHealAbsorbs')
+    g.UnitGetIncomingHeals = UnitTagHandler('UnitGetIncomingHeals')
 
     --PROTECTED with units
     g.CastSpellByName = UnitTagHandlerSecure('CastSpellByName')
