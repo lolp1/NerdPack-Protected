@@ -72,7 +72,7 @@ function f.Load()
 
     NeP.Protected.nPlates = nil
 
-    print('loaded test WA v8')
+    print('loaded test WA v9')
     NeP.Cache.cached_funcs_unlocker = {}
 
 
