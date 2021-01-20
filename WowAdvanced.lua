@@ -93,7 +93,7 @@ function f.Load()
 
     NeP.Protected.nPlates = nil
 
-    print('loaded test WA v12')
+    print('loaded test WA v13')
     NeP.Cache.cached_funcs_unlocker = {}
 
 
@@ -289,10 +289,10 @@ function f.Load()
     g.SpellIsTargeting = UnitTagHandlerSecure('SpellIsTargeting')
     g.InteractUnit = UnitTagHandlerSecure('InteractUnit')
     g.CancelUnitBuff = UnitTagHandlerSecure('CancelUnitBuff')
+    g.TargetUnit = UnitTagHandlerSecure('TargetUnit')
 
     -- Portected
     g.RunMacroText = SecureFunction('RunMacroText')
-    g.TargetUnit = SecureFunction('TargetUnit')
     g.UseInventoryItem = SecureFunction('UseInventoryItem')
     g.SpellStopCasting = SecureFunction('SpellStopCasting')
     g.CameraOrSelectOrMoveStart = SecureFunction('CameraOrSelectOrMoveStart')
