@@ -22,18 +22,23 @@ local Offsets = {
     ['RotationR'] = 0x650 + 0x10, --Location + 1
 }
 
+
+NeP.Listener:Add('nep_wowadvanced_reset','UPDATE_MOUSEOVER_UNIT', function(...)
+	print(...)
+end)
+
 local function handleUnits(...)
     local mouseover;
     local focus;
     local args = {...}
     for k, v in pairs(args) do
         if validUnitsOM[v] then
-            if not focus then
-                args[k] = g.SetFocus(v)
-                focus = true
-            elseif not mouseover then
+            if not mouseover then
                 args[k] = g.SetMouseOver(v)
                 mouseover = true
+            elseif not focus then
+                args[k] = g.SetFocus(v)
+                focus = true
             end
         end
     end
@@ -72,7 +77,7 @@ function f.Load()
 
     NeP.Protected.nPlates = nil
 
-    print('loaded test WA v9')
+    print('loaded test WA v10')
     NeP.Cache.cached_funcs_unlocker = {}
 
 
