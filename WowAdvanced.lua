@@ -22,14 +22,6 @@ local Offsets = {
     ['RotationR'] = 0x650 + 0x10, --Location + 1
 }
 
--- lets save current mouseover so we can reset it...
-local current_moveover
-NeP.Listener:Add('nep_wowadvanced_reset','UPDATE_MOUSEOVER_UNIT ', function()
-    current_moveover = g.UnitGUID('mousever')
-    print(current_moveover)
-end)
-
-
 local function handleUnits(...)
     local mouseover;
     local focus;
@@ -61,6 +53,7 @@ local function UnitTagHandler(func)
         if found then
             return unpack(found)
         end
+        local current_moveover = g.UnitGUID('mousever')
         cache_api[key] = {_G[func](handleUnits(...))}
         if current_moveover then
             g.SetMouseOver(current_moveover)
@@ -71,6 +64,7 @@ end
 
 local function UnitTagHandlerSecure(func)
     return function(...)
+        local current_moveover = g.UnitGUID('mousever')
         local result = g.CallSecureFunction(func, handleUnits(...))
         if current_moveover then
             g.SetMouseOver(current_moveover)
