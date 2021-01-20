@@ -28,12 +28,12 @@ local function handleUnits(...)
     local args = {...}
     for k, v in pairs(args) do
         if validUnitsOM[v] then
-            if not mouseover then
-                args[k] = g.SetMouseOver(v)
-                mouseover = true
-            elseif not focus then
+            if not focus then
                 args[k] = g.SetFocusTarget(v)
                 focus = true
+            elseif not mouseover then
+                args[k] = g.SetMouseOver(v)
+                mouseover = true
             end
         end
     end
@@ -72,7 +72,7 @@ function f.Load()
 
     NeP.Protected.nPlates = nil
 
-    print('loaded test WA v7')
+    print('loaded test WA v8')
     NeP.Cache.cached_funcs_unlocker = {}
 
 
