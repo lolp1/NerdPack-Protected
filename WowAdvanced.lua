@@ -2,6 +2,7 @@
 NeP.Protected.wowAdvanced = {}
 local f = NeP.Protected.wowAdvanced
 local g = NeP._G
+local unpack = unpack
 
 local validUnitsOM = {}
 
@@ -21,17 +22,22 @@ local Offsets = {
     ['RotationR'] = 0x650 + 0x10, --Location + 1
 }
 
-local function handleUnits(param1, param2, ...)
-    if validUnitsOM[param1] then
-        if validUnitsOM[param2] then
-            return g.SetMouseOver(param1), g.SetFocus(param2), ...
-        else
-            return g.SetMouseOver(param1), param2, ...
+local function handleUnits(...)
+    local mouseover;
+    local focus;
+    local args = {...}
+    for k, v in pairs(args) do
+        if v and not _G.UnitExists(v) and g.IsGuid(v) then
+            if not mouseover then
+                args[k] = g.SetMouseOver(v)
+                mouseover = true
+            elseif not focus then
+                args[k] = g.SetFocusTarget(v)
+                focus = true
+            end
         end
-    elseif validUnitsOM[param2] then
-        return param1, g.SetMouseOver(param2), ...
     end
-    return param1, param2, ...
+    return unpack(args)
 end
 
 local function UnitTagHandler(func)
