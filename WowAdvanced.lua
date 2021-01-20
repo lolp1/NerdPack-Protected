@@ -60,7 +60,7 @@ function f.Load()
 
     NeP.Protected.nPlates = nil
 
-    print('loaded test WA')
+    print('loaded test WA v2')
 
     -- lets try to cache ObjectPosition
     NeP.Cache.GetUnitPosition = NeP.Cache.GetUnitPosition or {}
@@ -78,6 +78,23 @@ function f.Load()
             NeP.Cache.GetUnitPosition[unit] = {x, y, z}
         end
         return x, y, z
+    end
+
+    -- lets try to cache UnitCombatReach
+    NeP.Cache.UnitCombatReach = NeP.Cache.UnitCombatReach or {}
+    g.UnitCombatReach = function(unit)
+        if not unit then
+            return nil
+        end
+        local found = NeP.Cache.UnitCombatReach[unit]
+        if found then
+            return found
+        end
+        local reach = g.ObjectField(unit, Offsets.CombatReach, 10)
+        if reach then
+            NeP.Cache.UnitCombatReach[unit] = reach
+        end
+        return reach
     end
 
     g.UnitInRange = UnitTagHandler(_G.UnitInRange)
@@ -371,7 +388,6 @@ function f.Load()
         return _G.UnitExists(Obj)
     end
     g.ObjectExists = g.UnitExists
-    g.UnitCombatReach = function(unit) g.ObjectField(unit, Offsets.CombatReach, 15) end
     g.ObjectPosition = g.GetUnitPosition
     g.GetObjectPosition = g.GetUnitPosition
     g.UnitTarget = function(unit) return unit and (((g.IsGuid(unit) and g.SetMouseOver(unit) ) or unit) .. 'target') or nil end
@@ -382,8 +398,6 @@ function f.Load()
         local sX, sY = NeP._G.WorldToScreenRaw(wX, wY, wZ)
         return sX * multiplier, sY * multiplier * -1 + WorldFrame:GetTop()
     end
-
-    
 
 end
 
