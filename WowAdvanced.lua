@@ -53,7 +53,7 @@ local function UnitTagHandler(func)
         if found then
             return unpack(found)
         end
-        local current_moveover = g.UnitGUID('mousever')
+        local current_moveover = g.UnitGUID('mouseover')
         cache_api[key] = {_G[func](handleUnits(...))}
         if current_moveover then
             g.SetMouseOver(current_moveover)
@@ -64,7 +64,7 @@ end
 
 local function UnitTagHandlerSecure(func)
     return function(...)
-        local current_moveover = g.UnitGUID('mousever')
+        local current_moveover = g.UnitGUID('mouseover')
         local result = g.CallSecureFunction(func, handleUnits(...))
         if current_moveover then
             g.SetMouseOver(current_moveover)
@@ -81,7 +81,7 @@ function f.Load()
 
     NeP.Protected.nPlates = nil
 
-    print('loaded test WA v11')
+    print('loaded test WA v12')
     NeP.Cache.cached_funcs_unlocker = {}
 
 
