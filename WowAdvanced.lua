@@ -42,7 +42,19 @@ end
 
 local function UnitTagHandler(func)
     return function(...)
-        return _G[func](handleUnits(...))
+        local k1, k2, k3, k4, k5 = ... -- 5 should be enough xD
+        local key = (k1 or '') .. (k2 or '') .. (k3 or '') .. (k4 or '') .. (k5 or '')
+        local cache_api = NeP.Cache.cached_funcs_unlocker[func]
+        if not cache_api then
+            NeP.Cache.cached_funcs_unlocker[func] = {}
+            cache_api = NeP.Cache.cached_funcs_unlocker[func]
+        end
+        local found = cache_api[key]
+        if found then
+            return unpack(found)
+        end
+        cache_api[key] = {_G[func](handleUnits(...))}
+        return cache_api[key]
     end
 end
 
@@ -60,7 +72,9 @@ function f.Load()
 
     NeP.Protected.nPlates = nil
 
-    print('loaded test WA v3')
+    print('loaded test WA v4')
+    NeP.Cache.cached_funcs_unlocker = {}
+
 
     -- lets try to cache ObjectPosition
     NeP.Cache.GetUnitPosition = NeP.Cache.GetUnitPosition or {}
