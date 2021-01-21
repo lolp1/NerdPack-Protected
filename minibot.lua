@@ -199,6 +199,11 @@ function f.downloadMedia(domain, url, path)
     f.HttpsRequest('GET', domain, url, nil, nil, callback)
 end
 
+function f.mediaExists(path)
+    path = 'Interface\\AddOns\\'.. local_stream_name ..'\\' .. path
+    return g.FileExists(path)
+end
+
 NeP.Protected:AddUnlocker('Minibot', {
 	test = function()
 		return _G.wmbapi ~= nil

@@ -721,6 +721,11 @@ function f.downloadMedia(domain, url, path)
     f.HttpsRequest('GET', domain, url, nil, nil, callback)
 end
 
+function f.mediaExists(path)
+    path = 'Interface\\AddOns\\'.. local_stream_name ..'\\' .. path
+    return g.ReadFile(path) ~= nil
+end
+
 NeP.Protected:AddUnlocker('WowAdvanced', {
     test = function() return NeP._G.CallSecureFunction ~= nil end,
     init = f.Load,
