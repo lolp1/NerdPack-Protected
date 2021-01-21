@@ -177,6 +177,29 @@ function f.OM_Maker()
     end
 end
 
+function f.HttpsRequest(method, domain, url, body, xheaders, callback)
+	local headers = {}
+	for _,v in pairs(string.gmatch(xheaders, "\r\n")) do
+		local hK, kV = string.gmatch(v, ': ')
+		headers[#headers+1] = hK
+		headers[#headers+1] = kV
+	end
+    g.HttpAsyncGet(
+		domain,
+		443,
+		true,
+		url,
+		body,
+		function(content)
+			callback(content, 200)
+		end,
+		function(xerror)
+			print('Error while loading...')
+		end,
+        unpack(headers)
+	)
+end
+
 NeP.Protected:AddUnlocker('LuaBox', {
 	test = function() return g.__LB__ end,
 	init = f.Load,

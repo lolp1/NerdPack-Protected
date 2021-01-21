@@ -52,7 +52,7 @@ if g.CallSecureFunctionTest then
             return unpack(cache_api[key])
         end
     end
-    
+
     UnitTagHandlerSecure = SecureFunction
 
 -- OLD
@@ -694,6 +694,20 @@ f.ObjectCreator = function(Obj)
 		return nil
 	end
     return g.ObjectField(Obj, 0x720, 15)
+end
+
+function f.HttpsRequest(method, domain, url, body, headers, callback)
+    local id = g.InternetRequestAsyncInternal(method, domain .. url, body, headers)
+    local update
+    update = function ()
+       local rbody, status = g.TryInternetRequestInternal(id)
+       if rbody then
+          callback(rbody, status)
+       else
+          C_Timer.After(0, update)
+       end
+    end
+    C_Timer.After(0, update)
 end
 
 NeP.Protected:AddUnlocker('WowAdvanced', {

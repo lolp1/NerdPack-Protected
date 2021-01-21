@@ -172,6 +172,22 @@ function f.OM_Maker()
 	end
 end
 
+function f.HttpsRequest(method, domain, url, body, headers, callback)
+    g.SendHttpRequest({
+		Url = "https://" .. domain .. url,
+		Method = method,
+		Headers = headers,
+		Body = body,
+		Callback = function(request, status)
+			if (status ~= "SUCCESS") then
+				return;
+            end
+            local _, response = g.ReceiveHttpResponse(request);
+			callback(response.Body, status)
+		end
+	});
+end
+
 NeP.Protected:AddUnlocker('Minibot', {
 	test = function()
 		return _G.wmbapi ~= nil

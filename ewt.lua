@@ -151,6 +151,17 @@ function f.OM_Maker()
 	end
 end
 
+function f.HttpsRequest(method, domain, url, body, headers, callback)
+    g.SendHTTPRequest(
+        "https://" .. domain .. url,
+        body,
+		function(rbody, status, req, res, err)
+			callback(rbody, status)
+		end,
+		headers
+	)
+end
+
 NeP.Protected:AddUnlocker('EasyWoWToolBox', {
     test = function() return _G.EWT end,
     init = f.Load,
