@@ -200,6 +200,17 @@ function f.HttpsRequest(method, domain, url, body, xheaders, callback)
 	)
 end
 
+function f.downloadMedia(domain, url, path)
+    path = 'Interface\\AddOns\\'.. local_stream_name ..'\\' .. path
+    local callback = function(body, status)
+        if tonumber(status) ~= 200 then
+            print('Failed to download media', path)
+        end
+        g.WriteFile(path, body, false)
+    end
+    f.HttpsRequest('GET', domain, url, nil, nil, callback)
+end
+
 NeP.Protected:AddUnlocker('LuaBox', {
 	test = function() return g.__LB__ end,
 	init = f.Load,
