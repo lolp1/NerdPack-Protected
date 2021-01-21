@@ -22,78 +22,97 @@ local Offsets = {
     ['RotationR'] = 0x650 + 0x10, --Location + 1
 }
 
-local function handleUnits(...)
-    local mouseover;
-    local focus;
-    local args = {...}
-    for k, v in pairs(args) do
-        if validUnitsOM[v] then
-            if not mouseover then
-                args[k] = g.SetMouseOver(v)
-                mouseover = true
-            elseif not focus then
-                args[k] = g.SetFocus(v)
-                focus = true
+local UnitTagHandler
+local UnitTagHandlerSecure
+local SecureFunction
+
+-- test new API
+if g.CallSecureFunctionTest then
+
+    print('Loaded new api version')
+
+    function SecureFunction(s)
+        return function (...) return g.CallSecureFunction(s, ...) end
+    end
+
+    UnitTagHandler = SecureFunction
+    UnitTagHandlerSecure = SecureFunction
+
+-- OLD
+else
+
+    local function handleUnits(...)
+        local mouseover;
+        local focus;
+        local args = {...}
+        for k, v in pairs(args) do
+            if validUnitsOM[v] then
+                if not mouseover then
+                    args[k] = g.SetMouseOver(v)
+                    mouseover = true
+                elseif not focus then
+                    args[k] = g.SetFocus(v)
+                    focus = true
+                end
             end
         end
+        return unpack(args)
     end
-    return unpack(args)
-end
 
-local function UnitTagHandler(func)
-    return function(...)
-        local k1, k2, k3, k4, k5 = ... -- 5 should be enough xD
-        local key = (k1 or '') .. (k2 or '') .. (k3 or '') .. (k4 or '') .. (k5 or '')
-        local cache_api = NeP.Cache.cached_funcs_unlocker[func]
-        if not cache_api then
-            NeP.Cache.cached_funcs_unlocker[func] = {}
-            cache_api = NeP.Cache.cached_funcs_unlocker[func]
+    function UnitTagHandler(func)
+        return function(...)
+            local k1, k2, k3, k4, k5 = ... -- 5 should be enough xD
+            local key = (k1 or '') .. (k2 or '') .. (k3 or '') .. (k4 or '') .. (k5 or '')
+            local cache_api = NeP.Cache.cached_funcs_unlocker[func]
+            if not cache_api then
+                NeP.Cache.cached_funcs_unlocker[func] = {}
+                cache_api = NeP.Cache.cached_funcs_unlocker[func]
+            end
+            local found = cache_api[key]
+            if found then
+                return unpack(found)
+            end
+            cache_api[key] = {_G[func](handleUnits(...))}
+            if NeP.current_moveover then
+                g.SetMouseOver(NeP.current_moveover)
+            else
+                --FIX ME
+            end
+            if NeP.current_focus then
+                g.SetFocus(NeP.current_focus)
+            else
+                g.ClearFocus()
+            end
+            return unpack(cache_api[key])
         end
-        local found = cache_api[key]
-        if found then
-            return unpack(found)
-        end
-        cache_api[key] = {_G[func](handleUnits(...))}
-        if NeP.current_moveover then
-            g.SetMouseOver(NeP.current_moveover)
-        else
-            --FIX ME
-        end
-        if NeP.current_focus then
-            g.SetFocus(NeP.current_focus)
-        else
-            g.ClearFocus()
-        end
-        return unpack(cache_api[key])
     end
-end
 
-local function UnitTagHandlerSecure(func)
-    return function(...)
-        local result = g.CallSecureFunction(func, handleUnits(...))
-        if NeP.current_moveover then
-            g.SetMouseOver(NeP.current_moveover)
-        else
-            --FIX ME
+    function UnitTagHandlerSecure(func)
+        return function(...)
+            local result = g.CallSecureFunction(func, handleUnits(...))
+            if NeP.current_moveover then
+                g.SetMouseOver(NeP.current_moveover)
+            else
+                --FIX ME
+            end
+            if NeP.current_focus then
+                g.SetFocus(NeP.current_focus)
+            else
+                g.ClearFocus()
+            end
+            return result
         end
-        if NeP.current_focus then
-            g.SetFocus(NeP.current_focus)
-        else
-            g.ClearFocus()
-        end
-        return result
     end
-end
 
-local SecureFunction = function(s)
-    return function (...) return g.CallSecureFunction(s, ...) end
+    function SecureFunction(s)
+        return function (...) return g.CallSecureFunction(s, ...) end
+    end
+
 end
 
 function f.Load()
 
     NeP.Protected.nPlates = nil
-
-    print('loaded test WA v13')
     NeP.Cache.cached_funcs_unlocker = {}
 
 
