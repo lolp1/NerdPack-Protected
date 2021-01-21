@@ -1,4 +1,6 @@
 
+local NeP = NeP -- just for luacheck...
+
 NeP.Protected.wowAdvanced = {}
 local f = NeP.Protected.wowAdvanced
 local g = NeP._G
@@ -21,69 +23,6 @@ local Offsets = {
     ['LocationZ'] = 0x658, --z
     ['RotationR'] = 0x650 + 0x10, --Location + 1
 }
-
-local function handleUnits(...)
-    local mouseover;
-    local focus;
-    local args = {...}
-    for k, v in pairs(args) do
-        if validUnitsOM[v] then
-            if not mouseover then
-                args[k] = g.SetMouseOver(v)
-                mouseover = true
-            elseif not focus then
-                args[k] = g.SetFocus(v)
-                focus = true
-            end
-        end
-    end
-    return unpack(args)
-end
-
-local function UnitTagHandler(func)
-    return function(...)
-        local k1, k2, k3, k4, k5 = ... -- 5 should be enough xD
-        local key = (k1 or '') .. (k2 or '') .. (k3 or '') .. (k4 or '') .. (k5 or '')
-        local cache_api = NeP.Cache.cached_funcs_unlocker[func]
-        if not cache_api then
-            NeP.Cache.cached_funcs_unlocker[func] = {}
-            cache_api = NeP.Cache.cached_funcs_unlocker[func]
-        end
-        local found = cache_api[key]
-        if found then
-            return unpack(found)
-        end
-        cache_api[key] = {_G[func](handleUnits(...))}
-        if NeP.current_moveover then
-            g.SetMouseOver(NeP.current_moveover)
-        else
-            --FIX ME
-        end
-        if NeP.current_focus then
-            g.SetFocus(NeP.current_focus)
-        else
-            g.ClearFocus()
-        end
-        return unpack(cache_api[key])
-    end
-end
-
-local function UnitTagHandlerSecure(func)
-    return function(...)
-        local result = g.CallSecureFunction(func, handleUnits(...))
-        if NeP.current_moveover then
-            g.SetMouseOver(NeP.current_moveover)
-        else
-            --FIX ME
-        end
-        if NeP.current_focus then
-            g.SetFocus(NeP.current_focus)
-        else
-            g.ClearFocus()
-        end
-        return result
-    end
-end
 
 local SecureFunction = function(s)
     return function (...) return g.CallSecureFunction(s, ...) end
@@ -168,128 +107,128 @@ function f.Load()
         return result
     end
 
-    g.UnitInRange = UnitTagHandler('UnitInRange')
-    g.UnitPlayerControlled = UnitTagHandler('UnitPlayerControlled')
-    g.UnitIsVisible = UnitTagHandler('UnitIsVisible')
-    g.GetUnitSpeed = UnitTagHandler('GetUnitSpeed')
-    g.UnitClass = UnitTagHandler('UnitClass')
-    g.UnitIsTappedByPlayer = UnitTagHandler('UnitIsTappedByPlayer')
-    g.UnitThreatSituation = UnitTagHandler('UnitThreatSituation')
-    g.UnitCanAttack = UnitTagHandler('UnitCanAttack')
-    g.GetUnitSpeed = UnitTagHandler('GetUnitSpeed')
-    g.UnitCreatureType = UnitTagHandler('UnitCreatureType')
-    g.UnitIsDeadOrGhost = UnitTagHandler('UnitIsDeadOrGhost')
-    g.UnitDetailedThreatSituation = UnitTagHandler('UnitDetailedThreatSituation')
-    g.UnitIsUnit = UnitTagHandler('UnitIsUnit')
-    g.UnitHealthMax = UnitTagHandler('UnitHealthMax')
-    g.UnitAffectingCombat = UnitTagHandler('UnitAffectingCombat')
-    g.UnitReaction = UnitTagHandler('UnitReaction')
-    g.UnitIsPlayer = UnitTagHandler('UnitIsPlayer')
-    g.UnitIsDead = UnitTagHandler('UnitIsDead')
-    g.UnitInParty = UnitTagHandler('UnitInParty')
-    g.UnitInRaid = UnitTagHandler('UnitInRaid')
-    g.UnitHealth = UnitTagHandler('UnitHealth')
-    g.UnitCastingInfo = UnitTagHandler('UnitCastingInfo')
-    g.UnitChannelInfo = UnitTagHandler('UnitChannelInfo')
-    g.UnitName = UnitTagHandler('UnitName')
-    g.UnitBuff = UnitTagHandler('UnitBuff')
-    g.UnitDebuff = UnitTagHandler('UnitDebuff')
-    g.UnitInPhase = UnitTagHandler('UnitInPhase')
-    g.UnitIsFriend = UnitTagHandler('UnitIsFriend')
-    g.IsSpellInRange = UnitTagHandler('IsSpellInRange')
-    g.UnitClassification = UnitTagHandler('UnitClassification')
-    g.UnitAura = UnitTagHandler('UnitAura')
-    g.UnitGroupRolesAssigned = UnitTagHandler('UnitGroupRolesAssigned')
-    g.SetPortraitTexture = UnitTagHandler('SetPortraitTexture')
-    g.UnitXPMax = UnitTagHandler('UnitXPMax')
-    g.UnitXP = UnitTagHandler('UnitXP')
-    g.UnitUsingVehicle = UnitTagHandler('UnitUsingVehicle')
-    g.UnitStat = UnitTagHandler('UnitStat')
-    g.UnitSex = UnitTagHandler('UnitSex')
-    g.UnitSelectionColor = UnitTagHandler('UnitSelectionColor')
-    g.UnitResistance = UnitTagHandler('UnitResistance')
-    g.UnitReaction = UnitTagHandler('UnitReaction')
-    g.UnitRangedDamage = UnitTagHandler('UnitRangedDamage')
-    g.UnitRangedAttackPower = UnitTagHandler('UnitRangedAttackPower')
-    g.UnitRangedAttack = UnitTagHandler('UnitRangedAttack')
-    g.UnitRace = UnitTagHandler('UnitRace')
-    g.UnitPowerType = UnitTagHandler('UnitPowerType')
-    g.UnitPowerMax = UnitTagHandler('UnitPowerMax')
-    g.UnitPower = UnitTagHandler('UnitPower')
-    g.UnitPVPName = UnitTagHandler('UnitPVPName')
-    g.UnitPlayerOrPetInRaid = UnitTagHandler('UnitPlayerOrPetInRaid')
-    g.UnitPlayerOrPetInParty = UnitTagHandler('UnitPlayerOrPetInParty')
-    g.UnitManaMax = UnitTagHandler('UnitManaMax')
-    g.UnitMana = UnitTagHandler('UnitMana')
-    g.UnitLevel = UnitTagHandler('UnitLevel')
-    g.UnitIsTrivial = UnitTagHandler('UnitIsTrivial')
-    g.UnitIsTapped = UnitTagHandler('UnitIsTapped')
-    g.UnitIsSameServer = UnitTagHandler('UnitIsSameServer')
-    g.UnitIsPossessed = UnitTagHandler('UnitIsPossessed')
-    g.UnitIsPVPSanctuary = UnitTagHandler('UnitIsPVPSanctuary')
-    g.UnitIsPVPFreeForAll = UnitTagHandler('UnitIsPVPFreeForAll')
-    g.UnitIsPVP = UnitTagHandler('UnitIsPVP')
-    g.UnitIsGhost = UnitTagHandler('UnitIsGhost')
-    g.UnitIsFeignDeath = UnitTagHandler('UnitIsFeignDeath')
-    g.UnitIsEnemy = UnitTagHandler('UnitIsEnemy')
-    g.UnitIsDND = UnitTagHandler('UnitIsDND')
-    g.UnitIsCorpse = UnitTagHandler('UnitIsCorpse')
-    g.UnitIsConnected = UnitTagHandler('UnitIsConnected')
-    g.UnitIsCharmed = UnitTagHandler('UnitIsCharmed')
-    g.UnitIsAFK = UnitTagHandler('UnitIsAFK')
-    g.UnitIsInMyGuild = UnitTagHandler('UnitIsInMyGuild')
-    g.UnitInBattleground = UnitTagHandler('UnitInBattleground')
-    g.GetPlayerInfoByGUID = UnitTagHandler('GetPlayerInfoByGUID')
-    g.UnitDefense = UnitTagHandler('UnitDefense')
-    g.UnitDamage = UnitTagHandler('UnitDamage')
-    g.UnitCreatureType = UnitTagHandler('UnitCreatureType')
-    g.UnitCreatureFamily = UnitTagHandler('UnitCreatureFamily')
-    g.UnitClass = UnitTagHandler('UnitClass')
-    g.UnitCanCooperate = UnitTagHandler('UnitCanCooperate')
-    g.UnitCanAttack = UnitTagHandler('UnitCanAttack')
-    g.UnitCanAssist = UnitTagHandler('UnitCanAssist')
-    g.UnitAttackSpeed = UnitTagHandler('UnitAttackSpeed')
-    g.UnitAttackPower = UnitTagHandler('UnitAttackPower')
-    g.UnitAttackBothHands = UnitTagHandler('UnitAttackBothHands')
-    g.UnitArmor = UnitTagHandler('UnitArmor')
-    g.InviteUnit = UnitTagHandler('InviteUnit')
-    g.GetUnitSpeed = UnitTagHandler('GetUnitSpeed')
-    g.GetUnitPitch = UnitTagHandler('GetUnitPitch')
-    g.GetUnitName = UnitTagHandler('GetUnitName')
-    g.FollowUnit = UnitTagHandler('FollowUnit')
-    g.CheckInteractDistance = UnitTagHandler('CheckInteractDistance')
-    g.InitiateTrade = UnitTagHandler('InitiateTrade')
-    g.UnitOnTaxi = UnitTagHandler('UnitOnTaxi')
-    g.AssistUnit = UnitTagHandler('AssistUnit')
-    g.SpellTargetUnit = UnitTagHandler('SpellTargetUnit')
-    g.SpellCanTargetUnit = UnitTagHandler('SpellCanTargetUnit')
-    g.CombatTextSetActiveUnit = UnitTagHandler('CombatTextSetActiveUnit')
-    g.SummonFriend = UnitTagHandler('SummonFriend')
-    g.CanSummonFriend = UnitTagHandler('CanSummonFriend')
-    g.GrantLevel = UnitTagHandler('GrantLevel')
-    g.CanGrantLevel = UnitTagHandler('CanGrantLevel')
-    g.SetRaidTarget = UnitTagHandler('SetRaidTarget')
-    g.GetReadyCheckStatus = UnitTagHandler('GetReadyCheckStatus')
-    g.GetRaidTargetIndex = UnitTagHandler('GetRaidTargetIndex')
-    g.GetPartyAssignment = UnitTagHandler('GetPartyAssignment')
-    g.DemoteAssistant = UnitTagHandler('DemoteAssistant')
-    g.PromoteToAssistant = UnitTagHandler('PromoteToAssistant')
-    g.IsUnitOnQuest = UnitTagHandler('IsUnitOnQuest')
-    g.DropItemOnUnit = UnitTagHandler('DropItemOnUnit')
-    g.GetDefaultLanguage = UnitTagHandler('GetDefaultLanguage')
-    g.GetCritChanceFromAgility = UnitTagHandler('GetCritChanceFromAgility')
-    g.GetSpellCritChanceFromIntellect = UnitTagHandler('GetSpellCritChanceFromIntellect')
-    g.UnitGetTotalHealAbsorbs = UnitTagHandler('UnitGetTotalHealAbsorbs')
-    g.UnitGetIncomingHeals = UnitTagHandler('UnitGetIncomingHeals')
+    g.UnitInRange = SecureFunction('UnitInRange')
+    g.UnitPlayerControlled = SecureFunction('UnitPlayerControlled')
+    g.UnitIsVisible = SecureFunction('UnitIsVisible')
+    g.GetUnitSpeed = SecureFunction('GetUnitSpeed')
+    g.UnitClass = SecureFunction('UnitClass')
+    g.UnitIsTappedByPlayer = SecureFunction('UnitIsTappedByPlayer')
+    g.UnitThreatSituation = SecureFunction('UnitThreatSituation')
+    g.UnitCanAttack = SecureFunction('UnitCanAttack')
+    g.GetUnitSpeed = SecureFunction('GetUnitSpeed')
+    g.UnitCreatureType = SecureFunction('UnitCreatureType')
+    g.UnitIsDeadOrGhost = SecureFunction('UnitIsDeadOrGhost')
+    g.UnitDetailedThreatSituation = SecureFunction('UnitDetailedThreatSituation')
+    g.UnitIsUnit = SecureFunction('UnitIsUnit')
+    g.UnitHealthMax = SecureFunction('UnitHealthMax')
+    g.UnitAffectingCombat = SecureFunction('UnitAffectingCombat')
+    g.UnitReaction = SecureFunction('UnitReaction')
+    g.UnitIsPlayer = SecureFunction('UnitIsPlayer')
+    g.UnitIsDead = SecureFunction('UnitIsDead')
+    g.UnitInParty = SecureFunction('UnitInParty')
+    g.UnitInRaid = SecureFunction('UnitInRaid')
+    g.UnitHealth = SecureFunction('UnitHealth')
+    g.UnitCastingInfo = SecureFunction('UnitCastingInfo')
+    g.UnitChannelInfo = SecureFunction('UnitChannelInfo')
+    g.UnitName = SecureFunction('UnitName')
+    g.UnitBuff = SecureFunction('UnitBuff')
+    g.UnitDebuff = SecureFunction('UnitDebuff')
+    g.UnitInPhase = SecureFunction('UnitInPhase')
+    g.UnitIsFriend = SecureFunction('UnitIsFriend')
+    g.IsSpellInRange = SecureFunction('IsSpellInRange')
+    g.UnitClassification = SecureFunction('UnitClassification')
+    g.UnitAura = SecureFunction('UnitAura')
+    g.UnitGroupRolesAssigned = SecureFunction('UnitGroupRolesAssigned')
+    g.SetPortraitTexture = SecureFunction('SetPortraitTexture')
+    g.UnitXPMax = SecureFunction('UnitXPMax')
+    g.UnitXP = SecureFunction('UnitXP')
+    g.UnitUsingVehicle = SecureFunction('UnitUsingVehicle')
+    g.UnitStat = SecureFunction('UnitStat')
+    g.UnitSex = SecureFunction('UnitSex')
+    g.UnitSelectionColor = SecureFunction('UnitSelectionColor')
+    g.UnitResistance = SecureFunction('UnitResistance')
+    g.UnitReaction = SecureFunction('UnitReaction')
+    g.UnitRangedDamage = SecureFunction('UnitRangedDamage')
+    g.UnitRangedAttackPower = SecureFunction('UnitRangedAttackPower')
+    g.UnitRangedAttack = SecureFunction('UnitRangedAttack')
+    g.UnitRace = SecureFunction('UnitRace')
+    g.UnitPowerType = SecureFunction('UnitPowerType')
+    g.UnitPowerMax = SecureFunction('UnitPowerMax')
+    g.UnitPower = SecureFunction('UnitPower')
+    g.UnitPVPName = SecureFunction('UnitPVPName')
+    g.UnitPlayerOrPetInRaid = SecureFunction('UnitPlayerOrPetInRaid')
+    g.UnitPlayerOrPetInParty = SecureFunction('UnitPlayerOrPetInParty')
+    g.UnitManaMax = SecureFunction('UnitManaMax')
+    g.UnitMana = SecureFunction('UnitMana')
+    g.UnitLevel = SecureFunction('UnitLevel')
+    g.UnitIsTrivial = SecureFunction('UnitIsTrivial')
+    g.UnitIsTapped = SecureFunction('UnitIsTapped')
+    g.UnitIsSameServer = SecureFunction('UnitIsSameServer')
+    g.UnitIsPossessed = SecureFunction('UnitIsPossessed')
+    g.UnitIsPVPSanctuary = SecureFunction('UnitIsPVPSanctuary')
+    g.UnitIsPVPFreeForAll = SecureFunction('UnitIsPVPFreeForAll')
+    g.UnitIsPVP = SecureFunction('UnitIsPVP')
+    g.UnitIsGhost = SecureFunction('UnitIsGhost')
+    g.UnitIsFeignDeath = SecureFunction('UnitIsFeignDeath')
+    g.UnitIsEnemy = SecureFunction('UnitIsEnemy')
+    g.UnitIsDND = SecureFunction('UnitIsDND')
+    g.UnitIsCorpse = SecureFunction('UnitIsCorpse')
+    g.UnitIsConnected = SecureFunction('UnitIsConnected')
+    g.UnitIsCharmed = SecureFunction('UnitIsCharmed')
+    g.UnitIsAFK = SecureFunction('UnitIsAFK')
+    g.UnitIsInMyGuild = SecureFunction('UnitIsInMyGuild')
+    g.UnitInBattleground = SecureFunction('UnitInBattleground')
+    g.GetPlayerInfoByGUID = SecureFunction('GetPlayerInfoByGUID')
+    g.UnitDefense = SecureFunction('UnitDefense')
+    g.UnitDamage = SecureFunction('UnitDamage')
+    g.UnitCreatureType = SecureFunction('UnitCreatureType')
+    g.UnitCreatureFamily = SecureFunction('UnitCreatureFamily')
+    g.UnitClass = SecureFunction('UnitClass')
+    g.UnitCanCooperate = SecureFunction('UnitCanCooperate')
+    g.UnitCanAttack = SecureFunction('UnitCanAttack')
+    g.UnitCanAssist = SecureFunction('UnitCanAssist')
+    g.UnitAttackSpeed = SecureFunction('UnitAttackSpeed')
+    g.UnitAttackPower = SecureFunction('UnitAttackPower')
+    g.UnitAttackBothHands = SecureFunction('UnitAttackBothHands')
+    g.UnitArmor = SecureFunction('UnitArmor')
+    g.InviteUnit = SecureFunction('InviteUnit')
+    g.GetUnitSpeed = SecureFunction('GetUnitSpeed')
+    g.GetUnitPitch = SecureFunction('GetUnitPitch')
+    g.GetUnitName = SecureFunction('GetUnitName')
+    g.FollowUnit = SecureFunction('FollowUnit')
+    g.CheckInteractDistance = SecureFunction('CheckInteractDistance')
+    g.InitiateTrade = SecureFunction('InitiateTrade')
+    g.UnitOnTaxi = SecureFunction('UnitOnTaxi')
+    g.AssistUnit = SecureFunction('AssistUnit')
+    g.SpellTargetUnit = SecureFunction('SpellTargetUnit')
+    g.SpellCanTargetUnit = SecureFunction('SpellCanTargetUnit')
+    g.CombatTextSetActiveUnit = SecureFunction('CombatTextSetActiveUnit')
+    g.SummonFriend = SecureFunction('SummonFriend')
+    g.CanSummonFriend = SecureFunction('CanSummonFriend')
+    g.GrantLevel = SecureFunction('GrantLevel')
+    g.CanGrantLevel = SecureFunction('CanGrantLevel')
+    g.SetRaidTarget = SecureFunction('SetRaidTarget')
+    g.GetReadyCheckStatus = SecureFunction('GetReadyCheckStatus')
+    g.GetRaidTargetIndex = SecureFunction('GetRaidTargetIndex')
+    g.GetPartyAssignment = SecureFunction('GetPartyAssignment')
+    g.DemoteAssistant = SecureFunction('DemoteAssistant')
+    g.PromoteToAssistant = SecureFunction('PromoteToAssistant')
+    g.IsUnitOnQuest = SecureFunction('IsUnitOnQuest')
+    g.DropItemOnUnit = SecureFunction('DropItemOnUnit')
+    g.GetDefaultLanguage = SecureFunction('GetDefaultLanguage')
+    g.GetCritChanceFromAgility = SecureFunction('GetCritChanceFromAgility')
+    g.GetSpellCritChanceFromIntellect = SecureFunction('GetSpellCritChanceFromIntellect')
+    g.UnitGetTotalHealAbsorbs = SecureFunction('UnitGetTotalHealAbsorbs')
+    g.UnitGetIncomingHeals = SecureFunction('UnitGetIncomingHeals')
 
     --PROTECTED with units
-    g.CastSpellByName = UnitTagHandlerSecure('CastSpellByName')
-    g.CastSpellByID = UnitTagHandlerSecure('CastSpellByID')
-    g.UseItemByName = UnitTagHandlerSecure('UseItemByName')
-    g.SpellIsTargeting = UnitTagHandlerSecure('SpellIsTargeting')
-    g.InteractUnit = UnitTagHandlerSecure('InteractUnit')
-    g.CancelUnitBuff = UnitTagHandlerSecure('CancelUnitBuff')
-    g.TargetUnit = UnitTagHandlerSecure('TargetUnit')
+    g.CastSpellByName = SecureFunction('CastSpellByName')
+    g.CastSpellByID = SecureFunction('CastSpellByID')
+    g.UseItemByName = SecureFunction('UseItemByName')
+    g.SpellIsTargeting = SecureFunction('SpellIsTargeting')
+    g.InteractUnit = SecureFunction('InteractUnit')
+    g.CancelUnitBuff = SecureFunction('CancelUnitBuff')
+    g.TargetUnit = SecureFunction('TargetUnit')
 
     -- Portected
     g.RunMacroText = SecureFunction('RunMacroText')
