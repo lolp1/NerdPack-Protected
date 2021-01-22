@@ -715,6 +715,7 @@ function f.downloadMedia(domain, url, path)
     local callback = function(body, status)
         if tonumber(status) ~= 200 then
             print('Failed to download media', path)
+            return
         end
         g.WriteFile(path, body, false)
     end
