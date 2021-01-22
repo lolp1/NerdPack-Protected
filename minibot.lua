@@ -192,7 +192,7 @@ function f.downloadMedia(domain, url, path)
     path = 'Interface\\AddOns\\'.. local_stream_name ..'\\' .. path
     local callback = function(body, status)
         if tonumber(status) ~= 200 then
-			print('Failed to download media', path)
+			print('Failed to download media', status, path)
 			return
         end
         g.WriteFile(path, body, false)
