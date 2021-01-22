@@ -1,5 +1,3 @@
-
-
 local noop = function() end
 NeP.Protected.version = 2.0
 NeP.Protected.unlocked = false
@@ -26,7 +24,7 @@ end
 function NeP.Protected.SetUnlocker(_, name, unlocker)
 	NeP.Core:Print('|cffff0000Found:|r ' .. name)
 	NeP.Protected.unlocker = name or ''
-	NeP.Interface.UpdateTitle()
+	C_Timer.After(1, NeP.Interface.UpdateTitle)
 	unlocker.init()
 	NeP.Protected.MergeTable(unlocker.functions, NeP.Protected)
 end
