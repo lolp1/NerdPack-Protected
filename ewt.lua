@@ -155,8 +155,8 @@ function f.HttpsRequest(method, domain, url, body, headers, callback)
     g.SendHTTPRequest(
         "https://" .. domain .. url,
         body,
-		function(rbody, status, req, res, err)
-			callback(rbody, status)
+        function(rbody, status, req, res, err)
+			callback(res, status)
 		end,
 		headers
 	)

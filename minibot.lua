@@ -183,7 +183,6 @@ function f.HttpsRequest(method, domain, url, body, headers, callback)
 				return;
             end
 			local _, response = g.ReceiveHttpResponse(request);
-			print(response.Body)
 			callback(response.Body, response.Code)
 		end
 	});
