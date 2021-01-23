@@ -58,4 +58,4 @@ function NeP.Protected.MergeTable(a,b)
 end
 
 -- next frame
-C_Timer.After(0, NeP.Protected.FindUnlocker)
+NeP.Protected.FindUnlocker()
