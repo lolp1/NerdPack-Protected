@@ -222,7 +222,7 @@ function f.readFile(path)
     return g.ReadFile(path)
 end
 
-function f.readFile(path, body)
+function f.writeFile(path, body)
     path = 'Interface\\AddOns\\'.. local_stream_name ..'\\' .. path
     return g.WriteFile(path, body, false)
 end
