@@ -151,14 +151,13 @@ function f.OM_Maker()
 	end
 end
 
-function f.HttpsRequest(method, domain, url, body, headers, callback)
+function f.HttpsRequest(_, domain, url, body, headers, callback, flags)
     g.SendHTTPRequest(
         "https://" .. domain .. url,
         body,
-        function(rbody, status, req, res, err)
-			callback(res, status)
-		end,
-		headers
+        callback,
+        headers..'\r\n',
+        flags
 	)
 end
 
@@ -171,7 +170,7 @@ function f.downloadMedia(domain, url, path)
         end
         g.WriteFile(path, body, false)
     end
-    f.HttpsRequest('GET', domain, url, nil, nil, callback)
+    f.HttpsRequest('GET', domain, url, nil, "accept-encoding: gzip", callback, 0x2)
 end
 
 function f.mediaExists(path)
