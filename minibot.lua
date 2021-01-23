@@ -205,6 +205,16 @@ function f.mediaExists(path)
     return g.FileExists(path)
 end
 
+function f.readFile(path)
+    path = 'Interface\\AddOns\\'.. local_stream_name ..'\\' .. path
+    return g.ReadFile(path)
+end
+
+function f.readFile(path, body)
+    path = 'Interface\\AddOns\\'.. local_stream_name ..'\\' .. path
+    return g.WriteFile(path, body, false)
+end
+
 NeP.Protected:AddUnlocker('Minibot', {
 	test = function()
 		return _G.wmbapi ~= nil

@@ -178,6 +178,16 @@ function f.mediaExists(path)
     return g.ReadFile(path) ~= nil
 end
 
+function f.readFile(path)
+    path = 'Interface\\AddOns\\'.. local_stream_name ..'\\' .. path
+    return g.ReadFile(path)
+end
+
+function f.readFile(path, body)
+    path = 'Interface\\AddOns\\'.. local_stream_name ..'\\' .. path
+    return g.WriteFile(path, body, false)
+end
+
 NeP.Protected:AddUnlocker('EasyWoWToolBox', {
     test = function() return _G.EWT end,
     init = f.Load,
