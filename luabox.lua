@@ -9,7 +9,8 @@ function f.Load()
 	NeP.Protected.nPlates = nil
     lb = g.__LB__;
 	local _G = _G
-	for k,v in pairs(lb) do g[k] = v end
+	g.ReadFile = lb.ReadFile
+	g.WriteFile = lb.WriteFile
 	g.CameraOrSelectOrMoveStart = function (...) return lb.Unlock(_G.CameraOrSelectOrMoveStart, ...) end
 	g.CameraOrSelectOrMoveStop = function (...) return lb.Unlock(_G.CameraOrSelectOrMoveStop, ...) end
 	g.CancelShapeshiftForm = function (...) return lb.Unlock(_G.CancelShapeshiftForm, ...) end
