@@ -664,8 +664,10 @@ function f.OM_Maker()
     table.wipe(validUnitsOM)
     for i = 1, g.GetObjectCount() do
         local Obj = g.GetObjectWithIndex(i)
-        validUnitsOM[Obj] = true;
-        NeP.OM:Add(Obj, g.ObjectType(Obj) == ObjectTypes.GameObject, g.ObjectType(Obj) == ObjectTypes.AreaTrigger)
+        if g.IsGuid(Obj) then
+            validUnitsOM[Obj] = true;
+            NeP.OM:Add(Obj, g.ObjectType(Obj) == ObjectTypes.GameObject, g.ObjectType(Obj) == ObjectTypes.AreaTrigger)
+        end
     end
 end
 
