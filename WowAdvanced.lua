@@ -1,4 +1,4 @@
-
+local NeP = NeP
 NeP.Protected.wowAdvanced = {}
 local f = NeP.Protected.wowAdvanced
 local g = NeP._G
@@ -55,6 +55,63 @@ function f.Load()
     NeP.Protected.nPlates = nil
     NeP.Cache.cached_funcs_unlocker = {}
 
+    local GetDirectoryFilesRaw = g.GetDirectoryFiles
+    g.GetDirectoryFiles = function(path, pattern)
+        local files = GetDirectoryFilesRaw(path, pattern)
+        local ret = {}
+        if not files then return ret end
+        for i in string.gmatch(files, "[^%|]+") do
+            table.insert(ret, i)
+        end
+        return ret
+    end
+
+    g.GetDistanceBetweenPositions = function(X1, Y1, Z1, X2, Y2, Z2)
+        return math.sqrt(math.pow(X2 - X1, 2) + math.pow(Y2 - Y1, 2) +  math.pow(Z2 - Z1, 2))
+    end
+
+    g.GetAnglesBetweenPositions = function(X1, Y1, Z1, X2, Y2, Z2)
+        return math.atan2(Y2 - Y1, X2 - X1) % (math.pi * 2), math.atan((Z1 - Z2) / math.sqrt(math.pow(X1 - X2, 2) + math.pow(Y1 - Y2, 2))) % math.pi
+    end
+
+    g.GetPositionFromPosition = function(X, Y, Z, Distance, AngleXY, AngleXYZ)
+        return math.cos(AngleXY) * Distance + X, math.sin(AngleXY) * Distance + Y, math.sin(AngleXYZ) * Distance + Z
+    end
+
+    g.GetPositionBetweenPositions = function(X1, Y1, Z1, X2, Y2, Z2, DistanceFromPosition1)
+        local AngleXY, AngleXYZ = g.GetAnglesBetweenPositions(X1, Y1, Z1, X2, Y2, Z2)
+        return g.GetPositionFromPosition(X1, Y1, Z1, DistanceFromPosition1, AngleXY, AngleXYZ)
+    end
+
+    g.GetInstanceId = function()
+        return select(8, g.GetInstanceInfo())
+    end
+
+    g.UnitIsSkinnable = function(guid)
+        local canSkin = bit.band(g.ObjectField(guid, 0x1CC0, 6), 0x4000000) == 0x4000000
+        local canLoot, hasLoot = g.CanLootUnit(guid)
+        return canLoot == false and canSkin
+    end
+
+    g.IsLootableUnit = function(guid)
+        local canLoot, hasLoot = g.CanLootUnit(guid)
+        return canLoot and hasLoot
+    end
+
+    local FindPathRaw = g.FindPath
+    g.FindPath = function(mapID, x, y, z, xx, yy, zz)
+        local pathFound = FindPathRaw(mapID, x, y, z, xx, yy, zz, true)
+        if not pathFound or pathFound == 0 then
+            print('failed to find path.')
+            return
+        end
+        local nodeCount = g.GetActiveNodeCount()
+        local nodes = {}
+        for i = 1, nodeCount do
+            nodes[i] = {g.GetActiveNodeByIndex(i)}
+        end
+        return nodes
+    end
 
     -- lets try to cache ObjectPosition
     NeP.Cache.GetUnitPosition = NeP.Cache.GetUnitPosition or {}
@@ -427,7 +484,7 @@ function f.Load()
     g.WorldToScreenRaw = g.WorldToScreen;
     g.WorldToScreen = function (wX, wY, wZ)
         local multiplier = UIParent:GetScale()
-        local sX, sY = NeP._G.WorldToScreenRaw(wX, wY, wZ)
+        local sX, sY = g.WorldToScreenRaw(wX, wY, wZ)
         return sX * multiplier, sY * multiplier * -1 + WorldFrame:GetTop()
     end
 
@@ -661,7 +718,7 @@ function f.writeFile(path, body)
 end
 
 NeP.Protected:AddUnlocker('WowAdvanced', {
-    test = function() return NeP._G.CallSecureFunction ~= nil end,
+    test = function() return g.CallSecureFunction ~= nil end,
     init = f.Load,
     prio = 9,
     functions = f
