@@ -474,7 +474,7 @@ function f.Load()
         if validUnitsOM[Obj] then
             return true
         end
-        return g.IsGuid(Obj) and _G.UnitExists(Obj)
+        return not g.IsGuid(Obj) and _G.UnitExists(Obj)
     end
     g.ObjectExists = g.UnitExists
     g.ObjectPosition = g.GetUnitPosition
