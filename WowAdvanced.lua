@@ -71,7 +71,8 @@ function f.Load()
     end
 
     g.GetAnglesBetweenPositions = function(X1, Y1, Z1, X2, Y2, Z2)
-        return math.atan2(Y2 - Y1, X2 - X1) % (math.pi * 2), math.atan((Z1 - Z2) / math.sqrt(math.pow(X1 - X2, 2) + math.pow(Y1 - Y2, 2))) % math.pi
+        return math.atan2(Y2 - Y1, X2 - X1) % (math.pi * 2),
+            math.atan((Z1 - Z2) / math.sqrt(math.pow(X1 - X2, 2) + math.pow(Y1 - Y2, 2))) % math.pi
     end
 
     g.GetPositionFromPosition = function(X, Y, Z, Distance, AngleXY, AngleXYZ)
@@ -89,8 +90,7 @@ function f.Load()
 
     g.UnitIsSkinnable = function(guid)
         local canSkin = bit.band(g.ObjectField(guid, 0x1CC0, 6), 0x4000000) == 0x4000000
-        local canLoot, hasLoot = g.CanLootUnit(guid)
-        return canLoot == false and canSkin
+        return g.CanLootUnit(guid) == false and canSkin
     end
 
     g.IsLootableUnit = function(guid)
@@ -474,7 +474,7 @@ function f.Load()
         if validUnitsOM[Obj] then
             return true
         end
-        return _G.UnitExists(Obj)
+        return g.IsGuid(Obj) and _G.UnitExists(Obj)
     end
     g.ObjectExists = g.UnitExists
     g.ObjectPosition = g.GetUnitPosition
