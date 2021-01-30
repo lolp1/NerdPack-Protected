@@ -632,7 +632,7 @@ function f.LineOfSight(a, b)
     local bx, by, bz = g.GetUnitPosition(b)
 
     if ax and ay and az and bx and by and bz then
-	    local flags = bit.bor(0x10, 0x100, 0x1)
+	    local flags = g.bit.bor(0x10, 0x100)
         return (g.TraceLine(ax, ay, az + 2.25, bx, by, bz + 2.25, flags) == 0)
     end
     return false
