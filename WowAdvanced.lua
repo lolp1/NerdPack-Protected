@@ -496,10 +496,10 @@ function f.Load()
         NePBackups [k] = v
         NeP._G[k] = function(...)
             local beginTime = debugprofilestop()
-            local call = NePBackups[k](...)
+            local call = {NePBackups[k](...)}
             local timeUsed = debugprofilestop() - beginTime
             calls[k] = {timeUsed = calls[k].timeUsed + timeUsed, api = k, calls=calls[k].calls+1}
-            return call
+            return unpack(call)
         end
     end
 
