@@ -490,6 +490,7 @@ function f.Load()
         return sX * multiplier, sY * multiplier * -1 + WorldFrame:GetTop()
     end
 
+    print('LOAD TEST V1')
     local NePBackups = {}
     local calls = {}
     for k, v in pairs(NeP._G) do
