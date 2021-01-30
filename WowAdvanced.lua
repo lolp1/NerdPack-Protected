@@ -22,6 +22,26 @@ local Offsets = {
     ['RotationR'] = 0x650 + 0x10, --Location + 1
 }
 
+g.MovementFlags = {
+    Forward = 0x1,
+    Backward = 0x2,
+    StrafeLeft = 0x4,
+    StrafeRight = 0x8,
+    TurnLeft = 0x10,
+    TurnRight = 0x20,
+    PitchUp = 0x40,
+    PitchDown = 0x80,
+    Walking = 0x100,
+    Immobilized = 0x400,
+    Falling = 0x800,
+    FallingFar = 0x1000,
+    Swimming = 0x100000,
+    Ascending = 0x200000,
+    Descending = 0x400000,
+    CanFly = 0x800000,
+    Flying = 0x1000000,
+}
+
 local UnitTagHandler
 local UnitTagHandlerSecure
 local SecureFunction
@@ -40,7 +60,13 @@ function f.Load()
     NeP.Cache.cached_funcs_unlocker = {}
 
     local GetDirectoryFilesRaw = g.GetDirectoryFiles
-    g.GetDirectoryFiles = function(path, pattern)
+    g.GetDirectoryFiles = function(path)
+        local pattern
+        local xstart = path:find("*.")
+        if xstart then
+            pattern = path:sub(xstart)
+            path = path:sub(1,xstart-1)
+        end
         local files = GetDirectoryFilesRaw(path, pattern)
         local ret = {}
         if not files then return ret end
