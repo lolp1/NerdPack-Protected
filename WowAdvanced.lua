@@ -168,6 +168,27 @@ function f.Load()
         return result
     end
 
+    local _ReadFile = g.ReadFile
+    g.ReadFile = function(path)
+        if path:sub('Interface') then
+            path = g.GetWowPath() ..path
+        end
+        return _ReadFile(path)
+    end
+
+    local _WriteFile = g.WriteFile
+    g.WriteFile = function(path, data, append)
+        if path:sub('Interface') then
+            path = g.GetWowPath() ..path
+        end
+        append =  append and true or false
+        return _WriteFile(path, data, append)
+    end
+
+    g.WriteFile = function()
+        
+    end
+
     g.UnitInRange = UnitTagHandler('UnitInRange')
     g.UnitPlayerControlled = UnitTagHandler('UnitPlayerControlled')
     g.UnitIsVisible = UnitTagHandler('UnitIsVisible')
