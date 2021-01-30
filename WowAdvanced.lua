@@ -490,6 +490,29 @@ function f.Load()
         return sX * multiplier, sY * multiplier * -1 + WorldFrame:GetTop()
     end
 
+    local NePBackups = {}
+    local calls = {}
+    for k, v in pairs(NeP._G) do
+        NePBackups [k] = v
+        NeP._G[k] = function(...)
+            local beginTime = debugprofilestop()
+            local call = NePBackups[k](...)
+            local timeUsed = debugprofilestop() - beginTime
+            calls[k] = {timeUsed = calls[k].timeUsed + timeUsed, api = k, calls=calls[k].calls+1}
+            return call
+        end
+    end
+
+    local function output()
+        table.sort(calls, function(a,b) return a > b end)
+        for i = 1, 5 do
+            print(calls[i].api, calls[i].calls, calls[i].timeUsed)
+        end
+    end
+
+    debugprofilestart() -- only call once for entire lifetime of wow lua context 
+    C_Timer.After(60, output)
+
 end
 
 -- rapid
