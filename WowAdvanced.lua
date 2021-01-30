@@ -465,7 +465,7 @@ function f.Load()
         if validUnitsOM[Obj] then
             return Obj
         end
-        return _G.UnitGUID(Obj)
+        return not g.IsGuid(Obj) and _G.UnitGUID(Obj)
     end
     g.UnitExists = function(Obj)
         if not Obj then
