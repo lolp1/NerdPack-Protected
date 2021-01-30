@@ -52,10 +52,6 @@ UnitTagHandlerSecure = SecureFunction
 
 function f.Load()
 
-    for k,v in pairs(_G) do
-        NeP._G[k] = v
-    end
-
     NeP.Protected.nPlates = nil
     NeP.Cache.cached_funcs_unlocker = {}
 
