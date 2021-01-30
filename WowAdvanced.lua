@@ -170,7 +170,7 @@ function f.Load()
 
     local _ReadFile = g.ReadFile
     g.ReadFile = function(path)
-        if path:sub('Interface') then
+        if path:lower():find('^interface') then
             path = g.GetWowPath() ..path
         end
         return _ReadFile(path)
@@ -178,15 +178,11 @@ function f.Load()
 
     local _WriteFile = g.WriteFile
     g.WriteFile = function(path, data, append)
-        if path:sub('Interface') then
+        if path:lower():find('^interface') then
             path = g.GetWowPath() ..path
         end
         append =  append and true or false
         return _WriteFile(path, data, append)
-    end
-
-    g.WriteFile = function()
-        
     end
 
     g.UnitInRange = UnitTagHandler('UnitInRange')
