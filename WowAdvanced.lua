@@ -30,9 +30,7 @@ function SecureFunction(s)
     return function (...) return g.CallSecureFunction(s, ...) end
 end
 
-UnitTagHandler = function(func)
-    return g.CallSecureFunction
-end
+UnitTagHandler = SecureFunction
 
 UnitTagHandlerSecure = SecureFunction
 
