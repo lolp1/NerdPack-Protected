@@ -749,7 +749,7 @@ function f.writeFile(path, body)
 end
 
 NeP.Protected:AddUnlocker('WowAdvanced', {
-    test = function() return g.CallSecureFunction ~= nil end,
+    test = function() print(g.CallSecureFunction) return g.CallSecureFunction ~= nil end,
     init = f.Load,
     prio = 9,
     functions = f
