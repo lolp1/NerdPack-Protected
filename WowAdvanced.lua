@@ -513,17 +513,7 @@ function f.Load()
         end
     end
     g.UnitExists = function(Obj)
-        if not Obj then
-            return false
-        end
-        if validUnitsOM[Obj] then
-            return true
-        end
-        if type(Obj) ~= "string" then
-            return false
-        end
-        
-        return g.IsGuid(_G.UnitGUID(Obj))
+		return false
     end
     g.ObjectExists = g.UnitExists
     g.ObjectPosition = g.GetUnitPosition
