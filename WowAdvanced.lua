@@ -42,40 +42,14 @@ g.MovementFlags = {
     Flying = 0x1000000,
 }
 
-
-local function handleUnits(...)
-    local mouseover;
-    local focus;
-    local args = {...}
-    for k, v in pairs(args) do
-        if v and not _G.UnitExists(v) and g.IsGuid(v) then
-            if not mouseover then
-                args[k] = g.SetMouseOver(v)
-                mouseover = true
-            elseif not focus then
-                args[k] = g.SetFocusTarget(v)
-                focus = true
-            end
-        end
-    end
-    return unpack(args)
-end
-
-local function UnitTagHandler(func)
-    return function(...)
-        return func(handleUnits(...))
-    end
-end
-
-local function UnitTagHandlerSecure(func)
-    return function(...)
-        return g.CallSecureFunction(func, handleUnits(...))
-    end
-end
-
-local SecureFunction = function(s)
+local function SecureFunction(s)
     return function (...) return g.CallSecureFunction(s, ...) end
 end
+
+local UnitTagHandler = SecureFunction
+
+local UnitTagHandlerSecure = SecureFunction
+
 function f.Load()
 
     NeP.Protected.nPlates = nil
