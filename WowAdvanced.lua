@@ -61,13 +61,15 @@ local function handleUnits(...)
     return unpack(args)
 end
 
-local function UnitTagHandler(func)
+local function UnitTagHandler(s)
+	func = NeP._G[s]
     return function(...)
         return func(handleUnits(...))
     end
 end
 
-local function UnitTagHandlerSecure(func)
+local function UnitTagHandlerSecure(s)
+	func = NeP._G[s]
     return function(...)
         return g.CallSecureFunction(func, handleUnits(...))
     end
