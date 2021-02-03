@@ -68,8 +68,7 @@ local function UnitTagHandler(s)
     end
 end
 
-local function UnitTagHandlerSecure(s)
-	func = NeP._G[s]
+local function UnitTagHandlerSecure(func)
     return function(...)
         return g.CallSecureFunction(func, handleUnits(...))
     end
