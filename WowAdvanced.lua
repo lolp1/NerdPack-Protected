@@ -513,6 +513,7 @@ function f.Load()
         end
     end
     g.UnitExists = function(Obj)
+		print("test")
 		return false
     end
     g.ObjectExists = g.UnitExists
