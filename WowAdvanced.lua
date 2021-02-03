@@ -158,10 +158,6 @@ function f.Load()
             return unpack(found)
         end
         local x, y, z = old_GetUnitPosition(unit)
-        if not x then
-            NeP.Cache.GetUnitPosition[unit] = {0, 0, 0}
-            return 0,0,0
-        end
         if x then
             NeP.Cache.GetUnitPosition[unit] = {x, y, z}
         end
