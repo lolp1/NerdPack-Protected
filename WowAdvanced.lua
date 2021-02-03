@@ -46,23 +46,7 @@ local function SecureFunction(s)
     return function (...) return g.CallSecureFunction(s, ...) end
 end
 
-local UnitTagHandler = function(func)
-    return function(...)
-        local k1, k2, k3, k4, k5 = ... -- 5 should be enough xD
-        local key = (k1 or '') .. (k2 or '') .. (k3 or '') .. (k4 or '') .. (k5 or '')
-        local cache_api = NeP.Cache.cached_funcs_unlocker[func]
-        if not cache_api then
-            NeP.Cache.cached_funcs_unlocker[func] = {}
-            cache_api = NeP.Cache.cached_funcs_unlocker[func]
-        end
-        local found = cache_api[key]
-        if found then
-            return unpack(found)
-        end
-        cache_api[key] = {g.CallSecureFunction(func, ...)}
-        return unpack(cache_api[key])
-    end
-end
+local UnitTagHandler = SecureFunction
 
 local UnitTagHandlerSecure = SecureFunction
 
